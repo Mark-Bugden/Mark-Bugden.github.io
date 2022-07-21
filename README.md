@@ -1,13 +1,18 @@
-## Welcome to GitHub Pages
+## Welcome to my GitHub Page!
 
-You can use the [editor on GitHub](https://github.com/Mark-Bugden/Mark-Bugden.github.io/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
+Note: Work in progress!
+This page is a place for me to store and showcase my coding projects. Information about my research, teaching experience, and contact info can be found at my personal website: [Personal Webpage](http://www.mark-bugden.com/)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### About me 
 
+I am a research scientist with a background in mathematical and theoretical physics, where my main area of research was string theory and higher-dimensional black holes. I have recently become interested in aspects of machine learning - I am currently using Physics-Informed Neural Networks to study the behaviour of animal collectives as a Postdoctoral Research Fellow at the Max Planck Institute for Animal Behavior in Konstanz, Germany. 
+
+
+
+
+Example of code snippet
 ```markdown
 Syntax highlighted code block
 
@@ -26,12 +31,10 @@ Syntax highlighted code block
 [Link](url) and ![Image](src)
 ```
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
 
-### Jekyll Themes
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Mark-Bugden/Mark-Bugden.github.io/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
-### Support or Contact
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+
+
+
