@@ -2106,8 +2106,25 @@ input, select, textarea {
 			}
 
 				#header .icons a:hover {
-					color: #fff;
+					color: rgb(255, 255, 255);
+					transform: scale(2);
 				}
+
+
+				#header .icons .fa-linkedin:hover {
+					color: #0077b5;
+				}
+				#header .icons .fa-github:hover {
+					color: #6e5494;
+				}
+
+
+				
+
+				
+
+				
+
 
 	#logo {
 		position: relative;
