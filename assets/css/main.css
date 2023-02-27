@@ -88,7 +88,7 @@ input, select, textarea {
 		font-size: 19pt;
 		font-weight: 300;
 		line-height: 1.75em;
-		color: #888;
+		color: rgb(0, 0, 0);
 	}
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
@@ -107,12 +107,12 @@ input, select, textarea {
 		font-size: 19pt;
 		font-weight: 300;
 		line-height: 1.75em;
-		color: #888;
+		color: rgb(80, 80, 80);
 	}
 
 	h1, h2, h3, h4, h5, h6 {
 		font-weight: 300;
-		color: #666;
+		color: rgb(80, 80, 80);
 		line-height: 1.5em;
 	}
 
@@ -131,7 +131,7 @@ input, select, textarea {
 	}
 
 		h2.alt {
-			color: #888;
+			color: rgb(80, 80, 80);
 		}
 
 			h2.alt strong {
@@ -2233,7 +2233,7 @@ input, select, textarea {
 		}
 
 			#main > section.dark {
-				color: #888;
+				color: rgb(40, 40, 40);
 
 			}
 
@@ -2242,12 +2242,12 @@ input, select, textarea {
 				}
 
 				#main > section.dark strong {
-					color: #888;
+					color: rgb(0, 0, 0);
 					border-color: inherit;
 				}
 
 				#main > section.dark a {
-					color: #888;
+					color: rgb(0, 0, 0);
 					border-color: inherit;
 				}
 
