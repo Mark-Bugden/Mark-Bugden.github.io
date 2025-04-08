@@ -7,6 +7,16 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
+:root {
+	--accent: #2c8a74; /* #2c8a74 is the default green */
+	--accent-light: #39b396;  /* 39b396 is the default green */
+	--highlight: #b16c33;
+	--button: #8ebebc;  /* #8ebebc is the default green */
+	--button-hover: #9ececc; /* 9ececc is the default green */ 
+	--button-active: #7eaeac; /* 7eaeac is the default green */ 
+  }
+  
+
 html, body, div, span, applet, object,
 iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
 pre, a, abbr, acronym, address, big, cite,
@@ -142,14 +152,18 @@ input, select, textarea {
 		font-size: 1.5em;
 	}
 	h3.portf{
-		color: #69b3a2; 
+		color: var(--accent); 
 		font-weight: 600; 
 		line-height: normal;
+		height: 2.5em; /* enough for 2 lines */
+		overflow: hidden;
 	}
 	h3.ports{
-		color: #69b3a2; 
+		color: var(--accent); 
 		font-weight: 300; 
 		line-height: normal;
+		height: 2.5em; /* enough for 2 lines */
+		overflow: hidden;
 	}
 	header {
 		margin: 0 0 2em 0;
@@ -948,23 +962,7 @@ input, select, textarea {
 						}
 
 				.row {
-					margin-top: -40px;
-					margin-left: -40px;
-				}
-
-					.row > * {
-						padding: 40px 0 0 40px;
-					}
-
-					.row.gtr-uniform {
-						margin-top: -40px;
-					}
-
-						.row.gtr-uniform > * {
-							padding-top: 40px;
-						}
-
-				.row.gtr-150 {
+					margin-top: -40px;accent
 					margin-top: -60px;
 					margin-left: -60px;
 				}
@@ -1764,10 +1762,20 @@ input, select, textarea {
 		}
 
 		.image.portf {
-			max-width: 100%;
-			height: auto;
-			background: #f00;
+			position: relative;
+			width: 100%;
+			padding-top: 100%; /* Makes a square box using aspect ratio trick */
+			overflow: hidden;
 		}
+
+		.image.portf img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		  }
 		
 		.image.avatar64 {
 			width: 64px;
@@ -1963,7 +1971,7 @@ input, select, textarea {
 		color: #fff !important;
 		text-decoration: none;
 		padding: 0.75em 2.5em 0.75em 2.5em;
-		background-color: #8ebebc;
+		background-color: var(--button);
 		border: 0;
 		cursor: pointer;
 		background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15)), url("images/overlay.png");
@@ -1981,7 +1989,7 @@ input, select, textarea {
 		input[type="reset"]:hover,
 		button:hover,
 		.button:hover {
-			background-color: #9ececc;
+			background-color: var(--button-hover);
 		}
 
 		input[type="button"]:active,
@@ -1989,7 +1997,7 @@ input, select, textarea {
 		input[type="reset"]:active,
 		button:active,
 		.button:active {
-			background-color: #7eaeac;
+			background-color: var(--button-active);
 		}
 
 /* Item */
@@ -2201,7 +2209,7 @@ input, select, textarea {
 				}
 
 					#nav ul li a.active span:before {
-						color: #69b3a2;
+						color: var(--accent);
 					}
 
 /* Footer */
@@ -2664,6 +2672,68 @@ input, select, textarea {
 
 	}
 /* Custom */
+
+.timeline-circle {
+	fill: var(--accent);
+	stroke: #f8f9fa;
+	stroke-width: 6;
+}
+
+.timeline-year {
+	fill: black;
+	font-weight: bold;
+}
+
+.timeline-label {
+	fill: #808080;
+	font-style: italic;
+	font-size: 13px;
+}
+
+
+.portfolio-thumb {
+	object-fit: cover;
+	width: 100%;
+	height: 250px;
+  }
+  
+
+  .tags {
+	font-size: 0.9em;
+	color: #69b3a2;
+	margin-top: 0.5em;
+	font-weight: 300;
+	letter-spacing: 0.5px;
+  }
+  
+  .project-links {
+	margin-top: 0.7em;
+  }
+  
+  .project-links a {
+	color: var(--accent-light);
+	font-weight: 400;
+	text-decoration: none;
+	border-bottom: 1px dotted var(--accent-light);
+	margin: 0 0.5em;
+  }
+  
+  .project-links a:hover {
+	border-bottom: none;
+	color: var(--highlight);
+  }
+
+  .disabled-link {
+	color: gray;
+	pointer-events: none;
+	text-decoration: none;
+	cursor: not-allowed;
+	opacity: 0.6;
+  }
+  
+  
+
+
 
 /* ---------- Dismiss a few elements if small screen: ----------------- */
 @media (max-width: 1200px) {
