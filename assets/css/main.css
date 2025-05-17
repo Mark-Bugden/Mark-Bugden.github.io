@@ -10,7 +10,9 @@
 :root {
 	--accent: #2c8a74; /* #2c8a74 is the default green */
 	--accent-light: #39b396;  /* 39b396 is the default green */
+	--accent-light-rgb: 57, 179, 150; /* extracted RGB */
 	--highlight: #b16c33;
+	--highlight-rgb: 177, 108, 51;
 	--button: #8ebebc;  /* #8ebebc is the default green */
 	--button-hover: #9ececc; /* 9ececc is the default green */ 
 	--button-active: #7eaeac; /* 7eaeac is the default green */ 
@@ -157,6 +159,7 @@ input, select, textarea {
 		line-height: normal;
 		height: 2.5em; /* enough for 2 lines */
 		overflow: hidden;
+		margin-bottom: 1em;
 	}
 	h3.ports{
 		color: var(--accent); 
@@ -2731,7 +2734,108 @@ input, select, textarea {
 	opacity: 0.6;
   }
   
+
+  .highlight-question {
+	text-align: center;
+	font-size: 1.8em;
+	font-style: italic;
+	color: var(--highlight);
+	font-weight: bold;
+	margin-top: 1em;
+	margin-bottom: 1em;
+  }
+
+  .heatmap-wrapper {
+	text-align: center;
+	margin: 2em 0;
+  }
   
+  .heatmap-wrapper img {
+	display: inline-block;
+	border: 1px solid #ddd;
+	height: auto;
+	max-width: 1000px;    /* or 90vw if you prefer responsive */
+  }
+
+  
+  .heatmap-container {
+	display: flex;
+	justify-content: center;
+	margin: 2em 0;
+	zoom: 0.2; /* or 0.5 depending on your preference */
+  }
+  
+  .heatmap-container img {
+	display: block;
+	height: auto;
+	width: auto;
+  }
+
+
+  /* Override centered text in #main > section */
+.content-block {
+	width: 85%;
+	margin: 0 auto;
+	text-align: left;
+	padding: 0 2em;
+  }
+  
+
+  #nav ul.non-scrolly {
+	margin-bottom: 0em;
+  }
+
+  hr.custom-accent {
+	border: 0;
+	border-top: 2px solid var(--accent); /* Use your green accent */
+	margin: 2em 0;
+  }
+
+  .accent-text {
+	font-weight: 600;
+	color: var(--accent);
+  }
+
+  table thead th {
+	background-color: var(--highlight); /* or use rgba for subtlety */
+	color: white; /* or #fff for contrast */
+	font-weight: 600;
+  }
+
+  table.highlighted {
+	background-color: rgba(var(--highlight-rgb), 0.15);	/* var(--accent-light) with 5% opacity */
+	border-radius: 6px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+  }
+  
+  .table-small {
+	font-size: 0.85em;
+  }
+  
+  .table-small td,
+  .table-small th {
+	padding: 0.3em 0.6em;
+  }
+
+  .table-ellipsis td {
+	text-align: center;
+	vertical-align: middle;
+	font-size: 1.2em;
+	color: gray;
+	padding: 0.4em 0;
+  }
+  
+  
+  .blog-banner-image {
+	width: 100%;
+	max-height: 400px;
+	object-fit: cover;
+	display: block;
+	margin-bottom: 2em;
+	border-bottom: 3px solid var(--accent);
+}
+
+
 
 
 

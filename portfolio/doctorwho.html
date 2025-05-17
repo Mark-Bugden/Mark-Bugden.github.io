@@ -1,80 +1,792 @@
 <!DOCTYPE html>
+<!--
+	Prologue by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>What Makes a Great Doctor Who Episode?</title>
-  <link rel="stylesheet" href="../assets/css/main.css">
-  <link rel="icon" href="../images/Hopf.avif">
-</head>
-<body class="is-preload">
-  <div id="header">
-    <div class="top">
-      <div id="logo">
-        <span class="image avatar64"><img src="../images/portrait.jpg" alt="" /></span>
-        <h1 id="title">Mark Bugden</h1>
-        <p>Research Scientist</p>
+  <head>
+    <title>Mark Bugden</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="icon" href="../images/Hopf.avif" />
+  </head>
+  <body class="is-preload">
+    <!-- Header -->
+    <div id="header">
+      <div class="top">
+        <!-- Logo -->
+        <div id="logo">
+          <span class="image avatar64"
+            ><img src="../images/portrait.jpg" alt=""
+          /></span>
+          <h1 id="title">Mark Bugden</h1>
+          <p>Machine Learning Scientist</p>
+        </div>
+
+        <!-- Nav -->
+
+        <nav id="nav">
+          <ul>
+            <li>
+              <a href="../index.html" class="no-scroll"
+                ><span class="icon solid fa-home">Home</span></a
+              >
+            </li>
+
+            <hr class="custom-accent" />
+
+            <li>
+              <a href="#introduction" id="introduction-link"
+                ><span>Introduction</span></a
+              >
+            </li>
+            <li>
+              <a href="#dataset-overview" id="dataset-overview-link"
+                ><span>Dataset Overview</span></a
+              >
+            </li>
+            <li>
+              <a href="#best-worst-episodes" id="best-worst-episodes-link"
+                ><span>Best and Worst Episodes</span></a
+              >
+            </li>
+            <li>
+              <a href="#ratings-over-time" id="ratings-over-time-link"
+                ><span>Ratings over Time</span></a
+              >
+            </li>
+            <li>
+              <a href="#best-writers-directors" id="best-writers-directors-link"
+                ><span>Best Writers and Directors</span></a
+              >
+            </li>
+            <li>
+              <a href="#best-doctor" id="best-doctor-link"
+                ><span>Best Doctor</span></a
+              >
+            </li>
+          </ul>
+        </nav>
       </div>
-      <nav id="nav">
-        <ul>
-          <li><a href="https://mark-bugden.github.io./"><span class="icon solid fa-home">Home</span></a></li>
+
+      <div class="bottom">
+        <!-- Social Icons -->
+        <ul class="icons">
+          <li>
+            <a
+              href="https://www.linkedin.com/in/mark-bugden/"
+              class="icon brands fa-linkedin"
+              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0)"
+              target="_blank"
+              ><span class="label">LinkedIn</span></a
+            >
+          </li>
+          <li>
+            <a
+              href="https://github.com/Mark-Bugden"
+              class="icon brands fa-github"
+              target="_blank"
+              ><span class="label">Github</span></a
+            >
+          </li>
+          <li>
+            <a
+              href="https://mark-bugden.github.io./#end"
+              class="icon solid fa-envelope"
+              ><span class="label">Email</span></a
+            >
+          </li>
         </ul>
-      </nav>
+      </div>
     </div>
-  </div>
 
-  <div id="main" class="container">
-    <section>
-      <h2>1. Opening Hook: The Timeless Question</h2>
-      <p>Every Doctor has their defenders. Tennant’s charm? Iconic. Capaldi’s gravitas? Undeniable. Tom Baker’s scarf? Practically a co-star. But beyond personal favorites, what if we turned to the data to help answer one of fandom’s oldest debates: <strong>Who is the best Doctor?</strong></p>
-      <p>In this post, we take a data science approach to a question often ruled by emotion and nostalgia. By collecting and analysing IMDb ratings from over 800 episodes across six decades, we can build a more objective view of what resonates with audiences. This isn’t just about averages—we dive into vote-weighted scores, statistical shrinkage to correct for sample sizes, and variance decomposition to see whether it’s the actor, the writer, or the director that matters most. The first step? Creating a structured, clean dataset that allows us to isolate the factors driving episode ratings.</p>
-    </section>
+    <!-- Main -->
+    <div id="main">
+      <img
+        src="../images/DW/banner.avif"
+        alt="Doctor Who Banner"
+        class="blog-banner-image"
+      />
 
-    <section>
-      <h2>2. A Show of Highs and Lows</h2>
-      <p>Building a dataset that spans over 60 years of British television is not for the faint of heart. The show has changed formats, cast, and even production conventions over the years, which makes merging historical data tricky. By stitching together IMDb's raw episode lists, ratings, and crew data—and sprinkling in some manual sanity checks—we assembled a structured dataset that links every episode to its season, release year, Doctor, writer(s), and director(s). It’s not quite Gallifreyan technology, but it’s clean enough to analyse.</p>
-      <p>Doctor Who’s greatest strength might be its range. It’s a show that can pivot from tragedy to absurdity, from horror to historical drama. But with that boldness comes variation in quality. Some episodes are etched into pop culture memory; others are politely ignored. We begin by zooming in on the extremes: the most, and least, beloved episodes, according to IMDb users.</p>
-    </section>
+      <!-- Who is the best doctor -->
+      <section id="introduction">
+        <div class="content-block">
+          <header class="major">
+            <h2>Introduction</h2>
+          </header>
+          <p>
+            Doctor Who is a long-running television show, with a devoted fanbase
+            spanning generations. Each incarnation of the Doctor has their own
+            loyal following, and the fans inevitably debate which version of the
+            Doctor stands out as the best. Rather than weighing in with my own
+            personal opinions, I decided to take a more data-oriented approach
+            to finally answer the question:
+          </p>
 
-    <section>
-      <h2>3. The Rise of the Modern Doctor</h2>
-      <p><!-- Ratings comparison and generational insights. --></p>
-    </section>
+          <div class="highlight-question">Who is the best Doctor?</div>
 
-    <section>
-      <h2>4. Behind the TARDIS: Writers and Directors</h2>
-      <p><!-- Who contributed creatively, and who stood out. --></p>
-    </section>
+          <p>
+            In addition to this question, we will be looking at the best and
+            worst episodes, how the episodes have changed over time and which
+            are the best writers and directors. In the associated notebook, we
+            also took a deep-dive into what factors drive episode quality, by
+            calculating how much of the variation of the ratings could be
+            explained by the Doctor, as opposed to the writers and directors.
+            The results were actually quite interesting , so if you are
+            interested you can check them out in the
+            <span class="accent-text">
+              <a
+                href="https://github.com/Mark-Bugden/doctor-who-imdb-analysis"
+                target="_blank"
+                >GitHub repository</a
+              >
+            </span>
+            .
+          </p>
+        </div>
+      </section>
 
-    <section>
-      <h2>5. What <em>Really</em> Drives Ratings?</h2>
-      <p><!-- Explain ANOVA result that directors matter most. --></p>
-    </section>
+      <!-- Dataset overview -->
+      <section id="dataset-overview">
+        <div class="content-block">
+          <header class="major">
+            <h2>Dataset Overview</h2>
+          </header>
+          <p>
+            This analysis uses IMDb user ratings for Doctor Who episodes from
+            1963 to the present day.
+          </p>
+          <p>Each episode entry includes:</p>
+          <ul>
+            <li>Title</li>
+            <li>Year</li>
+            <li>Season and episode number</li>
+            <li>IMDb rating (1-10 scale)</li>
+            <li>Number of votes</li>
+            <li>Doctor</li>
+            <li>Writer(s)</li>
+            <li>Director(s)</li>
+          </ul>
+          <p>
+            The dataset covers a total of
+            <span class="accent-text">863 episodes</span> over
+            <span class="accent-text">41 seasons</span>.
+          </p>
+          <p>
+            Specials, including Christmas and regeneration episodes, are
+            currently not included in the analysis. Each episode is associated
+            with the lead actor playing the Doctor at the time, enabling
+            comparisons across different actors and eras.
+          </p>
+          <p>
+            Data was scraped and collated from IMDb using a custom Python script
+            and manually cleaned to ensure consistency across metadata fields
+            such as episode names and numbering.
+          </p>
+          <p>
+            <span class="accent-text">A note on IMDb and the Gatwa era:</span>
+            IMDb categorises Doctor Who seasons into three categories: the
+            classical series (1963 - 1989), the modern series (2005 - 2022), and
+            the Gatwa era (2023 - present). This blog post and notebook were
+            written during the release window of Season 15, and therefore do not
+            contain all statistics from those episodes.
+          </p>
+        </div>
+      </section>
 
-    <section>
-      <h2>6. What We Learned (and What We Still Don’t Know)</h2>
-      <p><!-- Key findings and open questions. --></p>
-    </section>
+      <!-- Best and worst episodes -->
+      <section id="best-worst-episodes">
+        <div class="content-block">
+          <header class="major">
+            <h2>Best and Worst episodes</h2>
+          </header>
+          <p>
+            Let's start with the simplest way to view the data - by looking at
+            the best and worst episodes, as rated by the IMDb users. Starting
+            with the best:
+          </p>
+          <table class="highlighted table-small">
+            <caption
+              style="
+                caption-side: bottom;
+                text-align: center;
+                font-style: italic;
+                padding-top: 0.5em;
+              "
+            >
+              Top-rated episodes of Doctor Who
+            </caption>
+            <thead>
+              <tr>
+                <th>era</th>
+                <th>season</th>
+                <th>episode</th>
+                <th>title</th>
+                <th>Doctor</th>
+                <th>rating</th>
+                <th>votes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>modern</td>
+                <td>3</td>
+                <td>10</td>
+                <td>Blink</td>
+                <td>David Tennant</td>
+                <td>9.8</td>
+                <td>25531</td>
+              </tr>
+              <tr>
+                <td>modern</td>
+                <td>9</td>
+                <td>11</td>
+                <td>Heaven Sent</td>
+                <td>Peter Capaldi</td>
+                <td>9.6</td>
+                <td>13853</td>
+              </tr>
+              <tr>
+                <td>modern</td>
+                <td>4</td>
+                <td>9</td>
+                <td>Forest of the Dead</td>
+                <td>David Tennant</td>
+                <td>9.4</td>
+                <td>12017</td>
+              </tr>
+              <tr>
+                <td>modern</td>
+                <td>5</td>
+                <td>10</td>
+                <td>Vincent and the Doctor</td>
+                <td>Matt Smith</td>
+                <td>9.3</td>
+                <td>13773</td>
+              </tr>
+              <tr>
+                <td>modern</td>
+                <td>4</td>
+                <td>8</td>
+                <td>Silence in the Library</td>
+                <td>David Tennant</td>
+                <td>9.3</td>
+                <td>11727</td>
+              </tr>
+              <tr>
+                <td>modern</td>
+                <td>2</td>
+                <td>4</td>
+                <td>The Girl in the Fireplace</td>
+                <td>David Tennant</td>
+                <td>9.2</td>
+                <td>13738</td>
+              </tr>
+              <tr>
+                <td>modern</td>
+                <td>2</td>
+                <td>13</td>
+                <td>Doomsday</td>
+                <td>David Tennant</td>
+                <td>9.2</td>
+                <td>11179</td>
+              </tr>
+              <tr>
+                <td>modern</td>
+                <td>3</td>
+                <td>9</td>
+                <td>The Family of Blood</td>
+                <td>David Tennant</td>
+                <td>9.2</td>
+                <td>10824</td>
+              </tr>
+              <tr>
+                <td>modern</td>
+                <td>4</td>
+                <td>13</td>
+                <td>Journey's End</td>
+                <td>David Tennant</td>
+                <td>9.2</td>
+                <td>10403</td>
+              </tr>
+              <tr>
+                <td>modern</td>
+                <td>4</td>
+                <td>10</td>
+                <td>Midnight</td>
+                <td>David Tennant</td>
+                <td>9.1</td>
+                <td>11060</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            I don't think many people are really surprised to see
+            <span class="accent-text">Blink</span>. at the top. It's a bit of an
+            odd one - the Doctor is barely even in the episode - but it's become
+            a fan favourite for a reason. It is noteworthy that David Tennant is
+            the Doctor for 8 out of the 10 best-rated episodes.
+          </p>
+          <p>What about the worst-rated episodes?</p>
+          <table class="highlighted table-small">
+            <caption
+              style="
+                caption-side: bottom;
+                text-align: center;
+                font-style: italic;
+                padding-top: 0.5em;
+              "
+            >
+              Lowest-rated episodes of Doctor Who
+            </caption>
+            <thead>
+              <tr>
+                <th>era</th>
+                <th>season</th>
+                <th>episode</th>
+                <th>title</th>
+                <th>Doctor</th>
+                <th>rating</th>
+                <th>votes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>modern</td>
+                <td>12</td>
+                <td>3</td>
+                <td>Orphan 55</td>
+                <td>Jodie Whittaker</td>
+                <td>4.2</td>
+                <td>7205</td>
+              </tr>
+              <tr>
+                <td>classical</td>
+                <td>6</td>
+                <td>34</td>
+                <td>The Space Pirates: Episode 6</td>
+                <td>Patrick Troughton</td>
+                <td>4.7</td>
+                <td>323</td>
+              </tr>
+              <tr>
+                <td>classical</td>
+                <td>6</td>
+                <td>33</td>
+                <td>The Space Pirates: Episode 5</td>
+                <td>Patrick Troughton</td>
+                <td>4.9</td>
+                <td>319</td>
+              </tr>
+              <tr>
+                <td>classical</td>
+                <td>6</td>
+                <td>31</td>
+                <td>The Space Pirates: Episode 3</td>
+                <td>Patrick Troughton</td>
+                <td>5.0</td>
+                <td>321</td>
+              </tr>
+              <tr>
+                <td>classical</td>
+                <td>6</td>
+                <td>32</td>
+                <td>The Space Pirates: Episode 4</td>
+                <td>Patrick Troughton</td>
+                <td>5.0</td>
+                <td>319</td>
+              </tr>
+              <tr>
+                <td>modern</td>
+                <td>14</td>
+                <td>1</td>
+                <td>Space Babies</td>
+                <td>Ncuti Gatwa</td>
+                <td>5.1</td>
+                <td>9141</td>
+              </tr>
+              <tr>
+                <td>modern</td>
+                <td>11</td>
+                <td>4</td>
+                <td>Arachnids in the UK</td>
+                <td>Jodie Whittaker</td>
+                <td>5.1</td>
+                <td>8741</td>
+              </tr>
+              <tr>
+                <td>modern</td>
+                <td>11</td>
+                <td>5</td>
+                <td>The Tsuranga Conundrum</td>
+                <td>Jodie Whittaker</td>
+                <td>5.1</td>
+                <td>8162</td>
+              </tr>
+              <tr>
+                <td>modern</td>
+                <td>12</td>
+                <td>10</td>
+                <td>The Timeless Children</td>
+                <td>Jodie Whittaker</td>
+                <td>5.1</td>
+                <td>6814</td>
+              </tr>
+              <tr>
+                <td>classical</td>
+                <td>6</td>
+                <td>29</td>
+                <td>The Space Pirates: Episode 1</td>
+                <td>Patrick Troughton</td>
+                <td>5.1</td>
+                <td>342</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            It seems as though the Space Pirates episodes of Patrick Troughton
+            were particularly disliked, but the low ratings here is more
+            complicated than it might initially seem. It turns out that only
+            Episode 2 exists in full - the other episodes are missing from the
+            archives, which means that watching the full serial would require
+            using reconstructions (tele-snaps and audio), which is likely what
+            contributes to the poor ratings. All that being said, Episode 2 only
+            received a rating of 5.6, so it's safe to say that people weren't
+            particularly fond of the Space Pirates in any case.
+          </p>
+          <p>
+            It's clear in the tables above that episodes from the modern series
+            get more votes than episodes from the classical series. This is
+            likely due to a larger and younger audience, who are more inclined
+            to visit IMDb and cast votes. On average, modern-era episodes
+            receive more than ten times as many votes as classical-era episodes.
+            This means we can be less confident in the reliability of the
+            classical ratings compared to those from the modern era.
+          </p>
+        </div>
+      </section>
 
-    <section>
-      <h2>7. Looking Forward</h2>
-      <p><!-- Invite further exploration or future projects. --></p>
-    </section>
-  </div>
+      <!-- Ratings over time -->
+      <section id="ratings-over-time">
+        <div class="content-block">
+          <header class="major">
+            <h2>Ratings over Time</h2>
+          </header>
+          <p>
+            IMDb ratings offer a broad measure of how audiences responded to
+            each episode of <em>Doctor Who</em>. By plotting ratings against air
+            dates, we can observe trends across the show's history, from the
+            early black-and-white serials to the modern era.
+          </p>
+          <p>
+            The chart below shows all rated episodes from 1963 to the present.
+            Each dot represents a single episode, and are coloured based on who
+            the Doctor was for that episode. Additionally, the size of the dot
+            is indicative of how many votes that episode received - bigger dots
+            have more votes.
+          </p>
+          <span class="image featured">
+            <img
+              src="../images/DW/ratings_over_time.avif"
+              alt="Doctor Who Ratings Over Time"
+            />
+          </span>
+          <p><strong>Key observations:</strong></p>
+          <ul>
+            <li>
+              Ratings during the classic era (1963-1989) are highly variable,
+              with scattered peaks and valleys.
+            </li>
+            <li>
+              There is a noticeable increase in average ratings following the
+              2005 reboot.
+            </li>
+            <li>
+              Ratings trend downward in the later seasons of the modern era,
+              especially post-2017.
+            </li>
+          </ul>
+          <p>
+            Plotting the average rating per year gives us a nice concise way to
+            see the "big picture" trends.
+          </p>
+          <span class="image featured">
+            <img
+              src="../images/DW/mean_ratings_over_time.avif"
+              alt="Doctor Who Ratings Over Time"
+            />
+          </span>
+          <p>
+            We can also look at how episodes were rated across each season. The
+            heatmaps below show the distribution of ratings for each episode
+            within a season for both the classical and modern eras, making it
+            easier to spot patterns and get more refined information about how
+            each episode is rated <em>within</em> a given season.
+          </p>
+          <div class="heatmap-container">
+            <img
+              src="../images/DW/classical_ratings_heatmap.avif"
+              alt="Classic Era Heatmap"
+            />
+          </div>
+          From this heatmap we can immediately see a few notable features, such
+          as the Space Pirates serial of Season 6, or the popular "Genesis of
+          the Daleks" arc in Season 12. It's worth noting that in the classical
+          era of Doctor Who, the episodes were structured as
+          <i>serialised stories</i>. Each story was made up of shorter episodes,
+          collected into a single arc of up to 12 episodes (although 4-6 was
+          most common). We can see this structure clearly in the data - the
+          ratings for an episode in a single story tend to be similar to the
+          ratings of other episodes in that story, forming the similarly
+          coloured groups in the above heatmap.
+          <div class="heatmap-container">
+            <img
+              src="../images/DW/modern_ratings_heatmap.avif"
+              alt="Modern Era Heatmap"
+            />
+          </div>
+          <p>
+            Unlike the classicial era, in the modern era most episodes are
+            self-contained, standalone episodes with a longer format. Although
+            linked episodes do exist in the modern era, they are titled
+            differently and much less common.
+          </p>
+          <p>
+            <em>Note:</em> The Gatwa era is not included in the heatmaps due to
+            the limited number of rated episodes available so far.
+          </p>
+          <!-- You can embed your chart here -->
+          <!-- Example placeholder -->
+        </div>
+      </section>
 
-  <div id="footer">
-    <ul class="copyright">
-      <li>&copy; Mark Bugden. All rights reserved.</li>
-      <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-    </ul>
-  </div>
+      <!-- Who are the best writers and directors-->
+      <section id="best-writers-directors">
+        <div class="content-block">
+          <header class="major">
+            <h2>Best Writers and Directors</h2>
+          </header>
+          <p>
+            Before turning to the Doctors themselves, it's worth looking at the
+            people who helped shape their stories. Writers and directors have a
+            huge impact on the tone, pacing, and emotional weight of each
+            episode.
+          </p>
+          <p>
+            To evaluate writers and directors, I used a
+            <span class="accent-text">shrinkage-adjusted average</span>, which
+            helps avoid overrating people who only worked on a handful of
+            episodes. (I'll explain how this works in more detail when we get to
+            the Doctors.) The top five writers and directors are shown in the
+            tables below:
+          </p>
+          <table class="highlighted table-small">
+            <caption
+              style="
+                caption-side: bottom;
+                text-align: center;
+                font-style: italic;
+                padding-top: 0.5em;
+              "
+            >
+              Top-rated writers
+            </caption>
+            <thead>
+              <tr>
+                <th>writer</th>
+                <th>shrinkage rating</th>
+                <th>num_episodes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Paul Cornell</td>
+                <td>8.08</td>
+                <td>3</td>
+              </tr>
+              <tr>
+                <td>Steven Moffat</td>
+                <td>8.07</td>
+                <td>83</td>
+              </tr>
+              <tr>
+                <td>Terry Nation</td>
+                <td>8.05</td>
+                <td>90</td>
+              </tr>
+              <tr>
+                <td>Malcolm Hulke</td>
+                <td>8.05</td>
+                <td>57</td>
+              </tr>
+              <tr>
+                <td>Robert Banks Stewart</td>
+                <td>7.97</td>
+                <td>12</td>
+              </tr>
+            </tbody>
+          </table>
 
-  <script src="../assets/js/jquery.min.js"></script>
-  <script src="../assets/js/jquery.scrolly.min.js"></script>
-  <script src="../assets/js/jquery.scrollex.min.js"></script>
-  <script src="../assets/js/browser.min.js"></script>
-  <script src="../assets/js/breakpoints.min.js"></script>
-  <script src="../assets/js/util.js"></script>
-  <script src="../assets/js/main.js"></script>
-</body>
+          <table class="highlighted table-small">
+            <caption
+              style="
+                caption-side: bottom;
+                text-align: center;
+                font-style: italic;
+                padding-top: 0.5em;
+              "
+            >
+              Top-rated directors
+            </caption>
+            <thead>
+              <tr>
+                <th>director</th>
+                <th>shrinkage rating</th>
+                <th>num_episodes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Rachel Talalay</td>
+                <td>8.32</td>
+                <td>6</td>
+              </tr>
+              <tr>
+                <td>Hettie Macdonald</td>
+                <td>8.26</td>
+                <td>3</td>
+              </tr>
+              <tr>
+                <td>Graeme Harper</td>
+                <td>8.24</td>
+                <td>18</td>
+              </tr>
+              <tr>
+                <td>Toby Haynes</td>
+                <td>8.21</td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <td>David Maloney</td>
+                <td>8.03</td>
+                <td>46</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><strong>Key observations:</strong></p>
+          <ul>
+            <li>
+              Both classic and modern-era contributors appear in the top ranks,
+              suggesting that high-quality episodes span the show's entire
+              history.
+            </li>
+            <li>
+              Writer-director combinations likely play a crucial role in episode
+              success, with names like Moffat, Macdonald, and Talalay frequently
+              associated with fan-favourite stories.
+            </li>
+          </ul>
+          <p>
+            Of course, even the best writing and direction needs a strong lead.
+            Now that we've looked at the creative forces behind the scenes, it's
+            time to turn to the face of the show itself: the Doctor.
+          </p>
+        </div>
+      </section>
+
+      <!-- Who is the best doctor -->
+      <section id="best-doctor">
+        <div class="content-block">
+          <header class="major">
+            <h2>Best doctor</h2>
+          </header>
+          <p>
+            We've had some hints as to which Doctor may be the best, but now
+            it's time to finally settle it. To quantitatively determine which
+            Doctor has the best ratings from fans, I decided to calculate
+            several different metrics. The first and most obvious is the
+            <span class="accent-text">naïve average</span>
+            rating per Doctor across all of their episodes. Although this gives
+            a idea of how positively that Doctor's episodes were rated, it
+            doesn't account for vote volume or episode count. The
+            <span class="accent-text">vote-weighted average</span> improves on
+            this by giving more influence to episodes with more IMDb votes.
+            Instead of treating each episode equally, it reflects how viewers
+            collectively rated a Doctor's run - factoring in which episodes had
+            the most engagement. However, even vote-weighted ratings can be
+            skewed if a Doctor appeared in only a few episodes. To address this,
+            we compute a
+            <span class="accent-text">shrinkage-adjusted average</span>, which
+            regularizes the vote-weighted average based on how many episodes
+            each Doctor appeared in, pulling averages for small-sample examples
+            closer to the global average. (We used this to calculate which were
+            the best writers and directors in the previous section.)
+          </p>
+          <p>
+            Together, these three metrics provide a fairer and more robust way
+            to compare how each Doctor's episodes were received. That said, as
+            we'll see, the differences between them are relatively small -
+            suggesting a reassuring consistency across the various approaches.
+            The chart below shows how each Doctor scored across all three
+            metrics. While the rankings are close, a clear frontrunner does
+            emerge.
+          </p>
+          <span class="image featured">
+            <img
+              src="../images/DW/doctor_comparisons.avif"
+              alt="Doctor Comparison by Rating Metrics"
+            />
+          </span>
+          <p>And the winner is...</p>
+          <div class="highlight-question">David Tennant</div>
+          <div style="text-align: center; margin: 1em 0">
+            <img
+              src="../images/DW/david_tennant.avif"
+              alt="David Tennant as the Doctor"
+              style="width: 400px; border-radius: 8px"
+            />
+            <p style="font-size: 0.9em; color: #777">
+              David Tennant as the Tenth Doctor — consistently a fan favourite.
+            </p>
+          </div>
+          <p>
+            Across all three rating metrics, Tennant consistently comes out on
+            top, combining high ratings, strong audience engagement, and a
+            substantial number of episodes.
+          </p>
+          <p>
+            So there it is - the data has spoken. David Tennant takes the crown.
+            Of course, stats don't tell the whole story - but they are very
+            useful the next time you are at a house party and you need to prove
+            to someone why David Tennant is the best Doctor.
+          </p>
+        </div>
+      </section>
+
+      <!-- /Main  -->
+    </div>
+
+    <!-- Footer -->
+    <div id="footer">
+      <!-- Copyright -->
+      <ul class="copyright">
+        <li>&copy; Mark Bugden. All rights reserved.</li>
+        <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+      </ul>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/jquery.scrolly.min.js"></script>
+    <script src="/assets/js/jquery.scrollex.min.js"></script>
+    <script src="/assets/js/browser.min.js"></script>
+    <script src="/assets/js/breakpoints.min.js"></script>
+    <script src="/assets/js/util.js"></script>
+    <script src="/assets/js/main.js"></script>
+  </body>
 </html>
