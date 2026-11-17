@@ -105,11 +105,11 @@ def main():
         f'<svg class="mark" viewBox="0 0 {SIZE} {SIZE}" aria-hidden="true" focusable="false">{inline}</svg>\n',
         encoding="utf-8",
     )
-    # site.css's --fg and --accent. The light accent is its color-mix(in oklab, #7CE0C3 50%, #000)
-    # worked out, since a favicon has no color-mix().
+    # site.css's --fg and --accent for each theme. The site itself is dark unless the visitor picks
+    # light, but a favicon sits on the browser's tab strip, so it follows the browser's theme.
     style = (
-        "path{fill:none;stroke-width:3.2;stroke-linecap:round}.f{stroke:#e8ecf2}.a{stroke:#7ce0c3}"
-        "@media (prefers-color-scheme:light){.f{stroke:#10151d}.a{stroke:#2c564a}}"
+        "path{fill:none;stroke-width:3.2;stroke-linecap:round}.f{stroke:#e8ecf2}.a{stroke:#f6be55}"
+        "@media (prefers-color-scheme:light){.f{stroke:#10151d}.a{stroke:#c2391b}}"
     )
     plain = "".join(f'<path class="{c}" d="{d}"/>' for d, _, c in arcs)
     (ROOT / "static/favicon.svg").write_text(

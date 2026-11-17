@@ -25,7 +25,7 @@ hugo server -D        # http://localhost:1313, draft write-ups included
   - its write-up is not a draft
 
   The build fails if a published write-up's bundle is missing, is still a stub, or disagrees with `data/projects.yaml`.
-- **Styles** are all in [`assets/css/site.css`](assets/css/site.css). Its design tokens on `:root` hold every colour and typeface: dark by default, and light when the OS prefers it or the visitor picks it with the header button. Demos keep the kit's own tokens on `[data-demo]`. The fonts (Space Grotesk, Inter and JetBrains Mono) are self-hosted in `static/fonts/`.
+- **Styles** are all in [`assets/css/site.css`](assets/css/site.css). Its design tokens on `:root` hold every colour and typeface: dark, and light only when the visitor picks it with the header button. Demos keep the kit's own tokens on `[data-demo]`. The fonts (Space Grotesk, Inter and JetBrains Mono) are self-hosted in `static/fonts/`.
 - **Deploys.** [`.github/workflows/pages.yml`](.github/workflows/pages.yml) runs on every pull request and every push to `main`. It fetches and validates the bundles, builds with `hugo --minify --panicOnWarning`, and checks every link with lychee. On `main` it then deploys to GitHub Pages. Stub bundles are validated but not deployed.
 
 ## Publish a project

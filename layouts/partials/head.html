@@ -13,9 +13,9 @@
 {{- else }}
 <link rel="canonical" href="{{ .Permalink }}">
 {{- end }}
-<meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#F5F6F8" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0A0E14" media="(prefers-color-scheme: dark)">
+{{- /* Dark until the visitor picks light; js/theme.js updates both when they do. */}}
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0A0E14">
 {{- with resources.Get "js/theme.js" | minify }}
 <script>{{ .Content | safeJS }}</script>
 {{- end }}

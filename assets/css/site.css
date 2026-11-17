@@ -1,8 +1,8 @@
 /*
  * Site styles: the phase portrait design. Every colour, face and size comes from the tokens on
- * :root below: dark by default, light when the OS prefers it, and either one when the visitor picks
- * it with the header button (<html data-theme>). Demos carry their own tokens on [data-demo], so
- * nothing here reaches inside a demo.
+ * :root below: dark, whatever the OS prefers, and light only when the visitor picks it with the
+ * header button (<html data-theme="light">). Demos carry their own tokens on [data-demo], so nothing
+ * here reaches inside a demo.
  */
 
 /* Fonts: self-hosted variable faces, Latin subset. Inter also has a Latin Extended file (Czech names
@@ -56,7 +56,7 @@
   --muted: #9AA6B8;
   --line: #2A3444;
   --curve: #526178;
-  --accent: #7CE0C3;
+  --accent: #F6BE55; /* sodium amber */
 
   --font-display: "Space Grotesk", system-ui, sans-serif;
   --font-text: "Inter", system-ui, sans-serif;
@@ -64,19 +64,6 @@
 
   --gutter: clamp(20px, 4vw, 56px);
   --measure: 680px;
-}
-
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    color-scheme: light;
-    --bg: #F5F6F8;
-    --panel: #FFFFFF;
-    --fg: #10151D;
-    --muted: #556070;
-    --line: #D3D9E1;
-    --curve: #98A4B5;
-    --accent: color-mix(in oklab, #7CE0C3 50%, #000);
-  }
 }
 
 :root[data-theme="light"] {
@@ -87,7 +74,7 @@
   --muted: #556070;
   --line: #D3D9E1;
   --curve: #98A4B5;
-  --accent: color-mix(in oklab, #7CE0C3 50%, #000);
+  --accent: #C2391B; /* H-alpha red */
 }
 
 /* Base */
@@ -372,7 +359,7 @@ h2.label { margin-bottom: 12px; text-wrap: wrap; }
 }
 .phase__rotations { stroke: var(--line); stroke-width: 1; }
 .phase__separatrix { stroke: var(--curve); stroke-width: 1; stroke-dasharray: 4 5; }
-.phase__orbits { stroke: var(--curve); stroke-width: 1.3; transition: stroke 0.2s; }
+.phase__orbits { stroke: var(--lit, var(--curve)); stroke-width: 1.3; transition: stroke 0.2s; }
 /* The separatrix cells: invisible, but the whole of each is a link. */
 .phase__curves .phase__cell path { fill: transparent; stroke: none; pointer-events: fill; }
 .phase__cell:focus { outline: none; }
@@ -411,16 +398,14 @@ h2.label { margin-bottom: 12px; text-wrap: wrap; }
 
 .phase figcaption { margin-top: 10px; }
 
-/* An orbit group lights up while the pointer is anywhere in its cell, or while its pill or its section
-   link below the figure is hovered or focused. */
-main:has(:is(.phase__cell--about, .phase__pill--about, .section-link--about):is(:hover, :focus-visible)) .phase__orbits--about,
-main:has(:is(.phase__cell--publications, .phase__pill--publications, .section-link--publications):is(:hover, :focus-visible)) .phase__orbits--publications,
-main:has(:is(.phase__cell--projects, .phase__pill--projects, .section-link--projects):is(:hover, :focus-visible)) .phase__orbits--projects {
-  stroke: var(--accent);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .phase__orbits { transition: none; }
+/* A section lights up while the pointer is anywhere in its cell, or while its pill or its section link
+   below the figure is hovered or focused: its orbits and its section link change together. --lit is
+   the accent for the orbits, the link's hairline and its title; --lit-text brightens the summary. */
+main:has(:is(.phase__cell--about, .phase__pill--about, .section-link--about):is(:hover, :focus-visible)) :is(.phase__orbits--about, .section-link--about),
+main:has(:is(.phase__cell--publications, .phase__pill--publications, .section-link--publications):is(:hover, :focus-visible)) :is(.phase__orbits--publications, .section-link--publications),
+main:has(:is(.phase__cell--projects, .phase__pill--projects, .section-link--projects):is(:hover, :focus-visible)) :is(.phase__orbits--projects, .section-link--projects) {
+  --lit: var(--accent);
+  --lit-text: var(--fg);
 }
 
 .section-links {
@@ -436,12 +421,17 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects, .section-link--proj
   flex-direction: column;
   gap: 6px;
   padding-block: 18px;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--lit, var(--line));
   color: var(--fg);
+  transition: border-color 0.2s;
 }
 .section-link:hover { color: var(--fg); }
-.section-link__title { font: 500 22px/1.5 var(--font-display); }
-.section-link__desc { color: var(--muted); }
+.section-link__title { font: 500 22px/1.5 var(--font-display); color: var(--lit, var(--fg)); transition: color 0.2s; }
+.section-link__desc { color: var(--lit-text, var(--muted)); transition: color 0.2s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .phase__orbits, .section-link, .section-link__title, .section-link__desc { transition: none; }
+}
 
 /* About */
 

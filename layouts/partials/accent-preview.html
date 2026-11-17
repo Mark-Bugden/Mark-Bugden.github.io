@@ -1,7 +1,7 @@
 {{- /* Development only (hugo server; production builds leave it out): a panel for previewing accent
    colours across the site. Each preset pairs a dark-theme accent with a light-theme one, and every one
    clears 4.5:1 against both backgrounds of its theme. The choice is kept in localStorage, so it follows
-   you from page to page; "Current" clears it and shows what site.css sets. */ -}}
+   you from page to page. The first preset is what site.css sets: choosing it clears the override. */ -}}
 <style>
 .accent-preview { position: fixed; right: 16px; bottom: 16px; z-index: 100; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; font: 400 14px/1.4 var(--font-text); color: var(--fg); }
 .accent-preview button { font: inherit; color: inherit; cursor: pointer; }
@@ -27,7 +27,8 @@
 <script>
 (function () {
   var presets = [
-    { name: 'Current', dark: '#7CE0C3', light: '#2C564A' },
+    { name: 'Sodium + H-alpha', dark: '#F6BE55', light: '#C2391B' },
+    { name: 'Original mint', dark: '#7CE0C3', light: '#2C564A' },
     { name: 'Mint', dark: '#7CE0C3', light: '#00785F' },
     { name: 'Cyan', dark: '#5ED3EE', light: '#00728F' },
     { name: 'Cherenkov blue', dark: '#86ABFF', light: '#2456D3' },
@@ -37,7 +38,7 @@
     { name: 'Sodium', dark: '#F6BE55', light: '#A35400' },
     { name: 'Phosphor', dark: '#A2E36E', light: '#3A7712' }
   ];
-  var key = 'accent-preview';
+  var key = 'accent-preview-2'; // bumped when the site's default changes, so an old preview is dropped
   var root = document.documentElement;
   var override = document.createElement('style');
   document.head.appendChild(override);
@@ -45,11 +46,10 @@
   function load(name) { try { return JSON.parse(localStorage.getItem(name)); } catch (e) { return null; } }
   function save(name, value) { try { localStorage.setItem(name, JSON.stringify(value)); } catch (e) { /* this page only */ } }
 
-  // :root:root and friends outrank site.css's token rules whatever order the sheets load in.
+  // :root:root and :root:root[data-theme] outrank site.css's token rules whatever order the sheets load in.
   function apply(choice) {
-    override.textContent = !choice || choice.name === 'Current' ? '' :
+    override.textContent = !choice || choice.name === presets[0].name ? '' :
       ':root:root{--accent:' + choice.dark + '}' +
-      '@media (prefers-color-scheme: light){:root:root:not([data-theme="dark"]){--accent:' + choice.light + '}}' +
       ':root:root[data-theme="light"]{--accent:' + choice.light + '}';
   }
 
@@ -165,9 +165,8 @@
     document.body.append(el('div', { class: 'accent-preview' }, [panel, toggle, probe]));
     if (load(key + '-open')) setOpen(true);
     render();
-    // Re-measure when the theme changes, from the header button or the OS.
+    // Re-measure when the header button changes the theme.
     new MutationObserver(render).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
-    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', render);
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
