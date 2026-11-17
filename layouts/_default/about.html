@@ -1,0 +1,31 @@
+{{- define "main" }}
+<div class="wrap">
+  <header class="page-header">
+    <h1>{{ .Title }}</h1>
+  </header>
+
+  <div class="about">
+    <section class="about__text" aria-labelledby="background-heading">
+      <h2 id="background-heading" class="label">Background</h2>
+      <div class="bio">{{ .Content }}</div>
+      <ul class="contact-links">
+        <li><a href="{{ site.Params.github }}" rel="me noopener">GitHub</a></li>
+        <li><a href="{{ site.Params.linkedin }}" rel="me noopener">LinkedIn</a></li>
+        <li><a href="mailto:{{ site.Params.email }}">Email</a></li>
+        {{- /* TODO(mark): add static/cv.pdf; this link appears as soon as it exists. */}}
+        {{- if fileExists "static/cv.pdf" }}
+        <li><a href="{{ "cv.pdf" | relURL }}" download>CV (PDF)</a></li>
+        {{- end }}
+      </ul>
+    </section>
+    <div class="about__portrait">
+      {{ partial "picture.html" (dict "src" "images/portrait.jpg" "widths" (slice 240 480) "sizes" "240px" "alt" "Portrait of Mark Bugden." "eager" true "class" "about__photo") }}
+    </div>
+  </div>
+
+  <section class="section" aria-labelledby="timeline-heading">
+    <h2 id="timeline-heading" class="label">Timeline</h2>
+    {{ partial "timeline.html" . }}
+  </section>
+</div>
+{{- end }}
