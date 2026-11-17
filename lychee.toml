@@ -1,0 +1,20 @@
+# Link check for the built site (public/). The pages workflow runs it as
+#   lychee --config lychee.toml --root-dir "$PWD/public" \
+#     --remap "https://mark-bugden\.github\.io/(.*) file://$PWD/public/\$1" 'public/**/*.html'
+# The remap checks the site's own absolute URLs (canonical, og:url, og:image) against this build
+# rather than against whatever is live.
+
+index_files = ["index.html"]
+max_retries = 3
+retry_wait_time = 4
+timeout = 30
+accept = ["200..=299", "429"]
+
+exclude = [
+  # LinkedIn answers automated requests with status 999 whatever the URL.
+  "^https://www\\.linkedin\\.com/",
+  # DOIs are permanent identifiers (checked against arXiv and Crossref when data/publications.yaml
+  # was compiled). They redirect to publisher sites, which block bots (Wiley: 403) or fail
+  # intermittently (IOP: 500), and that should not fail a build.
+  "^https://doi\\.org/",
+]

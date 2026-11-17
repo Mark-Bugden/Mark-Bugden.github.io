@@ -1,0 +1,60 @@
+# Publications, newest first. Sources: the README of Mark-Bugden/Publications (venues), the
+# PhD-Thesis repo, and arXiv (IDs, titles and author lists; names keep their Czech diacritics).
+# `year` is the year of the published volume; for the thesis it is the year it was submitted
+# (August 2018, as on its title page). It went up on arXiv later, in April 2019.
+
+- title: "Exceptional algebroids and type IIB superstrings"
+  authors: ["Mark Bugden", "Ondřej Hulík", "Fridrich Valach", "Daniel Waldram"]
+  venue: "Fortschritte der Physik 70 (2022) 2100104"
+  year: 2022
+  arxiv: "2107.00091"
+  doi: "10.1002/prop.202100104"
+
+- title: "G-algebroids: a unified framework for exceptional and generalised geometry, and Poisson-Lie duality"
+  authors: ["Mark Bugden", "Ondřej Hulík", "Fridrich Valach", "Daniel Waldram"]
+  venue: "Fortschritte der Physik 69 (2021) 2100028"
+  year: 2021
+  arxiv: "2103.01139"
+  doi: "10.1002/prop.202100028"
+
+- title: "Trapped photons in Schwarzschild-Tangherlini spacetimes"
+  authors: ["Mark Bugden"]
+  venue: "Classical and Quantum Gravity 37 (2020) 015001"
+  year: 2020
+  arxiv: "1909.07298"
+  doi: "10.1088/1361-6382/ab5493"
+
+- title: "Non-abelian T-folds"
+  authors: ["Mark Bugden"]
+  venue: "Journal of High Energy Physics 03 (2019) 189"
+  year: 2019
+  arxiv: "1901.03782"
+  doi: "10.1007/JHEP03(2019)189"
+
+- title: "The Λ to zero limit of spacetimes and its physical interpretation"
+  authors: ["Mark Bugden", "Claudio Paganini"]
+  venue: "Classical and Quantum Gravity 36 (2019) 045003"
+  year: 2019
+  arxiv: "1810.00436"
+  doi: "10.1088/1361-6382/aaff0d"
+
+- title: "A Tour of T-duality: Geometric and Topological Aspects of T-dualities"
+  authors: ["Mark Bugden"]
+  venue: "PhD thesis, Australian National University"
+  year: 2018
+  arxiv: "1904.03583"
+  doi: ""
+
+- title: "Spherical Photon Orbits around a 5D Myers-Perry Black Hole"
+  authors: ["Mark Bugden"]
+  venue: "General Relativity and Gravitation 50 (2018) 30"
+  year: 2018
+  arxiv: "1801.03389"
+  doi: "10.1007/s10714-018-2352-x"
+
+- title: "Hidden isometry of “T-duality without isometry”"
+  authors: ["Peter Bouwknegt", "Mark Bugden", "Ctirad Klimčík", "Kyle Wright"]
+  venue: "Journal of High Energy Physics 08 (2017) 116"
+  year: 2017
+  arxiv: "1705.09254"
+  doi: "10.1007/JHEP08(2017)116"

@@ -1,0 +1,47 @@
+baseURL = "https://mark-bugden.github.io/"
+locale = "en"
+title = "Mark Bugden"
+enableRobotsTXT = true
+disableKinds = ["taxonomy", "term"]
+
+[params]
+  name = "Mark Bugden"
+  # Shown as separate lines under the name on the home page; joined with spaces elsewhere.
+  role = [
+    "Senior Data Scientist at Datamole.",
+    "Formerly a Theoretical Physicist, Mathematician, and Machine Learning Scientist.",
+  ]
+  jobTitle = "Senior Data Scientist"
+  employer = "Datamole"
+  description = "Mark Bugden: Senior Data Scientist at Datamole in Prague, formerly a theoretical physicist. Projects, interactive demos and publications."
+  email = "mathphys@mark-bugden.com"
+  github = "https://github.com/Mark-Bugden"
+  linkedin = "https://www.linkedin.com/in/mark-bugden/"
+  arxiv = "https://arxiv.org/search/?searchtype=author&query=Bugden%2C+Mark"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
+  page = ["HTML"]
+
+[markup.goldmark.parser.attribute]
+  block = true
+
+[markup.highlight]
+  noClasses = false
+
+[imaging.webp]
+  quality = 80
+
+# Demo bundles land in static/demos/ (scripts/fetch-demos.sh). Mounting them into assets/ as well
+# lets templates read each manifest and resize each thumbnail; the default mounts are restated
+# because declaring any mount replaces them.
+[[module.mounts]]
+  source = "assets"
+  target = "assets"
+[[module.mounts]]
+  source = "static/demos"
+  target = "assets/demos"
+[[module.mounts]]
+  source = "static"
+  target = "static"

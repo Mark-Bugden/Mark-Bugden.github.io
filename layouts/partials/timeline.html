@@ -1,0 +1,13 @@
+{{- /* Career timeline from data/timeline.yaml, newest first. Each role's start year sits on the line
+   below it, between that role and the one before it, so every year marks a move. */ -}}
+<ol class="timeline">
+  {{- range hugo.Data.timeline }}
+  <li class="timeline__item">
+    <p class="timeline__role">{{ .role }}</p>
+    <p class="timeline__org">{{ .org }}, {{ .place }}</p>
+    {{- with .since }}
+    <p class="timeline__since"><span class="visually-hidden">From </span>{{ . }}</p>
+    {{- end }}
+  </li>
+  {{- end }}
+</ol>

@@ -1,0 +1,21 @@
+{{- /* A project card. Takes a dict from listed-projects.html plus "level", the card heading's level. */ -}}
+{{- $level := .level | default 2 -}}
+<article class="card">
+  {{- with resources.Get (printf "demos/%s/thumb.webp" .slug) }}
+  {{ partial "picture.html" (dict "image" . "widths" (slice 600 1200) "sizes" "(min-width: 40rem) 22rem, 100vw" "alt" "" "class" "card__thumb") }}
+  {{- end }}
+  <div class="card__body">
+    <p class="badge badge--{{ .status }}">{{ if eq .status "live" }}Live{{ else }}In progress{{ end }}</p>
+    {{- if eq $level 3 }}
+    <h3 class="card__title"><a href="{{ .page.RelPermalink }}">{{ .page.Title }}</a></h3>
+    {{- else }}
+    <h2 class="card__title"><a href="{{ .page.RelPermalink }}">{{ .page.Title }}</a></h2>
+    {{- end }}
+    <p class="card__tagline">{{ .manifest.tagline }}</p>
+    {{- with .manifest.tags }}
+    <ul class="tags" aria-label="Tags">
+      {{- range . }}<li>{{ . }}</li>{{ end }}
+    </ul>
+    {{- end }}
+  </div>
+</article>

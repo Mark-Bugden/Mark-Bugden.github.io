@@ -1,0 +1,21 @@
+{{- /* A responsive WebP <img>. Takes a dict:
+     image or src   an image resource, or its path under assets/
+     widths         the widths to generate, e.g. (slice 800 1600); none exceeds the original
+     sizes          the <img sizes> value
+     alt            alt text ("" for a decorative image)
+     eager          true for an image above the fold (no lazy loading, high fetch priority)
+     class          optional class */ -}}
+{{- $img := .image | default (resources.Get .src) -}}
+{{- if not $img }}{{ errorf "picture.html: image %q not found under assets/" .src }}{{ end -}}
+{{- $widths := slice -}}
+{{- range .widths }}{{ $widths = $widths | append (cond (gt . $img.Width) $img.Width .) }}{{ end -}}
+{{- $srcset := slice -}}
+{{- $first := false -}}
+{{- range $widths | uniq -}}
+  {{- $resized := $img.Resize (printf "%dx webp" .) -}}
+  {{- $srcset = $srcset | append (printf "%s %dw" $resized.RelPermalink $resized.Width) -}}
+  {{- if not $first }}{{ $first = $resized }}{{ end -}}
+{{- end -}}
+<img src="{{ $first.RelPermalink }}" srcset="{{ delimit $srcset ", " }}" sizes="{{ .sizes }}" width="{{ $first.Width }}" height="{{ $first.Height }}" alt="{{ .alt }}"
+  {{- with .class }} class="{{ . }}"{{ end }}
+  {{- if .eager }} fetchpriority="high"{{ else }} loading="lazy"{{ end }} decoding="async">

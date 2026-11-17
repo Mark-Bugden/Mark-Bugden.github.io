@@ -1,0 +1,7 @@
+{{- /* The manifest of the validated bundle for slug ., or false when static/demos/<slug>/ is absent
+   (fetch-demos.sh has not run, or dropped the bundle because it is a stub). */ -}}
+{{- $manifest := false -}}
+{{- with resources.Get (printf "demos/%s/manifest.json" .) -}}
+  {{- $manifest = . | transform.Unmarshal -}}
+{{- end -}}
+{{- return $manifest -}}

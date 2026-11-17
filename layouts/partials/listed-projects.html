@@ -1,0 +1,12 @@
+{{- /* The projects to list, in data/projects.yaml order: those whose bundle is present (so it
+   validated), whose manifest status is in-progress or live, and whose write-up is published.
+   Each item is a dict: slug, status, manifest, page. */ -}}
+{{- $listed := slice -}}
+{{- range sort hugo.Data.projects "order" -}}
+  {{- $manifest := partial "manifest.html" .slug -}}
+  {{- $page := site.GetPage (printf "/projects/%s" .slug) -}}
+  {{- if and $manifest $page (not $page.Draft) (in (slice "in-progress" "live") $manifest.status) -}}
+    {{- $listed = $listed | append (dict "slug" .slug "status" $manifest.status "manifest" $manifest "page" $page) -}}
+  {{- end -}}
+{{- end -}}
+{{- return $listed -}}
