@@ -38,6 +38,7 @@ hugo server -D        # http://localhost:1313, draft write-ups included
 
 - **Update demo-kit:** change the tag in `package.json`, run `npm install`, and commit `package-lock.json`.
 - **Redraw the mark:** run `python scripts/hopf-mark.py`. It draws four fibres of the Hopf fibration and writes the header SVG and `static/favicon.svg`.
+- **Preview accent colours:** under `hugo server`, an Accent button at the bottom right of every page opens a panel of colour pairs (dark and light theme) with their contrast. It is left out of production builds.
 - **Redraw the home page figure:** run `python scripts/phase-portrait.py`. It draws the phase portrait of a simple pendulum and writes `layouts/partials/phase-portrait.html`.
 
 ## Licence

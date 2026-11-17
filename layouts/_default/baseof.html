@@ -3,6 +3,7 @@
 <head>
   {{- partial "head.html" . }}
   {{- block "head" . }}{{ end }}
+  {{- if hugo.IsDevelopment }}{{ partial "accent-preview.html" . }}{{ end }}
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>

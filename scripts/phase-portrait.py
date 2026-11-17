@@ -7,6 +7,11 @@ The curves are level sets of the energy H(q, p) = p^2 / 2 - cos q, for q from -3
 rotations above and below (E > 1), the dashed separatrix (E = 1), and closed orbits round the
 three stable centres q = -2 pi, 0 and 2 pi (-1 < E < 1). Each group of closed orbits gets its own
 class, so the home page can highlight it while the link placed on it is hovered or focused.
+
+On top sit three invisible links, one per centre, each filling the cell the separatrix draws round
+it: hovering anywhere inside a cell lights its orbits, and a click there follows the link. They are
+mouse targets only (tabindex -1, inside the aria-hidden SVG); the pills are the keyboard and screen
+reader links.
 """
 import math
 from pathlib import Path
@@ -40,9 +45,20 @@ def curve(f, n):
     return path([(X(q), Y(f(q))) for q in qs])
 
 
+def cell(qc, n=61):
+    """The region inside the separatrix round the centre q = qc: |p| <= 2 cos((q - qc) / 2)."""
+    qs = [qc - math.pi + 2 * math.pi * k / (n - 1) for k in range(n)]
+    upper = [(X(q), Y(2 * math.cos((q - qc) / 2))) for q in qs]
+    lower = [(X(q), Y(-2 * math.cos((q - qc) / 2))) for q in reversed(qs)]
+    return path(upper + lower[1:-1], close=True)
+
+
 def main():
     centres = (("about", -2 * math.pi), ("publications", 0.0), ("projects", 2 * math.pi))
     groups = {name: "".join(orbit(qc, E) for E in (-0.4, 0.0, 0.4, 0.75)) for name, qc in centres}
+    # Each link goes to the section of the same name; the href is Hugo template code, so the partial
+    # resolves it against the site's base URL.
+    cells = {name: cell(qc) for name, qc in centres}
     separatrix = "".join(curve(lambda q, s=s: s * 2 * math.cos(q / 2), 61) for s in (1, -1))
     rotations = "".join(
         curve(lambda q, E=E, s=s: s * math.sqrt(2 * (E + math.cos(q))), 49)
@@ -53,6 +69,10 @@ def main():
         f'<path class="phase__rotations" d="{rotations}"/>',
         f'<path class="phase__separatrix" d="{separatrix}"/>',
         *(f'<path class="phase__orbits phase__orbits--{name}" d="{d}"/>' for name, d in groups.items()),
+        *(
+            f'<a class="phase__cell phase__cell--{name}" href="{{{{ "{name}/" | relURL }}}}" tabindex="-1"><path d="{d}"/></a>'
+            for name, d in cells.items()
+        ),
         "</svg>",
     ]
     (ROOT / "layouts/partials/phase-portrait.html").write_text(
