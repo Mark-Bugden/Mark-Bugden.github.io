@@ -4,4 +4,4 @@ description: "Mark Bugden's papers in mathematical physics, on T-duality, genera
 layout: publications
 ---
 
-Papers and my PhD thesis from my years in theoretical physics, newest first. Every one is free to read on arXiv.
+Links and information about my research papers and my PhD Thesis. They are all freely available to read and download from the arXiv.

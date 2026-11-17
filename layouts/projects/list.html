@@ -5,7 +5,8 @@
     <div class="lede">{{ .Content }}</div>
   </header>
 
-  {{- with partial "listed-projects.html" . }}
+  {{- $listed := partial "listed-projects.html" . }}
+  {{- with $listed }}
   <ul class="card-grid">
     {{- range . }}
     <li>{{ partial "project-card.html" (merge . (dict "level" 2)) }}</li>
@@ -13,7 +14,12 @@
   </ul>
   {{- end }}
 
-  {{- with .Params.inProgress }}
+  {{- /* An "In progress" entry with a slug drops out once that project has a card above. */}}
+  {{- $listedSlugs := slice }}
+  {{- range $listed }}{{ $listedSlugs = $listedSlugs | append .slug }}{{ end }}
+  {{- $inProgress := slice }}
+  {{- range .Params.inProgress }}{{ if not (in $listedSlugs .slug) }}{{ $inProgress = $inProgress | append . }}{{ end }}{{ end }}
+  {{- with $inProgress }}
   <section class="in-progress" aria-labelledby="in-progress-heading">
     <h2 id="in-progress-heading">In progress</h2>
     <ul>

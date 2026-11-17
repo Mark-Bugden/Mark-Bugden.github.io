@@ -2,7 +2,11 @@
 <ol class="timeline">
   {{- range hugo.Data.timeline }}
   <li class="timeline__item">
-    <p class="timeline__year">{{ .year | default "Earlier" }}</p>
+    <p class="timeline__years">
+      {{- if and .start .end }}{{ .start }}&thinsp;–&thinsp;{{ .end }}
+      {{- else if .start }}Since {{ .start }}
+      {{- else }}Until {{ .end }}{{ end -}}
+    </p>
     <div class="timeline__body">
       <p class="timeline__role">{{ .role }}</p>
       <p class="timeline__org">{{ .org }}<span class="timeline__place">, {{ .place }}</span></p>
