@@ -105,9 +105,11 @@ def main():
         f'<svg class="mark" viewBox="0 0 {SIZE} {SIZE}" aria-hidden="true" focusable="false">{inline}</svg>\n',
         encoding="utf-8",
     )
+    # site.css's --fg and --accent. The light accent is its color-mix(in oklab, #7CE0C3 50%, #000)
+    # worked out, since a favicon has no color-mix().
     style = (
-        "path{fill:none;stroke-width:3.2;stroke-linecap:round}.f{stroke:#17161a}.a{stroke:#b8381a}"
-        "@media (prefers-color-scheme:dark){.f{stroke:#ece8df}.a{stroke:#ff8263}}"
+        "path{fill:none;stroke-width:3.2;stroke-linecap:round}.f{stroke:#e8ecf2}.a{stroke:#7ce0c3}"
+        "@media (prefers-color-scheme:light){.f{stroke:#10151d}.a{stroke:#2c564a}}"
     )
     plain = "".join(f'<path class="{c}" d="{d}"/>' for d, _, c in arcs)
     (ROOT / "static/favicon.svg").write_text(
