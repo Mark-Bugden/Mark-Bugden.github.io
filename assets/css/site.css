@@ -509,7 +509,7 @@ figcaption {
   background: var(--color-border);
 }
 .timeline__item { padding-left: var(--space-6); }
-.timeline__role { font-weight: var(--weight-strong); }
+.timeline__role { font-weight: var(--weight-strong); color: var(--color-accent); }
 .timeline__org { color: var(--color-muted); }
 .timeline__since {
   position: relative;
@@ -518,7 +518,6 @@ figcaption {
   font-weight: var(--weight-display);
   font-size: var(--text-lg);
   line-height: var(--leading-snug);
-  color: var(--color-accent);
 }
 .timeline__since::before {
   content: "";
@@ -530,9 +529,9 @@ figcaption {
   transform: translateY(-50%);
   border-radius: 50%;
   background: var(--color-bg);
-  border: 2px solid var(--color-accent);
+  border: 2px solid var(--color-text);
 }
-.timeline__item:first-child .timeline__since::before { background: var(--color-accent); border-color: var(--color-accent); }
+.timeline__item:first-child .timeline__since::before { background: var(--color-text); }
 
 /* Publications */
 
