@@ -496,42 +496,47 @@ figcaption {
 .table thead th { background: var(--color-surface); border-bottom: 1px solid var(--color-border); font-weight: var(--weight-strong); white-space: nowrap; }
 .table tbody tr + tr td { border-top: 1px solid var(--color-border); }
 
-/* Home: timeline. Roles hang off a vertical line; each year sits on the line between two roles. */
+/* Home: timeline. Each role has a dot on a vertical line, which runs from the first role's dot to the
+   last; the year of each move sits on the line between two roles. */
 
-.timeline { list-style: none; padding: 0; position: relative; }
-.timeline::before {
-  content: "";
-  position: absolute;
-  top: 0.5rem;
-  bottom: 0.5rem;
-  left: calc(0.375rem - 1px);
-  width: 2px;
-  background: var(--color-border);
-}
-.timeline__item { padding-left: var(--space-6); }
-.timeline__role { font-weight: var(--weight-strong); color: var(--color-accent); }
-.timeline__org { color: var(--color-muted); }
-.timeline__since {
+.timeline { list-style: none; padding: 0; }
+.timeline__item {
+  --dot-y: 0.85rem; /* half the role line's height, so the dot centres on the job title */
   position: relative;
-  margin-block: var(--space-4);
-  font-family: var(--font-display);
-  font-weight: var(--weight-display);
-  font-size: var(--text-lg);
-  line-height: var(--leading-snug);
+  padding-left: var(--space-6);
 }
-.timeline__since::before {
+.timeline__item::before {
   content: "";
   position: absolute;
-  top: 50%;
-  left: calc(-1 * var(--space-6));
+  z-index: 1;
+  top: var(--dot-y);
+  left: 0;
   width: 0.75rem;
   height: 0.75rem;
   transform: translateY(-50%);
   border-radius: 50%;
   background: var(--color-bg);
-  border: 2px solid var(--color-text);
+  border: 2px solid var(--color-accent);
 }
-.timeline__item:first-child .timeline__since::before { background: var(--color-text); }
+.timeline__item:first-child::before { background: var(--color-accent); }
+.timeline__item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: var(--dot-y);
+  bottom: calc(-1 * var(--dot-y));
+  left: calc(0.375rem - 1px);
+  width: 2px;
+  background: var(--color-border);
+}
+.timeline__role { font-weight: var(--weight-strong); color: var(--color-accent); }
+.timeline__org { color: var(--color-muted); }
+.timeline__since {
+  padding-block: var(--space-4);
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-size: var(--text-lg);
+  line-height: var(--leading-snug);
+}
 
 /* Publications */
 
