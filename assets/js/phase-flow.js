@@ -9,9 +9,6 @@
 // its cell take the accent colour and speed up.
 //
 // With prefers-reduced-motion there are no tracers, and the loop runs only while the band is on screen.
-//
-// Prototype switch: while <html data-phase-probe> is set (from the development panel), moving the
-// mouse over the figure draws the orbit through the pointer.
 (function () {
   var band = document.querySelector('.phase__band');
   var panel = band && band.querySelector('.phase__panel');
@@ -52,13 +49,11 @@
   var newest = 0, filled = 0, sinceSample = 0;
 
   var colours = { fg: [232, 236, 242], accent: [246, 190, 85] };
-  var pointer = null;
   var visible = false, frameId = 0, last = 0;
 
   function sx(qv) { return left + unit * VIEW_W * (qv + 3 * Math.PI) / (6 * Math.PI); }
   function sy(pv) { return unit * (MID - SCALE * pv); }
   function qAt(x) { return (x - left) / (unit * VIEW_W) * 6 * Math.PI - 3 * Math.PI; }
-  function pAt(y) { return (MID - y / unit) / SCALE; }
 
   function layout() {
     var b = band.getBoundingClientRect(), r = panel.getBoundingClientRect();
@@ -206,39 +201,9 @@
     ctx.globalAlpha = 1;
   }
 
-  // The orbit through the pointer: the level set of H(q, p) = p^2 / 2 - cos q at the pointer's energy
-  // E. Below the separatrix (E below 1) it is the closed orbit round the nearest centre; above it, the
-  // rotation on the pointer's side of p = 0.
-  function drawProbe() {
-    var q0 = qAt(pointer.x), p0 = pAt(pointer.y), E = p0 * p0 / 2 - Math.cos(q0);
-    ctx.beginPath();
-    if (E < 1) {
-      var qc = TAU * Math.round(q0 / TAU), reach = Math.acos(Math.max(-1, -E));
-      for (var k = 0; k !== 121; k++) {
-        var t = TAU * k / 120, dq = reach * Math.cos(t);
-        var pv = Math.sqrt(Math.max(0, 2 * (E + Math.cos(dq)))) * (Math.sin(t) > 0 ? 1 : -1);
-        ctx.lineTo(sx(qc + dq), sy(pv));
-      }
-    } else {
-      var side = p0 < 0 ? -1 : 1;
-      for (var x = -4; x <= width + 4; x += 3) {
-        ctx.lineTo(x, sy(side * Math.sqrt(2 * (E + Math.cos(qAt(x))))));
-      }
-    }
-    ctx.globalAlpha = 0.95;
-    ctx.lineWidth = 1.6;
-    ctx.strokeStyle = ctx.fillStyle = rgb(colours.accent);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.arc(pointer.x, pointer.y, 3.5, 0, TAU);
-    ctx.fill();
-    ctx.globalAlpha = 1;
-  }
-
   function draw() {
     ctx.clearRect(0, 0, width, height);
     if (!motion.matches && count) drawDots();
-    if (pointer) drawProbe();
   }
 
   function running() { return visible && !motion.matches; }
@@ -290,16 +255,4 @@
   motion.addEventListener('change', start);
   new MutationObserver(readColours).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
   new MutationObserver(readColours).observe(document.head, { childList: true, subtree: true, characterData: true });
-
-  band.addEventListener('pointermove', function (event) {
-    var on = event.pointerType !== 'touch' && root.hasAttribute('data-phase-probe');
-    if (!on && !pointer) return;
-    var b = band.getBoundingClientRect();
-    pointer = on ? { x: event.clientX - b.left, y: event.clientY - b.top } : null;
-    if (!frameId) draw();
-  });
-  band.addEventListener('pointerleave', function () {
-    pointer = null;
-    if (!frameId) draw();
-  });
 })();

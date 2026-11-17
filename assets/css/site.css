@@ -281,10 +281,14 @@ h2.label { margin-bottom: 12px; text-wrap: wrap; }
 .theme-toggle path { fill: currentColor; }
 .theme-toggle[aria-pressed="true"] svg { transform: scaleX(-1); }
 
-/* Page transitions (a prototype: nothing here runs until the development panel adds the
-   @view-transition opt-in). The header holds still while the page changes under it, and the link
-   that was followed grows into the new page's title (js/view-transitions.js). The title is only as
-   wide as its text, so the two shapes it moves between are both the text's own. */
+/* Page transitions, in browsers that have cross-document view transitions (Chrome, Edge, Safari 18.2
+   and later; elsewhere a link simply loads the page) and not with prefers-reduced-motion. The header
+   holds still while the page changes under it, and the link that was followed grows into the new
+   page's title (js/view-transitions.js). The title is only as wide as its text, so the two shapes it
+   moves between are both the text's own. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
 .site-header { view-transition-name: site-header; }
 .page-header h1 { width: fit-content; view-transition-name: page-title; }
 ::view-transition-group(page-title) {

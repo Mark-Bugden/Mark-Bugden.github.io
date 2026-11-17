@@ -1,9 +1,9 @@
-// Page transitions (a prototype, switched on from the development panel, which adds the
-// @view-transition opt-in): the link the visitor followed grows into the next page's title. As the old
-// page is captured, the followed pill, section link or header link takes the name page-title from
-// that page's own title. On the way back to the home page, the pill of the section just left takes
-// the name, so the title shrinks back into it. Without the opt-in this does nothing: pageswap and
-// pagereveal then come without a viewTransition.
+// Page transitions (site.css opts in): the link the visitor followed grows into the next page's
+// title. As the old page is captured, the followed pill, section link or header link takes the name
+// page-title from that page's own title. On the way back to the home page, the pill of the section
+// just left takes the name, so the title shrinks back into it. Where there is no transition (an older
+// browser, or prefers-reduced-motion), pageswap and pagereveal come without a viewTransition, and
+// this does nothing.
 // This runs inline in head, so it is listening before the new page's first frame. Keep "<" out of
 // it, as in theme.js.
 (function () {
