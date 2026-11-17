@@ -1,2 +1,15 @@
 # Private planning notes
 docs/
+
+# Editor state
+.vs/
+
+# Build inputs and outputs
+node_modules/
+public/
+resources/
+.hugo_build.lock
+
+# Filled by scripts/fetch-demos.sh
+static/demos/
+assets/css/vendor/
