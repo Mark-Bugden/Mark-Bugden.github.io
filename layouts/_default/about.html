@@ -8,24 +8,30 @@
     <section class="about__text" aria-labelledby="background-heading">
       <h2 id="background-heading" class="label">Background</h2>
       <div class="bio">{{ .Content }}</div>
-      <ul class="contact-links">
-        <li><a href="{{ site.Params.github }}" rel="me noopener">GitHub</a></li>
-        <li><a href="{{ site.Params.linkedin }}" rel="me noopener">LinkedIn</a></li>
-        <li><a href="mailto:{{ site.Params.email }}">Email</a></li>
-        {{- /* TODO(mark): add static/cv.pdf; this link appears as soon as it exists. */}}
-        {{- if fileExists "static/cv.pdf" }}
-        <li><a href="{{ "cv.pdf" | relURL }}" download>CV (PDF)</a></li>
-        {{- end }}
-      </ul>
     </section>
     <div class="about__portrait">
-      {{ partial "picture.html" (dict "src" "images/portrait.jpg" "widths" (slice 240 480) "sizes" "240px" "alt" "Portrait of Mark Bugden." "eager" true "class" "about__photo") }}
+      {{ partial "picture.html" (dict "src" "images/portrait.jpg" "widths" (slice 240 480 720) "sizes" "240px" "alt" "Portrait of Mark Bugden." "eager" true "class" "about__photo") }}
     </div>
   </div>
 
   <section class="section" aria-labelledby="timeline-heading">
     <h2 id="timeline-heading" class="label">Timeline</h2>
     {{ partial "timeline.html" . }}
+  </section>
+
+  {{- /* Each row shows the address itself: the email, and each profile's URL without its scheme. */}}
+  <section class="section" aria-labelledby="contact-heading">
+    <h2 id="contact-heading" class="label">Contact</h2>
+    <ul class="rows contact">
+      <li class="row"><span class="contact__name">Email</span><a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a></li>
+      {{- range slice (dict "name" "GitHub" "url" site.Params.github) (dict "name" "LinkedIn" "url" site.Params.linkedin) }}
+      <li class="row"><span class="contact__name">{{ .name }}</span><a href="{{ .url }}" rel="me noopener">{{ .url | strings.TrimPrefix "https://" | strings.TrimPrefix "www." | strings.TrimSuffix "/" }}</a></li>
+      {{- end }}
+      {{- /* TODO(mark): add static/cv.pdf; this row appears as soon as it exists. */}}
+      {{- if fileExists "static/cv.pdf" }}
+      <li class="row"><span class="contact__name">CV</span><a href="{{ "cv.pdf" | relURL }}" download>cv.pdf</a></li>
+      {{- end }}
+    </ul>
   </section>
 </div>
 {{- end }}

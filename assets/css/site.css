@@ -131,7 +131,7 @@ a:hover { color: var(--fg); }
 }
 
 /* Standalone links are at least 44px tall, so they are easy to hit. */
-.site-footer a, .contact-links a, .pub__links a, .more-link, .eyebrow a, .project__meta a,
+.site-footer a, .contact a, .pub__links a, .more-link, .eyebrow a, .project__meta a,
 .project__source a, .in-progress__title, .link-list a {
   display: inline-flex;
   align-items: center;
@@ -448,14 +448,11 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects, .section-link--proj
 .bio { font-size: 18px; line-height: 1.6; }
 .bio > * + * { margin-top: 16px; }
 
-.contact-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0 24px;
-  margin-top: 16px;
-  padding: 0;
-  list-style: none;
-}
+/* Contact: a name and the address itself on each row. The 44px link sets the row's height, so the
+   rows are trimmed to 4px of padding. The name column narrows on phones, so each row stays one line. */
+.contact .row { align-items: center; column-gap: clamp(16px, 4vw, 32px); padding-block: 4px; }
+.contact__name { flex: 0 0 min(130px, 22%); color: var(--muted); }
+.contact a { overflow-wrap: anywhere; }
 
 /* Timeline. A vertical line runs from the first role's dot to the last. Roles sit to its right, each
    with a dot; the year of each move sits to its left, on a short tick that meets the line. */

@@ -25,9 +25,6 @@
 <link rel="preload" href="{{ "fonts/space-grotesk-latin-wght-normal.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 {{- $css := resources.Get "css/site.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
-{{- with site.GetPage "/projects" }}{{ with .OutputFormats.Get "rss" }}
-<link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="Projects · {{ site.Title }}">
-{{- end }}{{ end }}
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:site_name" content="{{ site.Title }}">
 <meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}">

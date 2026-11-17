@@ -20,8 +20,8 @@ disableKinds = ["taxonomy", "term"]
   arxiv = "https://arxiv.org/search/?searchtype=author&query=Bugden%2C+Mark"
 
 [outputs]
-  home = ["HTML", "RSS", "JSON"]
-  section = ["HTML", "RSS"]
+  home = ["HTML", "JSON"]
+  section = ["HTML"]
   page = ["HTML"]
 
 [markup.goldmark.parser.attribute]
@@ -29,6 +29,10 @@ disableKinds = ["taxonomy", "term"]
 
 [markup.highlight]
   noClasses = false
+
+# Lanczos keeps downscaled photos and figures sharper than the default box filter.
+[imaging]
+  resampleFilter = "Lanczos"
 
 [imaging.webp]
   quality = 80

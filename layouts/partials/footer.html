@@ -4,9 +4,6 @@
       <li><a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a></li>
       <li><a href="{{ site.Params.github }}" rel="me noopener">GitHub</a></li>
       <li><a href="{{ site.Params.linkedin }}" rel="me noopener">LinkedIn</a></li>
-      {{- with site.GetPage "/projects" }}{{ with .OutputFormats.Get "rss" }}
-      <li><a href="{{ .RelPermalink }}">Projects feed (RSS)</a></li>
-      {{- end }}{{ end }}
     </ul>
     {{- /* Where Mark works now: the place of the newest role in data/timeline.yaml. */}}
     {{- with index hugo.Data.timeline 0 }}
