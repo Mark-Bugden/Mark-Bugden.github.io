@@ -131,7 +131,7 @@ a:hover { color: var(--fg); }
 }
 
 /* Standalone links are at least 44px tall, so they are easy to hit. */
-.site-footer a, .contact a, .pub__links a, .more-link, .eyebrow a, .project__meta a,
+.contact a, .pub__links a, .more-link, .eyebrow a, .project__meta a,
 .project__source a, .in-progress__title, .link-list a {
   display: inline-flex;
   align-items: center;
@@ -286,21 +286,16 @@ h2.label { margin-bottom: 12px; text-wrap: wrap; }
 .site-footer { margin-top: 56px; padding-bottom: 48px; }
 .site-footer__inner {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0 24px;
+  justify-content: flex-end;
   padding-top: 12px;
   border-top: 1px solid var(--line);
 }
-.site-footer__links {
+.site-footer__place {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0 24px;
-  padding: 0;
-  list-style: none;
+  align-items: center;
+  min-height: 44px;
+  color: var(--muted);
 }
-.site-footer__place { color: var(--muted); }
 
 /* Page furniture */
 
