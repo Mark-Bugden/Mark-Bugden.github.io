@@ -10,4 +10,4 @@ inProgress:
     host: GitHub
 ---
 
-A selection of my personal projects that I find particularly interesting.
+A selection of my personal projects.
