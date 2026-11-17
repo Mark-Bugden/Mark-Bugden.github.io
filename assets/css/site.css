@@ -313,7 +313,7 @@ a:hover { color: var(--color-accent); }
   font-size: var(--text-xl);
   line-height: var(--leading-snug);
   color: var(--color-muted);
-  max-width: 42ch;
+  max-width: 34ch;
 }
 .intro__body {
   margin-top: var(--space-6);
@@ -321,7 +321,6 @@ a:hover { color: var(--color-accent); }
   padding-left: var(--space-5);
   border-left: 3px solid var(--color-accent);
 }
-.intro__body p + p { margin-top: var(--space-4); }
 
 .contact-links {
   display: flex;

@@ -12,7 +12,7 @@
 {{- end -}}
 {{- dict
   "name" site.Params.name
-  "role" (delimit site.Params.role " ")
+  "role" site.Params.role
   "url" site.BaseURL
   "projects" $projects
   "publications" hugo.Data.publications

@@ -2,6 +2,9 @@
 <div class="wrap">
   <header class="page-header">
     <h1>{{ .Title }}</h1>
+    {{- with .Params.lede }}
+    <p class="lede">{{ range $i, $line := . }}{{ if $i }}<br>{{ end }}{{ $line }}{{ end }}</p>
+    {{- end }}
   </header>
 
   <div class="prose">
