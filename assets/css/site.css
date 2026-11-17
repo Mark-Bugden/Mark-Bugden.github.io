@@ -518,6 +518,7 @@ figcaption {
   font-weight: var(--weight-display);
   font-size: var(--text-lg);
   line-height: var(--leading-snug);
+  color: var(--color-accent);
 }
 .timeline__since::before {
   content: "";
@@ -529,7 +530,7 @@ figcaption {
   transform: translateY(-50%);
   border-radius: 50%;
   background: var(--color-bg);
-  border: 2px solid var(--color-muted);
+  border: 2px solid var(--color-accent);
 }
 .timeline__item:first-child .timeline__since::before { background: var(--color-accent); border-color: var(--color-accent); }
 
