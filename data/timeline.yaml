@@ -1,0 +1,38 @@
+# Career timeline, newest first. `year` is when each role started.
+# TODO(mark): the exact PhD completion year (the old timeline's "2013" sat at the PhD marker, which
+#   reads as a start), the undergraduate start year, and the dida end date.
+
+- year: "Dec 2025"
+  role: Senior Data Scientist
+  org: Datamole
+  place: Prague, Czech Republic
+
+- year: "2023"
+  role: Machine Learning Scientist
+  org: dida Datenschmiede GmbH
+  place: Berlin, Germany
+
+- year: "2021"
+  role: Postdoctoral Researcher
+  org: Max Planck Institute
+  place: Konstanz, Germany
+
+- year: "2019"
+  role: Postdoctoral Researcher
+  org: Charles University
+  place: Prague, Czech Republic
+
+- year: "2018"
+  role: MSI “Kickstart” Postdoctoral Fellow
+  org: Australian National University
+  place: Canberra, Australia
+
+- year: "2013"
+  role: PhD
+  org: Australian National University
+  place: Canberra, Australia
+
+- year: ""
+  role: Undergraduate studies
+  org: University of Wollongong
+  place: Wollongong, Australia
