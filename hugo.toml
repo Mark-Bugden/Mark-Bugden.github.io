@@ -6,7 +6,11 @@ disableKinds = ["taxonomy", "term"]
 
 [params]
   name = "Mark Bugden"
-  role = "Senior Data Scientist at Datamole, Prague. Formerly theoretical physics."
+  # Shown as separate lines under the name on the home page; joined with spaces elsewhere.
+  role = [
+    "Senior Data Scientist at Datamole.",
+    "Formerly a Theoretical Physicist, Mathematician, and Machine Learning Scientist.",
+  ]
   jobTitle = "Senior Data Scientist"
   employer = "Datamole"
   description = "Mark Bugden: Senior Data Scientist at Datamole in Prague, formerly a theoretical physicist. Projects, interactive demos and publications."

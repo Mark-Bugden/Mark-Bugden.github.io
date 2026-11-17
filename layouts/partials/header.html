@@ -6,7 +6,7 @@
     </a>
     <nav class="site-nav" aria-label="Main">
       <ul>
-        {{- range slice (dict "name" "About" "url" "/about/") (dict "name" "Projects" "url" "/projects/") (dict "name" "Publications" "url" "/publications/") }}
+        {{- range slice (dict "name" "Projects" "url" "/projects/") (dict "name" "Publications" "url" "/publications/") }}
         {{- $url := .url | relURL }}
         <li><a href="{{ $url }}"
           {{- if eq $.RelPermalink $url }} aria-current="page"

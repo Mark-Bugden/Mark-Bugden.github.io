@@ -127,7 +127,7 @@ a:hover { color: var(--color-accent); }
 }
 
 /* Readable widths inside the wide container. (.prose, .lede and .intro__body set their own.) */
-.section > p, .pub-teaser, .timeline, .in-progress ul, .model-card, .notice { max-width: var(--measure); }
+.section > p, .timeline, .in-progress ul, .model-card, .notice { max-width: var(--measure); }
 .pubs { max-width: 56rem; }
 
 .muted { color: var(--color-muted); }
@@ -262,6 +262,7 @@ a:hover { color: var(--color-accent); }
 .eyebrow a:hover { text-decoration: underline; }
 
 .section { margin-top: var(--space-8); }
+.intro + .section { margin-top: 0; }
 .section > h2 { margin-bottom: var(--space-5); }
 .section > p + * { margin-top: var(--space-4); }
 
@@ -318,7 +319,7 @@ a:hover { color: var(--color-accent); }
   font-size: var(--text-xl);
   line-height: var(--leading-snug);
   color: var(--color-muted);
-  max-width: 34ch;
+  max-width: 42ch;
 }
 .intro__body {
   margin-top: var(--space-6);
@@ -326,6 +327,7 @@ a:hover { color: var(--color-accent); }
   padding-left: var(--space-5);
   border-left: 3px solid var(--color-accent);
 }
+.intro__body p + p { margin-top: var(--space-4); }
 
 .contact-links {
   display: flex;
@@ -484,9 +486,7 @@ figcaption {
 .table thead th { background: var(--color-surface); border-bottom: 1px solid var(--color-border); font-weight: var(--weight-strong); white-space: nowrap; }
 .table tbody tr + tr td { border-top: 1px solid var(--color-border); }
 
-/* About: timeline */
-
-.cv-link { margin-top: var(--space-6); font-weight: var(--weight-strong); }
+/* Home: timeline */
 
 .timeline { list-style: none; padding: 0; position: relative; }
 .timeline::before {
@@ -521,9 +521,6 @@ figcaption {
 @media (min-width: 40rem) {
   .timeline__item { grid-template-columns: 7rem 1fr; gap: var(--space-5); }
 }
-
-.pub-teaser { padding-left: 1.2em; display: grid; gap: var(--space-2); }
-.pub-teaser li::marker { color: var(--color-accent); }
 
 /* Publications */
 
