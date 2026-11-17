@@ -27,10 +27,10 @@
   // spans q from -3 pi to 3 pi; p = 0 is at y = 220, and one unit of p is 76 units of y.
   var VIEW_W = 1200, MID = 220, SCALE = 76;
 
-  var SPEED = 0.9;          // time units of the pendulum per second: a small swing takes about 7 s
+  var SPEED = 0.45;         // time units of the pendulum per second: a small swing takes about 14 s
   var BOOST = 1.2;          // extra speed of a lit cell's dots
   var TAIL = 16;            // tail samples kept per dot
-  var SAMPLE = 1 / 40;      // seconds between tail samples, so a tail shows the last 0.4 s
+  var SAMPLE = 1 / 20;      // seconds between tail samples, so a tail shows the last 0.8 s
   var FADE = 0.2;           // seconds for a cell's dots to light up or go back
 
   // The linked cells, centred on q = -2 pi, 0 and 2 pi, in the order of the dots' groups 1 to 3.
