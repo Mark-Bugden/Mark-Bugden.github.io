@@ -359,14 +359,6 @@ h2.label { margin-bottom: 12px; text-wrap: wrap; }
 .phase__curves .phase__cell path { fill: transparent; stroke: none; pointer-events: fill; }
 .phase__cell:focus { outline: none; }
 
-.phase__axis {
-  position: absolute;
-  font: 400 11px/1.5 var(--font-mono);
-  color: var(--muted);
-}
-.phase__axis--p { left: 12px; top: 8px; }
-.phase__axis--q { right: 12px; bottom: 6px; }
-
 .phase__pill {
   position: absolute;
   top: 50%;

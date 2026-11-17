@@ -15,8 +15,6 @@
   <figure class="phase">
     <div class="phase__panel">
       {{ partial "phase-portrait.html" . }}
-      <span class="phase__axis phase__axis--p" aria-hidden="true">p</span>
-      <span class="phase__axis phase__axis--q" aria-hidden="true">q</span>
       {{- range $sections }}
       <a class="phase__pill phase__pill--{{ .key }}" href="{{ .url | relURL }}">{{ .name }}</a>
       {{- end }}
