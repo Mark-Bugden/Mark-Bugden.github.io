@@ -10,9 +10,9 @@
     <div class="lede">{{ .Content }}</div>
   </header>
 
-  <ol class="pubs">
+  <ol class="rows pubs">
     {{- range hugo.Data.publications }}
-    <li class="pub">
+    <li class="row pub">
       <p class="pub__year">{{ .year }}</p>
       <div class="pub__body">
         <h2 class="pub__title">{{ .title }}</h2>
@@ -20,11 +20,11 @@
           {{- range $i, $author := .authors }}{{ if $i }}, {{ end }}{{ if eq $author site.Params.name }}<strong>{{ $author }}</strong>{{ else }}{{ $author }}{{ end }}{{ end -}}
         </p>
         <p class="pub__venue">{{ .venue }}</p>
-        <ul class="pub__links">
-          {{- with .arxiv }}<li><a href="https://arxiv.org/abs/{{ . }}" rel="noopener">arXiv:{{ . }}</a></li>{{ end }}
-          {{- with .doi }}<li><a href="https://doi.org/{{ . }}" rel="noopener">doi:{{ . }}</a></li>{{ end }}
-        </ul>
       </div>
+      <ul class="pub__links">
+        {{- with .arxiv }}<li><a href="https://arxiv.org/abs/{{ . }}" rel="noopener">arXiv:{{ . }}</a></li>{{ end }}
+        {{- with .doi }}<li><a href="https://doi.org/{{ . }}" rel="noopener">doi:{{ . }}</a></li>{{ end }}
+      </ul>
     </li>
     {{- end }}
   </ol>

@@ -1,13 +1,9 @@
-<footer class="site-footer">
-  <div class="wrap site-footer__inner">
-    <p>© {{ now.Year }} {{ site.Params.name }}</p>
-    <ul class="site-footer__links">
-      <li><a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a></li>
-      <li><a href="{{ site.Params.github }}" rel="me noopener">GitHub</a></li>
-      <li><a href="{{ site.Params.linkedin }}" rel="me noopener">LinkedIn</a></li>
-      {{- with site.GetPage "/projects" }}{{ with .OutputFormats.Get "rss" }}
-      <li><a href="{{ .RelPermalink }}">Projects feed (RSS)</a></li>
-      {{- end }}{{ end }}
-    </ul>
+<footer class="site-footer wrap">
+  <div class="site-footer__inner">
+    {{- /* Where Mark works now: the place of the newest role in data/timeline.yaml. His contact links
+       are in the Contact section of the About page. */}}
+    {{- with index hugo.Data.timeline 0 }}
+    <p class="site-footer__place">{{ .place }}</p>
+    {{- end }}
   </div>
 </footer>

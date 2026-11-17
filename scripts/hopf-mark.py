@@ -105,9 +105,11 @@ def main():
         f'<svg class="mark" viewBox="0 0 {SIZE} {SIZE}" aria-hidden="true" focusable="false">{inline}</svg>\n',
         encoding="utf-8",
     )
+    # site.css's --fg and --accent for each theme. The site itself is dark unless the visitor picks
+    # light, but a favicon sits on the browser's tab strip, so it follows the browser's theme.
     style = (
-        "path{fill:none;stroke-width:3.2;stroke-linecap:round}.f{stroke:#17161a}.a{stroke:#b8381a}"
-        "@media (prefers-color-scheme:dark){.f{stroke:#ece8df}.a{stroke:#ff8263}}"
+        "path{fill:none;stroke-width:3.2;stroke-linecap:round}.f{stroke:#e8ecf2}.a{stroke:#f6be55}"
+        "@media (prefers-color-scheme:light){.f{stroke:#10151d}.a{stroke:#c2391b}}"
     )
     plain = "".join(f'<path class="{c}" d="{d}"/>' for d, _, c in arcs)
     (ROOT / "static/favicon.svg").write_text(

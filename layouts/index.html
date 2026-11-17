@@ -1,41 +1,49 @@
 {{- define "head" }}{{ partial "jsonld-person.html" . }}{{ end }}
 
 {{- define "main" }}
-<section class="wrap intro" aria-labelledby="intro-name">
-  <div class="intro__text">
-    <h1 id="intro-name" class="intro__name">{{ site.Params.name }}</h1>
-    <p class="intro__role">{{ range $i, $line := site.Params.role }}{{ if $i }}<br>{{ end }}{{ $line }}{{ end }}</p>
-    <div class="intro__body">{{ .Content }}</div>
-    <ul class="contact-links">
-      <li><a href="{{ site.Params.github }}" rel="me noopener">GitHub</a></li>
-      <li><a href="{{ site.Params.linkedin }}" rel="me noopener">LinkedIn</a></li>
-      <li><a href="mailto:{{ site.Params.email }}">Email</a></li>
-      {{- /* TODO(mark): add static/cv.pdf; this link appears as soon as it exists. */}}
-      {{- if fileExists "static/cv.pdf" }}
-      <li><a href="{{ "cv.pdf" | relURL }}" download>CV (PDF)</a></li>
-      {{- end }}
-    </ul>
+{{- /* The three sections, in reading order: a pill on the figure and a link below it for each. */}}
+{{- $sections := slice
+  (dict "key" "about" "name" "About" "url" "about/" "summary" "Background, experience, and contact")
+  (dict "key" "publications" "name" "Publications" "url" "publications/" "summary" "Papers and preprints")
+  (dict "key" "projects" "name" "Projects" "url" "projects/" "summary" "Portfolio of selected work") }}
+<div class="wrap">
+  <div class="home-intro">
+    <h1>{{ site.Params.name }}</h1>
+    <p class="home-intro__role">{{ range $i, $line := site.Params.role }}{{ if $i }}<br>{{ end }}{{ $line }}{{ end }}</p>
   </div>
-  <div class="intro__portrait">
-    {{ partial "picture.html" (dict "src" "images/portrait.jpg" "widths" (slice 320 640) "sizes" "(min-width: 48rem) 18rem, 14rem" "alt" "Portrait of Mark Bugden." "eager" true "class" "portrait") }}
-  </div>
-</section>
 
-{{- $live := where (partial "listed-projects.html" .) "status" "live" }}
-{{- with first 3 $live }}
-<section class="wrap featured" aria-labelledby="featured-heading">
-  <h2 id="featured-heading">Featured projects</h2>
-  <ul class="card-grid">
-    {{- range . }}
-    <li>{{ partial "project-card.html" (merge . (dict "level" 3)) }}</li>
+  <figure class="phase">
+    <div class="phase__panel">
+      {{ partial "phase-portrait.html" . }}
+      {{- range $sections }}
+      <a class="phase__pill phase__pill--{{ .key }}" href="{{ .url | relURL }}">{{ .name }}</a>
+      {{- end }}
+    </div>
+    <figcaption class="label">Phase portrait of a simple pendulum</figcaption>
+  </figure>
+
+  <ul class="section-links">
+    {{- range $sections }}
+    <li>
+      <a class="section-link section-link--{{ .key }}" href="{{ .url | relURL }}">
+        <span class="section-link__title">{{ .name }}</span>
+        <span class="section-link__desc">{{ .summary }}</span>
+      </a>
+    </li>
     {{- end }}
   </ul>
-  <p><a class="more-link" href="{{ "projects/" | relURL }}">All projects</a></p>
-</section>
-{{- end }}
 
-<section class="wrap section" aria-labelledby="timeline-heading">
-  <h2 id="timeline-heading">Timeline</h2>
-  {{ partial "timeline.html" . }}
-</section>
+  {{- $live := where (partial "listed-projects.html" .) "status" "live" }}
+  {{- with first 3 $live }}
+  <section class="section" aria-labelledby="featured-heading">
+    <h2 id="featured-heading" class="label">Featured projects</h2>
+    <ul class="card-grid">
+      {{- range . }}
+      <li>{{ partial "project-card.html" (merge . (dict "level" 3)) }}</li>
+      {{- end }}
+    </ul>
+    <p class="more-link-row"><a class="more-link" href="{{ "projects/" | relURL }}">All projects</a></p>
+  </section>
+  {{- end }}
+</div>
 {{- end }}
