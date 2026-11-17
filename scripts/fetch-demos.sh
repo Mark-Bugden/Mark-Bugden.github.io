@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Fetch, unpack and validate every demo bundle listed in data/projects.yaml, then vendor the pinned
-# demo-kit's tokens.css for the site's stylesheet. Fails, never skips, if any bundle is missing or invalid.
+# Fetch, unpack and validate every demo bundle listed in data/projects.yaml. Fails, never skips, if any
+# bundle is missing or invalid.
 #
 # Usage: scripts/fetch-demos.sh [--drop-stubs]
 #   --drop-stubs  after validating, delete bundles whose manifest status is "stub", so a production
@@ -65,7 +65,3 @@ while read -r slug repo tag; do
     echo "   status is stub: validated, and dropped from this build"
   fi
 done <<< "$entries"
-
-mkdir -p assets/css/vendor
-cp node_modules/@mark-bugden/demo-kit/tokens.css assets/css/vendor/tokens.css
-echo "Copied tokens.css from demo-kit $(node -p "require('@mark-bugden/demo-kit/package.json').version")"

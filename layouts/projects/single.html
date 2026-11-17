@@ -29,7 +29,7 @@
     {{- with $manifest }}
     <p class="lede">{{ .tagline }}</p>
     <ul class="project__meta">
-      {{- if eq .status "in-progress" }}<li><span class="badge badge--in-progress">In progress</span></li>{{ end }}
+      {{- if eq .status "in-progress" }}<li class="label">In progress</li>{{ end }}
       <li>Last built <time datetime="{{ .built }}">{{ time.Format "2 January 2006" .built }}</time></li>
       <li><a href="{{ .repo }}" rel="noopener">Source on GitHub</a></li>
     </ul>
