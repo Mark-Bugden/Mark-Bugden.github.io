@@ -19,6 +19,12 @@
 {{- with resources.Get "js/theme.js" | minify }}
 <script>{{ .Content | safeJS }}</script>
 {{- end }}
+{{- with resources.Get "js/view-transitions.js" | minify }}
+<script>{{ .Content | safeJS }}</script>
+{{- end }}
+{{- /* For page transitions: hold the first frame until <main> is parsed, so the title it grows into is
+   there to capture. */}}
+<link rel="expect" href="#main" blocking="render">
 <link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
 <link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">
 <link rel="preload" href="{{ "fonts/inter-latin-wght-normal.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>

@@ -3,10 +3,13 @@
 Usage: python scripts/phase-portrait.py
 Writes layouts/partials/phase-portrait.html, a static SVG coloured by site.css (.phase).
 
-The curves are level sets of the energy H(q, p) = p^2 / 2 - cos q, for q from -3 pi to 3 pi:
-rotations above and below (E > 1), the dashed separatrix (E = 1), and closed orbits round the
-three stable centres q = -2 pi, 0 and 2 pi (-1 < E < 1). Each group of closed orbits gets its own
-class, so the home page can highlight it while the link placed on it is hovered or focused.
+The curves are level sets of the energy H(q, p) = p^2 / 2 - cos q: rotations above and below
+(E > 1), the dashed separatrix (E = 1), and closed orbits round the stable centres (-1 < E < 1).
+The figure runs the full width of the window. Its viewBox puts the three linked centres,
+q = -2 pi, 0 and 2 pi, at x = 0 to 1200; the portrait repeats every 2 pi, so it continues for three
+more periods on each side (q from -9 pi to 9 pi, x from -1200 to 2400) to fill wide screens. Each
+linked group of closed orbits gets its own class, so the home page can highlight it while the link
+placed on it is hovered or focused. The outer cells all reuse one orbit path, kept in <defs>.
 
 On top sit three invisible links, one per centre, each filling the cell the separatrix draws round
 it: hovering anywhere inside a cell lights its orbits, and a click there follows the link. They are
@@ -17,8 +20,10 @@ import math
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-W, H, S = 1200, 440, 76  # viewBox width, viewBox height, pixels per unit of p
+W, H, S = 1200, 440, 76  # width of the linked part, viewBox height, pixels per unit of p
+PERIODS = 3  # periods drawn on each side of the linked part
 X = lambda q: (q + 3 * math.pi) / (6 * math.pi) * W
+Q_MAX = (3 + 2 * PERIODS) * math.pi  # the curves run from -Q_MAX to Q_MAX
 Y = lambda p: H / 2 - p * S
 fmt = lambda v: f"{v:.1f}".rstrip("0").rstrip(".")
 
@@ -39,9 +44,10 @@ def orbit(qc, E, n=48):
     return path(pts, close=True)
 
 
-def curve(f, n):
-    """Open curve p = f(q) across the full q range."""
-    qs = (-3 * math.pi + 6 * math.pi * k / (n - 1) for k in range(n))
+def curve(f, per_period):
+    """Open curve p = f(q) across the full q range, with per_period segments to each period."""
+    n = round(per_period * Q_MAX / math.pi) + 1
+    qs = (-Q_MAX + 2 * Q_MAX * k / (n - 1) for k in range(n))
     return path([(X(q), Y(f(q))) for q in qs])
 
 
@@ -55,19 +61,26 @@ def cell(qc, n=61):
 
 def main():
     centres = (("about", -2 * math.pi), ("publications", 0.0), ("projects", 2 * math.pi))
-    groups = {name: "".join(orbit(qc, E) for E in (-0.4, 0.0, 0.4, 0.75)) for name, qc in centres}
+    energies = (-0.4, 0.0, 0.4, 0.75)
+    groups = {name: "".join(orbit(qc, E) for E in energies) for name, qc in centres}
+    # The outer cells: one copy of the orbits round q = 0, shifted a whole number of periods.
+    shared = "".join(orbit(0.0, E) for E in energies)
+    shifts = [k * W / 3 for k in range(-(PERIODS + 1), PERIODS + 2) if abs(k) > 1]
     # Each link goes to the section of the same name; the href is Hugo template code, so the partial
     # resolves it against the site's base URL.
     cells = {name: cell(qc) for name, qc in centres}
-    separatrix = "".join(curve(lambda q, s=s: s * 2 * math.cos(q / 2), 61) for s in (1, -1))
+    separatrix = "".join(curve(lambda q, s=s: s * 2 * math.cos(q / 2), 20) for s in (1, -1))
     rotations = "".join(
-        curve(lambda q, E=E, s=s: s * math.sqrt(2 * (E + math.cos(q))), 49)
+        curve(lambda q, E=E, s=s: s * math.sqrt(2 * (E + math.cos(q))), 16)
         for E in (1.4, 2.05, 2.9) for s in (1, -1)
     )
+    x0, width = fmt(X(-Q_MAX)), fmt(X(Q_MAX) - X(-Q_MAX))
     svg = [
-        f'<svg class="phase__curves" viewBox="0 0 {W} {H}" aria-hidden="true" focusable="false">',
+        f'<svg class="phase__curves" viewBox="{x0} 0 {width} {H}" aria-hidden="true" focusable="false">',
+        f'<defs><path id="phase-orbits" d="{shared}"/></defs>',
         f'<path class="phase__rotations" d="{rotations}"/>',
         f'<path class="phase__separatrix" d="{separatrix}"/>',
+        *(f'<use class="phase__outer" href="#phase-orbits" x="{fmt(dx)}"/>' for dx in shifts),
         *(f'<path class="phase__orbits phase__orbits--{name}" d="{d}"/>' for name, d in groups.items()),
         *(
             f'<a class="phase__cell phase__cell--{name}" href="{{{{ "{name}/" | relURL }}}}" tabindex="-1"><path d="{d}"/></a>'
