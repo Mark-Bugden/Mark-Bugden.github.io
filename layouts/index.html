@@ -1,4 +1,9 @@
-{{- define "head" }}{{ partial "jsonld-person.html" . }}{{ end }}
+{{- define "head" }}
+{{- partial "jsonld-person.html" . }}
+{{- with resources.Get "js/phase-flow.js" | minify | fingerprint }}
+<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
+{{- end }}
+{{- end }}
 
 {{- define "main" }}
 {{- /* The three sections, in reading order: a pill on the figure and a link below it for each. */}}
@@ -11,17 +16,26 @@
     <h1>{{ site.Params.name }}</h1>
     <p class="home-intro__role">{{ range $i, $line := site.Params.role }}{{ if $i }}<br>{{ end }}{{ $line }}{{ end }}</p>
   </div>
+</div>
 
-  <figure class="phase">
-    <div class="phase__panel">
-      {{ partial "phase-portrait.html" . }}
-      {{- range $sections }}
-      <a class="phase__pill phase__pill--{{ .key }}" href="{{ .url | relURL }}">{{ .name }}</a>
-      {{- end }}
+{{- /* The figure runs the full width of the window: the panel keeps to the content column, with its
+   pills on the three linked cells, and the curves carry on past it to both edges. js/phase-flow.js
+   adds the moving tracers on a canvas across the whole band. */}}
+<figure class="phase">
+  <div class="phase__band">
+    <div class="wrap">
+      <div class="phase__panel">
+        {{ partial "phase-portrait.html" . }}
+        {{- range $sections }}
+        <a class="phase__pill phase__pill--{{ .key }}" href="{{ .url | relURL }}">{{ .name }}</a>
+        {{- end }}
+      </div>
     </div>
-    <figcaption class="label">Phase portrait of a simple pendulum</figcaption>
-  </figure>
+  </div>
+  <figcaption class="wrap label">Phase portrait of a simple pendulum</figcaption>
+</figure>
 
+<div class="wrap">
   <ul class="section-links">
     {{- range $sections }}
     <li>
