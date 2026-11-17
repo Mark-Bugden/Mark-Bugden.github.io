@@ -1,45 +1,36 @@
-# Career timeline, newest first. Each entry shows as "start – end"; leave `end` empty for the
-# current role ("Since …") or `start` empty when it is not shown ("Until …").
-# Years come from the old site's timeline, which marked the year of each move between roles.
+# Career timeline, newest first. `since` is the year a role began; it is shown on the line between
+# that role and the one before it. There are no gaps, so it is also when the earlier role ended.
 
-- start: Dec 2025
-  end: ""
-  role: Senior Data Scientist
+- role: Senior Data Scientist
   org: Datamole
   place: Prague, Czech Republic
+  since: Dec 2025
 
-- start: "2023"
-  end: "2025"
-  role: Machine Learning Scientist
+- role: Machine Learning Scientist
   org: dida Datenschmiede GmbH
   place: Berlin, Germany
+  since: "2023"
 
-- start: "2021"
-  end: "2023"
-  role: Postdoctoral Researcher
+- role: Postdoctoral Researcher
   org: Max Planck Institute
   place: Konstanz, Germany
+  since: "2021"
 
-- start: "2019"
-  end: "2021"
-  role: Postdoctoral Researcher
+- role: Postdoctoral Researcher
   org: Charles University
   place: Prague, Czech Republic
+  since: "2019"
 
-- start: "2018"
-  end: "2019"
-  role: MSI “Kickstart” Postdoctoral Fellow
+- role: MSI “Kickstart” Postdoctoral Fellow
   org: Australian National University
   place: Canberra, Australia
+  since: "2018"
 
-- start: "2013"
-  end: "2018"
-  role: PhD in Mathematical Physics
+- role: PhD in Mathematical Physics
   org: Australian National University
   place: Canberra, Australia
+  since: "2013"
 
-- start: ""
-  end: "2013"
-  role: Undergraduate studies
+- role: Undergraduate studies
   org: University of Wollongong
   place: Wollongong, Australia
