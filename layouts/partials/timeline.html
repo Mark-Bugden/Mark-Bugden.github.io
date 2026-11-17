@@ -1,0 +1,12 @@
+{{- /* Career timeline from data/timeline.yaml, newest first. */ -}}
+<ol class="timeline">
+  {{- range hugo.Data.timeline }}
+  <li class="timeline__item">
+    <p class="timeline__year">{{ .year | default "Earlier" }}</p>
+    <div class="timeline__body">
+      <p class="timeline__role">{{ .role }}</p>
+      <p class="timeline__org">{{ .org }}<span class="timeline__place">, {{ .place }}</span></p>
+    </div>
+  </li>
+  {{- end }}
+</ol>

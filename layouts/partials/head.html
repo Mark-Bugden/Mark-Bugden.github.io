@@ -1,0 +1,46 @@
+{{- $title := site.Title -}}
+{{- if eq .Kind "404" }}{{ $title = printf "Page not found · %s" site.Title }}
+{{- else if not .IsHome }}{{ $title = printf "%s · %s" .Title site.Title }}{{ end -}}
+{{- $description := .Description | default site.Params.description -}}
+{{- if eq .Kind "404" }}{{ $description = "This page does not exist. Find Mark Bugden's projects, background and publications from here." }}{{ end -}}
+{{- $og := partial "og-image.html" . -}}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ $title }}</title>
+<meta name="description" content="{{ $description }}">
+{{- if eq .Kind "404" }}
+<meta name="robots" content="noindex">
+{{- else }}
+<link rel="canonical" href="{{ .Permalink }}">
+{{- end }}
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f4f1e9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111215" media="(prefers-color-scheme: dark)">
+{{- with resources.Get "js/theme.js" | minify }}
+<script>{{ .Content | safeJS }}</script>
+{{- end }}
+<link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{{ "apple-touch-icon.png" | relURL }}">
+<link rel="preload" href="{{ "fonts/ibm-plex-sans-latin-wght-normal.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/fraunces-latin-wght-normal.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+{{- $tokens := resources.Get "css/vendor/tokens.css" }}
+{{- if not $tokens }}{{ errorf "assets/css/vendor/tokens.css is missing: run scripts/fetch-demos.sh, which copies it from the pinned demo-kit" }}{{ end }}
+{{- $css := slice $tokens (resources.Get "css/site.css") | resources.Concat "css/site.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+{{- with site.GetPage "/projects" }}{{ with .OutputFormats.Get "rss" }}
+<link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="Projects · {{ site.Title }}">
+{{- end }}{{ end }}
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}">
+<meta property="og:description" content="{{ $description }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:image" content="{{ $og.url }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{ $og.alt }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}">
+<meta name="twitter:description" content="{{ $description }}">
+<meta name="twitter:image" content="{{ $og.url }}">
+<meta name="twitter:image:alt" content="{{ $og.alt }}">

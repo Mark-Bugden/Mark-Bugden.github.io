@@ -1,0 +1,16 @@
+{{- $portrait := (resources.Get "images/portrait.jpg").Resize "640x webp" -}}
+{{- $person := dict
+  "@context" "https://schema.org"
+  "@type" "Person"
+  "name" site.Params.name
+  "url" site.BaseURL
+  "image" $portrait.Permalink
+  "email" (printf "mailto:%s" site.Params.email)
+  "jobTitle" site.Params.jobTitle
+  "worksFor" (dict "@type" "Organization" "name" site.Params.employer)
+  "alumniOf" (slice
+    (dict "@type" "CollegeOrUniversity" "name" "Australian National University")
+    (dict "@type" "CollegeOrUniversity" "name" "University of Wollongong"))
+  "sameAs" (slice site.Params.github site.Params.linkedin site.Params.arxiv)
+-}}
+<script type="application/ld+json">{{ $person | jsonify | safeJS }}</script>

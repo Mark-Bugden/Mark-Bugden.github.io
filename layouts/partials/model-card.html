@@ -1,0 +1,20 @@
+{{- /* The model card from a manifest's optional modelCard. Takes the modelCard dict. */ -}}
+<section class="model-card" aria-labelledby="model-card-heading">
+  <h2 id="model-card-heading">Model card</h2>
+  <dl>
+    <dt>What it computes</dt>
+    <dd>{{ .what }}</dd>
+    {{- with .data }}
+    <dt>Data</dt>
+    <dd>{{ . }}</dd>
+    {{- end }}
+    {{- with .metric }}
+    <dt>Performance</dt>
+    <dd>{{ . }}</dd>
+    {{- end }}
+    {{- with .limits }}
+    <dt>Known limits</dt>
+    <dd><ul>{{ range . }}<li>{{ . }}</li>{{ end }}</ul></dd>
+    {{- end }}
+  </dl>
+</section>

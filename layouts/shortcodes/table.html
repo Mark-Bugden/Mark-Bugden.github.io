@@ -1,0 +1,11 @@
+{{- /* A Markdown table with a caption, scrollable on its own on narrow screens.
+   {{< table caption="…" >}} | a | b | … {{< /table >}} */ -}}
+{{- $caption := .Get "caption" -}}
+<figure class="table">
+  <div class="table__scroll" role="region" tabindex="0"{{ with $caption }} aria-label="{{ . }}"{{ end }}>
+    {{ .Inner | .Page.RenderString (dict "display" "block") }}
+  </div>
+  {{- with $caption }}
+  <figcaption>{{ . }}</figcaption>
+  {{- end }}
+</figure>

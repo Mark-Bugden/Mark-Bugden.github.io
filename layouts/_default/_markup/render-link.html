@@ -1,0 +1,4 @@
+{{- /* Markdown links: external ones get rel="noopener"; none open a new tab. */ -}}
+{{- $url := urls.Parse .Destination -}}
+<a href="{{ .Destination | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $url.IsAbs }} rel="noopener"{{ end }}>{{ .Text }}</a>
+{{- /* chomp trailing newline */ -}}

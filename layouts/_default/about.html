@@ -1,0 +1,36 @@
+{{- define "main" }}
+<div class="wrap">
+  <header class="page-header">
+    <h1>{{ .Title }}</h1>
+  </header>
+
+  <div class="prose">
+    {{ .Content }}
+  </div>
+
+  {{- /* TODO(mark): add static/cv.pdf; the download link below appears as soon as it exists. */}}
+  {{- if fileExists "static/cv.pdf" }}
+  <p class="cv-link"><a href="{{ "cv.pdf" | relURL }}" download>Download my CV (PDF)</a></p>
+  {{- end }}
+
+  <section class="section" aria-labelledby="timeline-heading">
+    <h2 id="timeline-heading">Timeline</h2>
+    {{ partial "timeline.html" . }}
+  </section>
+
+  {{- with site.GetPage "/publications" }}
+  <section class="section" aria-labelledby="publications-heading">
+    <h2 id="publications-heading">Publications</h2>
+    {{- $papers := 0 }}
+    {{- range hugo.Data.publications }}{{ if not (strings.Contains .venue "thesis") }}{{ $papers = add $papers 1 }}{{ end }}{{ end }}
+    <p>{{ $papers }} papers and a PhD thesis in mathematical physics. The most recent:</p>
+    <ul class="pub-teaser">
+      {{- range first 3 hugo.Data.publications }}
+      <li><a href="https://arxiv.org/abs/{{ .arxiv }}" rel="noopener">{{ .title }}</a> <span class="muted">({{ .year }})</span></li>
+      {{- end }}
+    </ul>
+    <p><a class="more-link" href="{{ .RelPermalink }}">All publications</a></p>
+  </section>
+  {{- end }}
+</div>
+{{- end }}

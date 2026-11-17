@@ -1,0 +1,14 @@
+{{- define "main" }}
+<div class="wrap">
+  <header class="page-header">
+    <h1>Page not found</h1>
+    <p class="lede">That page doesn’t exist, or it has moved. One of these may be what you were looking for:</p>
+  </header>
+  <ul class="link-list">
+    <li><a href="{{ "/" | relURL }}">Home</a></li>
+    <li><a href="{{ "about/" | relURL }}">About</a></li>
+    <li><a href="{{ "projects/" | relURL }}">Projects</a></li>
+    <li><a href="{{ "publications/" | relURL }}">Publications</a></li>
+  </ul>
+</div>
+{{- end }}

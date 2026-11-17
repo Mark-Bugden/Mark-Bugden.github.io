@@ -1,0 +1,35 @@
+{{- define "main" }}
+<div class="wrap">
+  <header class="page-header">
+    <h1>{{ .Title }}</h1>
+    <div class="lede">{{ .Content }}</div>
+  </header>
+
+  {{- with partial "listed-projects.html" . }}
+  <ul class="card-grid">
+    {{- range . }}
+    <li>{{ partial "project-card.html" (merge . (dict "level" 2)) }}</li>
+    {{- end }}
+  </ul>
+  {{- end }}
+
+  {{- with .Params.inProgress }}
+  <section class="in-progress" aria-labelledby="in-progress-heading">
+    <h2 id="in-progress-heading">In progress</h2>
+    <ul>
+      {{- range . }}
+      <li>
+        {{- if .url }}
+        <a class="in-progress__title" href="{{ .url }}" rel="noopener">{{ .title }}</a>
+        <span>{{ .summary }}{{ with .host }} On {{ . }}.{{ end }}</span>
+        {{- else }}
+        <span class="in-progress__title">{{ .title }}</span>
+        <span>{{ .summary }}</span>
+        {{- end }}
+      </li>
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}
+</div>
+{{- end }}

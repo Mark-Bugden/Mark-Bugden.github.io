@@ -1,0 +1,6 @@
+{{- /* The link-preview image: a project's own og.jpg on its page, the site default everywhere else. */ -}}
+{{- $og := dict "url" ("og.jpg" | absURL) "alt" (printf "%s: %s" site.Title site.Params.role) -}}
+{{- with and (eq .Section "projects") .IsPage .Params.demo -}}
+  {{- $og = dict "url" (printf "demos/%s/og.jpg" . | absURL) "alt" (printf "Preview of the %s demo." $.Title) -}}
+{{- end -}}
+{{- return $og -}}

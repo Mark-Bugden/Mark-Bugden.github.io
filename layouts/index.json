@@ -1,0 +1,19 @@
+{{- /* /index.json: a machine-readable summary of the site: who, which projects are listed, and the publications. */ -}}
+{{- $projects := slice -}}
+{{- range partial "listed-projects.html" . -}}
+  {{- $projects = $projects | append (dict
+    "slug" .slug
+    "title" .page.Title
+    "tagline" .manifest.tagline
+    "status" .status
+    "url" .page.Permalink
+    "repo" .manifest.repo
+    "built" .manifest.built) -}}
+{{- end -}}
+{{- dict
+  "name" site.Params.name
+  "role" site.Params.role
+  "url" site.BaseURL
+  "projects" $projects
+  "publications" hugo.Data.publications
+  | jsonify (dict "indent" "  ") -}}

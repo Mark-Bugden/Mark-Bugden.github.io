@@ -1,0 +1,10 @@
+{{- /* The demo embed from the bundle contract. Takes a dict: slug, manifest. The bundle's demo.css is
+   linked from the page's head (projects/single.html). The script replaces the still image when it
+   mounts; until then, and with JavaScript off, the still is what shows. data-embedded tells the
+   frame that this page renders the title, tagline, model card and links itself. */ -}}
+<div class="demo-embed">
+  <div data-demo="{{ .slug }}" data-embedded>
+    <img src="{{ printf "demos/%s/static.webp" .slug | relURL }}" width="1200" height="675" alt="Still of the {{ .manifest.title }} demo’s opening state.">
+  </div>
+</div>
+<script type="module" src="{{ printf "demos/%s/demo.js" .slug | relURL }}"></script>

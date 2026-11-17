@@ -1,0 +1,32 @@
+{{- define "head" }}{{ partial "jsonld-person.html" . }}{{ end }}
+
+{{- define "main" }}
+<section class="wrap intro" aria-labelledby="intro-name">
+  <div class="intro__text">
+    <h1 id="intro-name" class="intro__name">{{ site.Params.name }}</h1>
+    <p class="intro__role">{{ site.Params.role }}</p>
+    <div class="intro__body">{{ .Content }}</div>
+    <ul class="contact-links">
+      <li><a href="{{ site.Params.github }}" rel="me noopener">GitHub</a></li>
+      <li><a href="{{ site.Params.linkedin }}" rel="me noopener">LinkedIn</a></li>
+      <li><a href="mailto:{{ site.Params.email }}">Email</a></li>
+    </ul>
+  </div>
+  <div class="intro__portrait">
+    {{ partial "picture.html" (dict "src" "images/portrait.jpg" "widths" (slice 320 640) "sizes" "(min-width: 48rem) 18rem, 14rem" "alt" "Portrait of Mark Bugden." "eager" true "class" "portrait") }}
+  </div>
+</section>
+
+{{- $live := where (partial "listed-projects.html" .) "status" "live" }}
+{{- with first 3 $live }}
+<section class="wrap featured" aria-labelledby="featured-heading">
+  <h2 id="featured-heading">Featured projects</h2>
+  <ul class="card-grid">
+    {{- range . }}
+    <li>{{ partial "project-card.html" (merge . (dict "level" 3)) }}</li>
+    {{- end }}
+  </ul>
+  <p><a class="more-link" href="{{ "projects/" | relURL }}">All projects</a></p>
+</section>
+{{- end }}
+{{- end }}

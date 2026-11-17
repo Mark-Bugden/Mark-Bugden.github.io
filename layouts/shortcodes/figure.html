@@ -1,0 +1,21 @@
+{{- /* A write-up figure, re-encoded as WebP at 800 and 1600 px (400 and 800 with size="small").
+   {{< figure src="images/…" alt="…" caption="…" size="small" eager="true" >}}
+   src is a path under assets/; alt is required; caption is Markdown; eager is for the first image. */ -}}
+{{- $src := .Get "src" -}}
+{{- $alt := .Get "alt" -}}
+{{- if not $alt }}{{ errorf "%s: figure %q needs alt text" .Position $src }}{{ end -}}
+{{- $img := resources.Get $src -}}
+{{- if not $img }}{{ errorf "%s: figure image %q not found under assets/" .Position $src }}{{ end -}}
+{{- $small := eq (.Get "size") "small" -}}
+{{- $eager := in (slice true "true") (.Get "eager") -}}
+<figure class="figure{{ if $small }} figure--small{{ end }}">
+  {{ partial "picture.html" (dict
+    "image" $img
+    "widths" (cond $small (slice 400 800) (slice 800 1600))
+    "sizes" (cond $small "(min-width: 30rem) 25rem, 100vw" "(min-width: 50rem) 46rem, 100vw")
+    "alt" $alt
+    "eager" $eager) }}
+  {{- with .Get "caption" }}
+  <figcaption>{{ . | markdownify }}</figcaption>
+  {{- end }}
+</figure>
