@@ -114,16 +114,21 @@ a:hover { color: var(--color-accent); }
 }
 .skip-link:focus { transform: none; color: var(--color-bg); }
 
+/* One container for the header, footer and every page, so all content shares the logo's left edge.
+   Running text is capped at a readable measure inside it and stays left-aligned. */
 .wrap {
   width: 100%;
-  max-width: 46rem;
+  max-width: 72rem;
   margin-inline: auto;
   padding-inline: max(1rem, 4vw);
 }
-.wrap--wide, .intro, .site-header__inner, .site-footer__inner { max-width: 72rem; }
 @media (min-width: 72rem) {
   .wrap { padding-inline: var(--space-6); }
 }
+
+/* Readable widths inside the wide container. (.prose, .lede and .intro__body set their own.) */
+.section > p, .pub-teaser, .timeline, .in-progress ul, .model-card, .notice { max-width: var(--measure); }
+.pubs { max-width: 56rem; }
 
 .muted { color: var(--color-muted); }
 
@@ -352,7 +357,6 @@ a:hover { color: var(--color-accent); }
 }
 @media (min-width: 48rem) { .portrait { width: 100%; } }
 
-.featured { max-width: 72rem; }
 .featured > h2 { margin-bottom: var(--space-5); }
 .featured > p { margin-top: var(--space-5); }
 
