@@ -9,6 +9,6 @@
     "node": ">=20"
   },
   "dependencies": {
-    "@mark-bugden/demo-kit": "github:Mark-Bugden/demo-kit#v0.1.0"
+    "@mark-bugden/demo-kit": "github:Mark-Bugden/demo-kit#v0.2.0"
   }
 }
