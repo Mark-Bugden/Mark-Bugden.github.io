@@ -1,171 +1,90 @@
 ---
-title: "Directing the Doctor"
+title: "Rating the Regenerations"
 slug: doctor-who-ratings
 date: 2025-05-17
 demo: doctor-who-ratings
-summary: "Who is the best Doctor? An analysis of IMDb ratings for every Doctor Who episode from 1963 on."
-description: "Who is the best Doctor? IMDb ratings for every Doctor Who episode since 1963: the best and worst episodes, writers and directors, and each Doctor."
+summary: "Who is the best Doctor? IMDb ratings for every regular Doctor Who episode since 1963, and a leaderboard whose assumptions you can change."
+description: "IMDb ratings for every regular Doctor Who episode since 1963, on a timeline, in a heatmap and on a leaderboard of Doctors, writers and directors."
 draft: true
 aliases: ["/portfolio/doctorwho.html"]
 ---
 
-<!-- 
-TODO(mark): rewrite. This is the old blog post from portfolio/doctorwho.html (May 2025), migrated as the starting draft.
-TODO(mark): confirm you may use the banner (it imitates the show's logo) and the photo of David Tennant (it looks like a BBC promotional still); remove them if not.
- -->
+## Who is the best Doctor?
 
-{{< figure src="images/doctor-who/banner.png" alt="Banner: the words Doctor Who over a nebula, subtitled Television Analysis and Ratings Derived from IMDb Statistics." eager="true" >}}
+Doctor Who has been on television, on and off, since 1963, and every incarnation of the Doctor has fans who'll argue that theirs is the best. In 2025 I tried to settle the question with data instead of opinion, using IMDb's ratings for every episode. This is a rebuild of that project, and the demo above is the result.
 
-## Introduction
+The demo shows the rating of every regular episode on a timeline and in a season-by-episode heatmap, and ranks the Doctors, writers and directors on a leaderboard. A ranking like this rests on a few choices, such as which average to use, and the leaderboard lets you change them and watch the order move.
 
-Doctor Who is a long-running television show, with a devoted fanbase spanning generations. Each incarnation of the Doctor has their own loyal following, and the fans inevitably debate which version of the Doctor stands out as the best. Rather than weighing in with my own personal opinions, I decided to take a more data-oriented approach to finally answer the question:
+The short answer: David Tennant comes first however you count. What the choices change is everyone in between.
 
-Who is the best Doctor?
-{.callout}
+## The data
 
-In addition to this question, we will be looking at the best and worst episodes, how the episodes have changed over time and which are the best writers and directors. In the associated notebook, we also took a deep-dive into what factors drive episode quality, by calculating how much of the variation of the ratings could be explained by the Doctor, as opposed to the writers and directors. The results were actually quite interesting, so if you are interested you can check them out in the [GitHub repository](https://github.com/Mark-Bugden/doctor-who-ratings).
+Ratings and vote counts come from IMDb's [non-commercial datasets](https://developer.imdb.com/non-commercial-datasets/), as of 18 November 2026. Information courtesy of IMDb (https://www.imdb.com). Used with permission.
 
-## Dataset overview
+Everything else comes from Wikipedia's lists of *Doctor Who* episodes, under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/): which episodes make up each story, when they aired, and who wrote and directed them.
 
-This analysis uses IMDb user ratings for Doctor Who episodes from 1963 to the present day. Each episode entry includes:
+That gives 863 episodes in 291 stories, from *An Unearthly Child* in 1963 to *The Reality War* in 2025. Only regular episodes are included. Specials, as Wikipedia lists them, are left out: the Christmas and New Year episodes, the anniversary specials and the 1996 TV film. That leaves out the Eighth, War and Fourteenth Doctors, so 13 Doctors remain.
 
-- Title
-- Year
-- Season and episode number
-- IMDb rating (1-10 scale)
-- Number of votes
-- Doctor
-- Writer(s)
-- Director(s)
+### Stories, not episodes
 
-The dataset covers a total of **863 episodes** over **41 seasons**.
+The classic series told its stories as serials, most of them four or six episodes long, while the revived series mostly tells a story in one episode, sometimes two. Counting episodes would weight each classic Doctor by how long their serials were. So the unit here is the story, as Wikipedia numbers it. A story's rating is the mean of its episodes' ratings, and its weight is the mean number of votes per episode, so a six-part serial counts once, the same as a single episode.
 
-Specials, including Christmas and regeneration episodes, are currently not included in the analysis. Each episode is associated with the lead actor playing the Doctor at the time, enabling comparisons across different actors and eras.
+## What changed from the first version
 
-Data was scraped and collated from IMDb using a custom Python script and manually cleaned to ensure consistency across metadata fields such as episode names and numbering.
+If you read the first version of this post, a few things are different.
 
-**A note on IMDb and the Gatwa era:** IMDb categorises Doctor Who seasons into three categories: the classical series (1963 - 1989), the modern series (2005 - 2022), and the Gatwa era (2023 - present). This blog post and notebook were written during the release window of Season 15, and therefore do not contain all statistics from those episodes.
+- **Doctors are assigned by story.** The first version assigned each season to a Doctor. That credited *The Smugglers* and *The Tenth Planet* to Patrick Troughton instead of William Hartnell, and *The Twin Dilemma* to Peter Davison instead of Colin Baker.
+- **The credits come from Wikipedia.** IMDb's writer credits include the show's creators on most classic stories, the creators of recurring characters (Terry Nation for the Daleks) and the showrunners. They agree with Wikipedia's on only 22 of the 291 stories.
+- **The variance analysis is gone.** The first version said that directors explain about 40% of the variation in ratings. That doesn't hold up, for several reasons:
+  - A filter meant to keep only people with at least three episodes never took effect.
+  - Splitting each episode into writer–director pairs turned 863 episodes into about 2,660 rows.
+  - The model fitted about 245 parameters to 863 episodes.
+  - In the classic era, one director usually directed every part of a serial, so "director" mostly measured how alike a serial's parts were.
 
-## Best and worst episodes
+  I haven't tried to redo it.
+- **The data came from IMDb's datasets.** The first version said the data was scraped and cleaned by hand. In fact it came from IMDb's official datasets, as it does now.
+- **The latest episodes are complete.** The first version was written while the 2025 series was airing. This one runs to the end of it.
 
-Let's start with the simplest way to view the data - by looking at the best and worst episodes, as rated by the IMDb users. Starting with the best:
+## How the leaderboard scores
 
-{{< table caption="Top-rated episodes of Doctor Who" >}}
-| Era | Season | Episode | Title | Doctor | Rating | Votes |
-| --- | ---: | ---: | --- | --- | ---: | ---: |
-| modern | 3 | 10 | Blink | David Tennant | 9.8 | 25531 |
-| modern | 9 | 11 | Heaven Sent | Peter Capaldi | 9.6 | 13853 |
-| modern | 4 | 9 | Forest of the Dead | David Tennant | 9.4 | 12017 |
-| modern | 5 | 10 | Vincent and the Doctor | Matt Smith | 9.3 | 13773 |
-| modern | 4 | 8 | Silence in the Library | David Tennant | 9.3 | 11727 |
-| modern | 2 | 4 | The Girl in the Fireplace | David Tennant | 9.2 | 13738 |
-| modern | 2 | 13 | Doomsday | David Tennant | 9.2 | 11179 |
-| modern | 3 | 9 | The Family of Blood | David Tennant | 9.2 | 10824 |
-| modern | 4 | 13 | Journey's End | David Tennant | 9.2 | 10403 |
-| modern | 4 | 10 | Midnight | David Tennant | 9.1 | 11060 |
-{{< /table >}}
+Each Doctor, writer or director gets a score from the ratings of their stories. Three choices go into it, and each is a control in the demo.
 
-I don't think many people are really surprised to see **Blink** at the top. It's a bit of an odd one - the Doctor is barely even in the episode - but it's become a fan favourite for a reason. It is noteworthy that David Tennant is the Doctor for 8 out of the 10 best-rated episodes.
+**The average.** The plain mean of their story ratings, the mean weighted by each story's votes per episode, or the median.
 
-What about the worst-rated episodes?
+**Shrinkage.** An average over a few stories moves more by chance than one over many. Christopher Eccleston has 10 stories, and Tom Baker has 41. Shrinkage pulls every average towards the average over all stories, m, as if everyone's record had k extra stories at m:
 
-{{< table caption="Lowest-rated episodes of Doctor Who" >}}
-| Era | Season | Episode | Title | Doctor | Rating | Votes |
-| --- | ---: | ---: | --- | --- | ---: | ---: |
-| modern | 12 | 3 | Orphan 55 | Jodie Whittaker | 4.2 | 7205 |
-| classical | 6 | 34 | The Space Pirates: Episode 6 | Patrick Troughton | 4.7 | 323 |
-| classical | 6 | 33 | The Space Pirates: Episode 5 | Patrick Troughton | 4.9 | 319 |
-| classical | 6 | 31 | The Space Pirates: Episode 3 | Patrick Troughton | 5.0 | 321 |
-| classical | 6 | 32 | The Space Pirates: Episode 4 | Patrick Troughton | 5.0 | 319 |
-| modern | 14 | 1 | Space Babies | Ncuti Gatwa | 5.1 | 9141 |
-| modern | 11 | 4 | Arachnids in the UK | Jodie Whittaker | 5.1 | 8741 |
-| modern | 11 | 5 | The Tsuranga Conundrum | Jodie Whittaker | 5.1 | 8162 |
-| modern | 12 | 10 | The Timeless Children | Jodie Whittaker | 5.1 | 6814 |
-| classical | 6 | 29 | The Space Pirates: Episode 1 | Patrick Troughton | 5.1 | 342 |
-{{< /table >}}
+score = (k·m + n·x̄) / (k + n)
 
-It seems as though the Space Pirates episodes of Patrick Troughton were particularly disliked, but the low ratings here is more complicated than it might initially seem. It turns out that only Episode 2 exists in full - the other episodes are missing from the archives, which means that watching the full serial would require using reconstructions (tele-snaps and audio), which is likely what contributes to the poor ratings. All that being said, Episode 2 only received a rating of 5.6, so it's safe to say that people weren't particularly fond of the Space Pirates in any case.
+Here x̄ is someone's average over their n stories. At k = 5, two-thirds of Eccleston's score is his own average and one-third is the overall average, while 89% of Tom Baker's is his own. At k = 0 there's no shrinkage, and the slider goes up to 20. How much to shrink is a judgement call, which is why it's a slider.
 
-It's clear in the tables above that episodes from the modern series get more votes than episodes from the classical series. This is likely due to a larger and younger audience, who are more inclined to visit IMDb and cast votes. On average, modern-era episodes receive more than ten times as many votes as classical-era episodes. This means we can be less confident in the reliability of the classical ratings compared to those from the modern era.
+**Era adjustment.** The two eras don't rate the same on IMDb: revived stories average 7.65, against 7.29 for classic ones (vote-weighted). With the adjustment on, each story is compared with the average story of its own era, and scores read as rating points above or below that average.
 
-## Ratings over time
+Writers and directors need at least three stories to be ranked, and a co-written story counts in full for each writer.
 
-IMDb ratings offer a broad measure of how audiences responded to each episode of *Doctor Who*. By plotting ratings against air dates, we can observe trends across the show's history, from the early black-and-white serials to the modern era.
+The defaults are the vote-weighted mean, k = 5 and no era adjustment. That's the method of the first version, applied to stories instead of episodes.
 
-The chart below shows all rated episodes from 1963 to the present. Each dot represents a single episode, and are coloured based on who the Doctor was for that episode. Additionally, the size of the dot is indicative of how many votes that episode received - bigger dots have more votes.
+## What holds, and what moves
 
-{{< figure src="images/doctor-who/ratings_over_time.png" alt="Scatter plot of IMDb rating against year for every Doctor Who episode from 1963 to 2025, one dot per episode, coloured by Doctor and sized by number of votes." >}}
+I ranked everyone under every combination of the controls: three averages, shrinkage from 0 to 20, and era adjustment on or off. That makes 126 combinations.
 
-**Key observations:**
+Some places never change. David Tennant is first in all 126, Peter Davison eighth and Jodie Whittaker thirteenth. Among the writers, Steven Moffat is first in all 126.
 
-- Ratings during the classic era (1963-1989) are highly variable, with scattered peaks and valleys.
-- There is a noticeable increase in average ratings following the 2005 reboot.
-- Ratings trend downward in the later seasons of the modern era, especially post-2017.
+The middle moves:
 
-Plotting the average rating per year gives us a nice concise way to see the "big picture" trends.
+- Tom Baker ranges from 2nd to 7th, Christopher Eccleston from 3rd to 7th, Peter Capaldi from 2nd to 6th, and Matt Smith from 2nd to 4th.
+- At the defaults, turning on the era adjustment moves Tom Baker from 5th to 3rd and Jon Pertwee from 6th to 4th. Eccleston drops from 3rd to 5th, and Capaldi from 4th to 6th.
+- The median with no shrinkage puts Capaldi second.
+- Among the writers, Russell T Davies moves furthest, from 2nd to 24th of 37.
+- The directors are the only list whose leader changes. Rachel Talalay is first in 97 of the 126 combinations, Graeme Harper in 26 and David Maloney in 3.
 
-{{< figure src="images/doctor-who/mean_ratings_over_time.png" alt="Line chart of the mean IMDb rating per year, coloured by Doctor: about 7 to 8 through the classic era, around 8 after 2005, a dip to about 6 around 2018 to 2020, then a recovery." >}}
+These describe how the ratings fall under each choice. They don't say why.
 
-We can also look at how episodes were rated across each season. The heatmaps below show the distribution of ratings for each episode within a season for both the classical and modern eras, making it easier to spot patterns and get more refined information about how each episode is rated *within* a given season.
+## Caveats
 
-{{< figure src="images/doctor-who/classical_ratings_heatmap.png" alt="Heatmap of IMDb ratings by season (1 to 26) and episode for the classic era. Season 6's Space Pirates episodes stand out in blue, for low ratings, and season 12 in red, for high ones." >}}
+- The ratings are IMDb's, from whoever chose to rate each episode. Classic episodes have far fewer votes: a median of 587 per episode, against 8,101 for revived ones.
+- The data is a snapshot from 18 November 2026. Ratings drift as votes come in, so the numbers will change a little over time.
+- Specials are left out, so stories like *The Day of the Doctor* don't count towards anyone's score.
 
-From this heatmap we can immediately see a few notable features, such as the Space Pirates serial of Season 6, or the popular "Genesis of the Daleks" arc in Season 12. It's worth noting that in the classical era of Doctor Who, the episodes were structured as *serialised stories*. Each story was made up of shorter episodes, collected into a single arc of up to 12 episodes (although 4-6 was most common). We can see this structure clearly in the data - the ratings for an episode in a single story tend to be similar to the ratings of other episodes in that story, forming the similarly coloured groups in the above heatmap.
+## The code
 
-{{< figure src="images/doctor-who/modern_ratings_heatmap.png" alt="Heatmap of IMDb ratings by season (1 to 13) and episode for the modern era. Seasons 11 to 13 are noticeably bluer, meaning lower rated, than seasons 1 to 10." >}}
-
-Unlike the classical era, in the modern era most episodes are self-contained, standalone episodes with a longer format. Although linked episodes do exist in the modern era, they are titled differently and much less common.
-
-*Note:* The Gatwa era is not included in the heatmaps due to the limited number of rated episodes available so far.
-
-## Best writers and directors
-
-Before turning to the Doctors themselves, it's worth looking at the people who helped shape their stories. Writers and directors have a huge impact on the tone, pacing, and emotional weight of each episode.
-
-To evaluate writers and directors, I used a **shrinkage-adjusted average**, which helps avoid overrating people who only worked on a handful of episodes. (I'll explain how this works in more detail when we get to the Doctors.) The top five writers and directors are shown in the tables below:
-
-{{< table caption="Top-rated writers" >}}
-| Writer | Shrinkage rating | Episodes |
-| --- | ---: | ---: |
-| Paul Cornell | 8.08 | 3 |
-| Steven Moffat | 8.07 | 83 |
-| Terry Nation | 8.05 | 90 |
-| Malcolm Hulke | 8.05 | 57 |
-| Robert Banks Stewart | 7.97 | 12 |
-{{< /table >}}
-
-{{< table caption="Top-rated directors" >}}
-| Director | Shrinkage rating | Episodes |
-| --- | ---: | ---: |
-| Rachel Talalay | 8.32 | 6 |
-| Hettie Macdonald | 8.26 | 3 |
-| Graeme Harper | 8.24 | 18 |
-| Toby Haynes | 8.21 | 4 |
-| David Maloney | 8.03 | 46 |
-{{< /table >}}
-
-**Key observations:**
-
-- Both classic and modern-era contributors appear in the top ranks, suggesting that high-quality episodes span the show's entire history.
-- Writer-director combinations likely play a crucial role in episode success, with names like Moffat, Macdonald, and Talalay frequently associated with fan-favourite stories.
-
-Of course, even the best writing and direction needs a strong lead. Now that we've looked at the creative forces behind the scenes, it's time to turn to the face of the show itself: the Doctor.
-
-## Best Doctor
-
-We've had some hints as to which Doctor may be the best, but now it's time to finally settle it. To quantitatively determine which Doctor has the best ratings from fans, I decided to calculate several different metrics. The first and most obvious is the **naïve average** rating per Doctor across all of their episodes. Although this gives an idea of how positively that Doctor's episodes were rated, it doesn't account for vote volume or episode count. The **vote-weighted average** improves on this by giving more influence to episodes with more IMDb votes. Instead of treating each episode equally, it reflects how viewers collectively rated a Doctor's run - factoring in which episodes had the most engagement. However, even vote-weighted ratings can be skewed if a Doctor appeared in only a few episodes. To address this, we compute a **shrinkage-adjusted average**, which regularizes the vote-weighted average based on how many episodes each Doctor appeared in, pulling averages for small-sample examples closer to the global average. (We used this to calculate which were the best writers and directors in the previous section.)
-
-Together, these three metrics provide a fairer and more robust way to compare how each Doctor's episodes were received. That said, as we'll see, the differences between them are relatively small - suggesting a reassuring consistency across the various approaches. The chart below shows how each Doctor scored across all three metrics. While the rankings are close, a clear frontrunner does emerge.
-
-{{< figure src="images/doctor-who/doctor_comparisons.png" alt="Horizontal bar chart of the average, vote-weighted and shrinkage-adjusted IMDb rating for each of the 13 Doctors. David Tennant scores highest on all three." >}}
-
-And the winner is...
-
-David Tennant
-{.callout}
-
-{{< figure src="images/doctor-who/david_tennant.png" alt="David Tennant as the Doctor, stepping out of the TARDIS." caption="David Tennant as the Tenth Doctor: consistently a fan favourite." size="small" >}}
-
-Across all three rating metrics, Tennant consistently comes out on top, combining high ratings, strong audience engagement, and a substantial number of episodes.
-
-So there it is - the data has spoken. David Tennant takes the crown. Of course, stats don't tell the whole story - but they are very useful the next time you are at a house party and you need to prove to someone why David Tennant is the best Doctor.
+The code is on [GitHub](https://github.com/Mark-Bugden/doctor-who-ratings). A Python pipeline joins IMDb's datasets with Wikipedia's tables, checks the result and computes the leaderboard's rankings. The demo computes them again in JavaScript, and its tests check that the two agree exactly.
