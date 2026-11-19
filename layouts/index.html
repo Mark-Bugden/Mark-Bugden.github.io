@@ -46,18 +46,5 @@
     </li>
     {{- end }}
   </ul>
-
-  {{- $live := where (partial "listed-projects.html" .) "status" "live" }}
-  {{- with first 3 $live }}
-  <section class="section" aria-labelledby="featured-heading">
-    <h2 id="featured-heading" class="label">Featured projects</h2>
-    <ul class="card-grid">
-      {{- range . }}
-      <li>{{ partial "project-card.html" (merge . (dict "level" 3)) }}</li>
-      {{- end }}
-    </ul>
-    <p class="more-link-row"><a class="more-link" href="{{ "projects/" | relURL }}">All projects</a></p>
-  </section>
-  {{- end }}
 </div>
 {{- end }}

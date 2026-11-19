@@ -5,10 +5,7 @@
   </header>
 
   <div class="about">
-    <section class="about__text" aria-labelledby="background-heading">
-      <h2 id="background-heading" class="label">Background</h2>
-      <div class="bio">{{ .Content }}</div>
-    </section>
+    <div class="about__text bio">{{ .Content }}</div>
     <div class="about__portrait">
       {{ partial "picture.html" (dict "src" "images/portrait.jpg" "widths" (slice 240 480 720) "sizes" "240px" "alt" "Portrait of Mark Bugden." "eager" true "class" "about__photo") }}
     </div>
