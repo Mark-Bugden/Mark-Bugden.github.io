@@ -1,29 +1,26 @@
 # The demos the site fetches. scripts/fetch-demos.sh downloads demo-<slug>.zip from each repo's
-# release at `tag`, validates it, and unpacks it into static/demos/<slug>/. To update a demo, bump
-# its tag. A project is listed only when its manifest status is in-progress or live and its
-# write-up (content/projects/<slug>.md) is not a draft.
+# latest release, validates it, and unpacks it into static/demos/<slug>/. A project's release starts a
+# site build, so a demo goes live when its PR merges. To hold a demo at an older release (to roll
+# back a bad one, say), add `tag: v<major>.<minor>.<patch>` to its entry. A project is listed only
+# when its manifest status is in-progress or live and its write-up (content/projects/<slug>.md) is
+# not a draft.
 
 - slug: zombie-outbreak
   repo: Mark-Bugden/zombie-outbreak
-  tag: v1.3.0
   order: 1
 
 - slug: doctor-who-ratings
   repo: Mark-Bugden/doctor-who-ratings
-  tag: v1.1.0
   order: 2
 
 - slug: soudai
   repo: Mark-Bugden/soudai
-  tag: v0.1.0
   order: 3
 
 - slug: lol-win-prediction
   repo: Mark-Bugden/lol-win-prediction
-  tag: v0.1.0
   order: 4
 
 - slug: photon-orbits-5d
   repo: Mark-Bugden/photon-orbits-5d
-  tag: v0.1.0
   order: 5

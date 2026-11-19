@@ -17,7 +17,7 @@
   {{- if ne $manifest.slug $slug }}{{ errorf "%s: bundle for %q has manifest slug %q" .File.Path $slug $manifest.slug }}{{ end }}
   {{- if ne $manifest.writeup $en.RelPermalink }}{{ errorf "%s: manifest writeup is %q but the English page is at %q" .File.Path $manifest.writeup $en.RelPermalink }}{{ end }}
   {{- if ne $manifest.repo (printf "https://github.com/%s" $entry.repo) }}{{ errorf "%s: manifest repo %q does not match data/projects.yaml (%s)" .File.Path $manifest.repo $entry.repo }}{{ end }}
-  {{- if and (not .Draft) (eq $manifest.status "stub") }}{{ errorf "%s is published, but the %s bundle at %s is still a stub. Keep draft: true until the bundle's status is in-progress or live." .File.Path $slug $entry.tag }}{{ end }}
+  {{- if and (not .Draft) (eq $manifest.status "stub") }}{{ errorf "%s is published, but the %s bundle is still a stub. Keep draft: true until the bundle's status is in-progress or live." .File.Path $slug }}{{ end }}
 <link rel="stylesheet" href="{{ printf "demos/%s/demo.css" $slug | relURL }}">
 {{- else if not .Draft }}
   {{- errorf "%s is published, but static/demos/%s/ is missing. Run scripts/fetch-demos.sh; it drops stub bundles with --drop-stubs, so a published write-up needs an in-progress or live bundle." .File.Path $slug }}
