@@ -10,7 +10,7 @@
     <div class="lede">{{ .Content }}</div>
   </header>
 
-  <ol class="rows pubs">
+  <ol class="rows pubs"{{ if ne site.Language.Lang "en" }} lang="en"{{ end }}>
     {{- range hugo.Data.publications }}
     <li class="row pub">
       <p class="pub__year">{{ .year }}</p>
@@ -29,6 +29,6 @@
     {{- end }}
   </ol>
 
-  <p class="more-link-row"><a class="more-link" href="{{ site.Params.arxiv }}" rel="noopener">All my papers on arXiv</a></p>
+  <p class="more-link-row"><a class="more-link" href="{{ site.Params.arxiv }}" rel="noopener">{{ i18n "allPapers" }}</a></p>
 </div>
 {{- end }}

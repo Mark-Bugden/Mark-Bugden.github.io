@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="{{ site.Language.Lang }}">
+<html lang="{{ site.Language.Locale }}">
 <head>
   {{- partial "head.html" . }}
   {{- block "head" . }}{{ end }}
   {{- if hugo.IsDevelopment }}{{ partial "accent-preview.html" . }}{{ end }}
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  <a class="skip-link" href="#main">{{ i18n "skipToContent" }}</a>
   {{ partial "header.html" . }}
   <main id="main" tabindex="-1">
     {{- block "main" . }}{{ end }}

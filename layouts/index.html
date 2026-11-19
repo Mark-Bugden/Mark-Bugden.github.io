@@ -7,10 +7,10 @@
 
 {{- define "main" }}
 {{- /* The three sections, in reading order: a pill on the figure and a link below it for each. */}}
-{{- $sections := slice
-  (dict "key" "about" "name" "About" "url" "about/" "summary" "Background, experience, and contact")
-  (dict "key" "publications" "name" "Publications" "url" "publications/" "summary" "Papers and preprints")
-  (dict "key" "projects" "name" "Projects" "url" "projects/" "summary" "Portfolio of selected work") }}
+{{- $sections := slice }}
+{{- range slice "about" "publications" "projects" }}
+  {{- $sections = $sections | append (dict "key" . "name" (i18n .) "url" (printf "%s/" . | relLangURL) "summary" (i18n (printf "%sSummary" .))) }}
+{{- end }}
 <div class="wrap">
   <div class="home-intro">
     <h1>{{ site.Params.name }}</h1>
@@ -27,19 +27,19 @@
       <div class="phase__panel">
         {{ partial "phase-portrait.html" . }}
         {{- range $sections }}
-        <a class="phase__pill phase__pill--{{ .key }}" href="{{ .url | relURL }}">{{ .name }}</a>
+        <a class="phase__pill phase__pill--{{ .key }}" href="{{ .url }}">{{ .name }}</a>
         {{- end }}
       </div>
     </div>
   </div>
-  <figcaption class="wrap label">Phase portrait of a simple pendulum</figcaption>
+  <figcaption class="wrap label">{{ i18n "phaseCaption" }}</figcaption>
 </figure>
 
 <div class="wrap">
   <ul class="section-links">
     {{- range $sections }}
     <li>
-      <a class="section-link section-link--{{ .key }}" href="{{ .url | relURL }}">
+      <a class="section-link section-link--{{ .key }}" href="{{ .url }}">
         <span class="section-link__title">{{ .name }}</span>
         <span class="section-link__desc">{{ .summary }}</span>
       </a>

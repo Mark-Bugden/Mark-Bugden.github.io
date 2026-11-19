@@ -2,30 +2,53 @@
   <div class="site-header__inner">
     {{- /* On the home page the name is the page's h1, so the header shows the mark alone. */}}
     {{- if .IsHome }}
-    <a class="brand" href="{{ "/" | relURL }}" aria-label="Home" aria-current="page">
+    <a class="brand" href="{{ "/" | relLangURL }}" aria-label="{{ i18n "home" }}" aria-current="page">
       {{- partial "mark.html" . -}}
     </a>
     {{- else }}
-    <a class="brand" href="{{ "/" | relURL }}">
+    <a class="brand" href="{{ "/" | relLangURL }}">
       {{- partial "mark.html" . -}}
       <span class="brand__name">{{ site.Params.name }}</span>
     </a>
     {{- end }}
     <div class="site-header__end">
-      <nav class="site-nav" aria-label="Main">
+      <nav class="site-nav" aria-label="{{ i18n "mainNav" }}">
         <ul>
-          {{- range slice (dict "name" "About" "url" "/about/") (dict "name" "Publications" "url" "/publications/") (dict "name" "Projects" "url" "/projects/") }}
-          {{- $url := .url | relURL }}
+          {{- range slice "about" "publications" "projects" }}
+          {{- $url := printf "%s/" . | relLangURL }}
           <li><a href="{{ $url }}"
             {{- if eq $.RelPermalink $url }} aria-current="page"
-            {{- else if hasPrefix $.RelPermalink $url }} class="is-active"{{ end }}>{{ .name }}</a></li>
+            {{- else if hasPrefix $.RelPermalink $url }} class="is-active"{{ end }}>{{ i18n . }}</a></li>
           {{- end }}
         </ul>
       </nav>
-      <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z"/></svg>
-        <span class="visually-hidden">Dark theme</span>
-      </button>
+      {{- /* The theme and language buttons. On phones they sit on the first row, beside the mark. */}}
+      <div class="site-header__tools">
+        <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z"/></svg>
+          <span class="visually-hidden">{{ i18n "darkTheme" }}</span>
+        </button>
+        {{- /* The language menu: a <details>, so it works without script (js/language-menu.js closes it
+           on a click elsewhere or Escape). Each language links to its version of this page, or else to
+           its version of the nearest page above this one: an English-only write-up's Czech link goes
+           to the Czech Projects page. */}}
+        <details class="lang-menu" data-lang-menu>
+          <summary class="lang-menu__button"><span class="visually-hidden">{{ i18n "language" }}: </span>{{ site.Params.code }}<svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+          <ul class="lang-menu__list">
+            {{- range hugo.Sites }}
+            {{- $lang := .Language.Lang }}
+            {{- $target := false }}
+            {{- if ne $.Kind "404" }}
+              {{- range (slice $) | append $.Ancestors }}
+                {{- if not $target }}{{ $target = partial "in-language.html" (dict "page" . "lang" $lang) }}{{ end }}
+              {{- end }}
+            {{- end }}
+            <li><a href="{{ (or $target .Home).RelPermalink }}" hreflang="{{ .Language.Locale }}" lang="{{ .Language.Locale }}"
+              {{- if eq $lang site.Language.Lang }} aria-current="true"{{ end }}><span class="lang-menu__code">{{ .Params.code }}</span> {{ .Language.Label }}</a></li>
+            {{- end }}
+          </ul>
+        </details>
+      </div>
     </div>
   </div>
 </header>

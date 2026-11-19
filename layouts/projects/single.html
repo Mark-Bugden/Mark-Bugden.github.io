@@ -1,16 +1,21 @@
 {{- /* A project page: write-up plus embedded demo. The build fails here, loudly, when a published
    write-up has no validated bundle, when its bundle is still a stub, or when the bundle disagrees
-   with data/projects.yaml or with this page's URL. Drafts (hugo server -D) may embed stubs. */ -}}
+   with data/projects.yaml or with the English page's URL. Drafts (hugo server -D) may embed stubs.
+   A Czech or German page needs a published English one. While it has no body of its own it shows the
+   English write-up, with a note that the write-up and demo are in English. */ -}}
 {{- define "head" }}
 {{- $slug := .Params.demo }}
 {{- if not $slug }}{{ errorf "%s: front matter needs demo: <slug>" .File.Path }}{{ end }}
+{{- $en := partial "in-language.html" (dict "page" . "lang" "en") }}
+{{- if not $en }}{{ errorf "%s is published, but its English write-up is missing or a draft" .File.Path }}{{ end }}
+{{- if ne $en.Params.demo $slug }}{{ errorf "%s: demo %q does not match the English write-up's %q" .File.Path $slug $en.Params.demo }}{{ end }}
 {{- $entry := false }}
 {{- range where hugo.Data.projects "slug" $slug }}{{ $entry = . }}{{ end }}
 {{- if not $entry }}{{ errorf "%s: demo %q is not listed in data/projects.yaml" .File.Path $slug }}{{ end }}
 {{- $manifest := partial "manifest.html" $slug }}
 {{- if $manifest }}
   {{- if ne $manifest.slug $slug }}{{ errorf "%s: bundle for %q has manifest slug %q" .File.Path $slug $manifest.slug }}{{ end }}
-  {{- if ne $manifest.writeup .RelPermalink }}{{ errorf "%s: manifest writeup is %q but this page is at %q" .File.Path $manifest.writeup .RelPermalink }}{{ end }}
+  {{- if ne $manifest.writeup $en.RelPermalink }}{{ errorf "%s: manifest writeup is %q but the English page is at %q" .File.Path $manifest.writeup $en.RelPermalink }}{{ end }}
   {{- if ne $manifest.repo (printf "https://github.com/%s" $entry.repo) }}{{ errorf "%s: manifest repo %q does not match data/projects.yaml (%s)" .File.Path $manifest.repo $entry.repo }}{{ end }}
   {{- if and (not .Draft) (eq $manifest.status "stub") }}{{ errorf "%s is published, but the %s bundle at %s is still a stub. Keep draft: true until the bundle's status is in-progress or live." .File.Path $slug $entry.tag }}{{ end }}
 <link rel="stylesheet" href="{{ printf "demos/%s/demo.css" $slug | relURL }}">
@@ -22,35 +27,46 @@
 {{- define "main" }}
 {{- $slug := .Params.demo }}
 {{- $manifest := partial "manifest.html" $slug }}
+{{- $translated := ne .Language.Lang "en" }}
+{{- $englishOnly := and $translated (not .Content) }}
 <article class="project">
   <header class="wrap page-header project__header">
-    <p class="eyebrow"><a href="{{ "projects/" | relURL }}">Projects</a></p>
+    <p class="eyebrow"><a href="{{ "projects/" | relLangURL }}">{{ i18n "projects" }}</a></p>
     <h1>{{ .Title }}</h1>
     {{- with $manifest }}
-    <p class="lede">{{ .tagline }}</p>
+    <p class="lede"{{ if and $translated (not $.Params.tagline) }} lang="en"{{ end }}>{{ $.Params.tagline | default .tagline }}</p>
     <ul class="project__meta">
-      {{- if eq .status "in-progress" }}<li class="label">In progress</li>{{ end }}
-      <li>Last built <time datetime="{{ .built }}">{{ time.Format "2 January 2006" .built }}</time></li>
-      <li><a href="{{ .repo }}" rel="noopener">Source on GitHub</a></li>
+      {{- if eq .status "in-progress" }}<li class="label">{{ i18n "inProgress" }}</li>{{ end }}
+      <li>{{ i18n "lastBuilt" }} <time datetime="{{ .built }}">{{ time.Format (i18n "dateFormat") .built }}</time></li>
+      <li><a href="{{ .repo }}" rel="noopener">{{ i18n "sourceOnGitHub" }}</a></li>
     </ul>
+    {{- end }}
+    {{- if $englishOnly }}
+    <p class="notice project__note">{{ i18n "englishOnly" }}</p>
     {{- end }}
   </header>
 
   {{- with $manifest }}
   <div class="wrap">
-    {{ partial "demo.html" (dict "slug" $slug "manifest" .) }}
+    {{ partial "demo.html" (dict "slug" $slug "title" $.Title) }}
   </div>
   {{- else }}
   <div class="wrap"><p class="notice">No demo bundle in <code>static/demos/{{ $slug }}/</code>. Run <code>scripts/fetch-demos.sh</code> to preview it here.</p></div>
   {{- end }}
 
   <div class="wrap">
+    {{- if $englishOnly }}
+    <div class="prose" lang="en">
+      {{ (partial "in-language.html" (dict "page" . "lang" "en")).Content }}
+    </div>
+    {{- else }}
     <div class="prose">
       {{ .Content }}
     </div>
+    {{- end }}
     {{- with $manifest }}
     {{- with .modelCard }}{{ partial "model-card.html" . }}{{ end }}
-    <p class="project__source"><a href="{{ .repo }}" rel="noopener">Code, model and demo source on GitHub</a></p>
+    <p class="project__source"><a href="{{ .repo }}" rel="noopener">{{ i18n "allSourceOnGitHub" }}</a></p>
     {{- end }}
   </div>
 </article>

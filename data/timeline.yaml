@@ -1,36 +1,51 @@
 # Career timeline, newest first. `since` is the year a role began; it is shown on the line between
 # that role and the one before it. There are no gaps, so it is also when the earlier role ended.
+# The cs and de maps hold the Czech and German text; any field they leave out is shown in English.
 
 - role: Senior Data Scientist
   org: Datamole
   place: Prague, Czech Republic
   since: Dec 2025
+  cs: { place: "Praha, Česko", since: "pros. 2025" }
+  de: { place: "Prag, Tschechien", since: "Dez. 2025" }
 
 - role: Machine Learning Scientist
   org: dida Datenschmiede GmbH
   place: Berlin, Germany
   since: "2023"
+  cs: { place: "Berlín, Německo" }
+  de: { place: "Berlin, Deutschland" }
 
 - role: Postdoctoral Researcher
   org: Max Planck Institute
   place: Konstanz, Germany
   since: "2021"
+  cs: { role: "Postdoktorand", org: "Institut Maxe Plancka", place: "Kostnice, Německo" }
+  de: { role: "Postdoc", org: "Max-Planck-Institut", place: "Konstanz, Deutschland" }
 
 - role: Postdoctoral Researcher
   org: Charles University
   place: Prague, Czech Republic
   since: "2019"
+  cs: { role: "Postdoktorand", org: "Univerzita Karlova", place: "Praha, Česko" }
+  de: { role: "Postdoc", org: "Karls-Universität", place: "Prag, Tschechien" }
 
 - role: MSI “Kickstart” Postdoctoral Fellow
   org: Australian National University
   place: Canberra, Australia
   since: "2018"
+  cs: { role: "Postdoktorand v programu MSI „Kickstart“", place: "Canberra, Austrálie" }
+  de: { role: "Postdoc im MSI-Kickstart-Programm", place: "Canberra, Australien" }
 
 - role: PhD in Mathematical Physics
   org: Australian National University
   place: Canberra, Australia
   since: "2013"
+  cs: { role: "Doktorát z matematické fyziky", place: "Canberra, Austrálie" }
+  de: { role: "Promotion in mathematischer Physik", place: "Canberra, Australien" }
 
 - role: Undergraduate studies
   org: University of Wollongong
   place: Wollongong, Australia
+  cs: { role: "Bakalářské studium", place: "Wollongong, Austrálie" }
+  de: { role: "Bachelorstudium", place: "Wollongong, Australien" }

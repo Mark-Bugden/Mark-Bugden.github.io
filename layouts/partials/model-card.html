@@ -1,20 +1,21 @@
-{{- /* The model card from a manifest's optional modelCard. Takes the modelCard dict. */ -}}
+{{- /* The model card from a manifest's optional modelCard. Takes the modelCard dict. Its text comes
+   from the bundle, in English; only the headings are translated. */ -}}
 <section class="model-card" aria-labelledby="model-card-heading">
-  <h2 id="model-card-heading">Model card</h2>
+  <h2 id="model-card-heading">{{ i18n "modelCard" }}</h2>
   <dl>
-    <dt>What it computes</dt>
-    <dd>{{ .what }}</dd>
+    <dt>{{ i18n "modelWhat" }}</dt>
+    <dd{{ if ne site.Language.Lang "en" }} lang="en"{{ end }}>{{ .what }}</dd>
     {{- with .data }}
-    <dt>Data</dt>
-    <dd>{{ . }}</dd>
+    <dt>{{ i18n "modelData" }}</dt>
+    <dd{{ if ne site.Language.Lang "en" }} lang="en"{{ end }}>{{ . }}</dd>
     {{- end }}
     {{- with .metric }}
-    <dt>Performance</dt>
-    <dd>{{ . }}</dd>
+    <dt>{{ i18n "modelMetric" }}</dt>
+    <dd{{ if ne site.Language.Lang "en" }} lang="en"{{ end }}>{{ . }}</dd>
     {{- end }}
     {{- with .limits }}
-    <dt>Known limits</dt>
-    <dd><ul>{{ range . }}<li>{{ . }}</li>{{ end }}</ul></dd>
+    <dt>{{ i18n "modelLimits" }}</dt>
+    <dd{{ if ne site.Language.Lang "en" }} lang="en"{{ end }}><ul>{{ range . }}<li>{{ . }}</li>{{ end }}</ul></dd>
     {{- end }}
   </dl>
 </section>

@@ -4,7 +4,7 @@
   {{- $projects = $projects | append (dict
     "slug" .slug
     "title" .page.Title
-    "tagline" .manifest.tagline
+    "tagline" (.page.Params.tagline | default .manifest.tagline)
     "status" .status
     "url" .page.Permalink
     "repo" .manifest.repo

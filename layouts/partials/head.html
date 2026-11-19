@@ -1,8 +1,8 @@
 {{- $title := site.Title -}}
-{{- if eq .Kind "404" }}{{ $title = printf "Page not found · %s" site.Title }}
+{{- if eq .Kind "404" }}{{ $title = printf "%s · %s" (i18n "pageNotFound") site.Title }}
 {{- else if not .IsHome }}{{ $title = printf "%s · %s" .Title site.Title }}{{ end -}}
 {{- $description := .Description | default site.Params.description -}}
-{{- if eq .Kind "404" }}{{ $description = "This page does not exist. Find Mark Bugden's projects, background and publications from here." }}{{ end -}}
+{{- if eq .Kind "404" }}{{ $description = i18n "notFoundDescription" }}{{ end -}}
 {{- $og := partial "og-image.html" . -}}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,6 +12,15 @@
 <meta name="robots" content="noindex">
 {{- else }}
 <link rel="canonical" href="{{ .Permalink }}">
+{{- /* Every language's version of this page, with English as the default for any other language. */}}
+{{- if gt (len .AllTranslations) 1 }}
+{{- range .AllTranslations }}
+<link rel="alternate" hreflang="{{ .Language.Locale }}" href="{{ .Permalink }}">
+{{- end }}
+{{- with partial "in-language.html" (dict "page" . "lang" hugo.Sites.Default.Language.Lang) }}
+<link rel="alternate" hreflang="x-default" href="{{ .Permalink }}">
+{{- end }}
+{{- end }}
 {{- end }}
 {{- /* Dark until the visitor picks light; js/theme.js updates both when they do. */}}
 <meta name="color-scheme" content="dark">
@@ -20,6 +29,9 @@
 <script>{{ .Content | safeJS }}</script>
 {{- end }}
 {{- with resources.Get "js/view-transitions.js" | minify }}
+<script>{{ .Content | safeJS }}</script>
+{{- end }}
+{{- with resources.Get "js/language-menu.js" | minify }}
 <script>{{ .Content | safeJS }}</script>
 {{- end }}
 {{- /* For page transitions: hold the first frame until <main> is parsed, so the title it grows into is

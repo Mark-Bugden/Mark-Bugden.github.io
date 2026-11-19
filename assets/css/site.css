@@ -5,14 +5,24 @@
  * here reaches inside a demo.
  */
 
-/* Fonts: self-hosted variable faces, Latin subset. Inter also has a Latin Extended file (Czech names
-   on Publications) and an italic, which browsers fetch only for pages that use them. */
+/* Fonts: self-hosted variable faces (Fontsource 5.3.0), each in a Latin and a Latin Extended file,
+   plus an Inter italic. Browsers fetch the Latin Extended files only for pages that use them: the
+   Czech pages, and the Czech names on Publications. */
 @font-face {
   font-family: "Space Grotesk";
   src: url("/fonts/space-grotesk-latin-wght-normal.woff2") format("woff2");
   font-weight: 300 700;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/space-grotesk-latin-ext-wght-normal.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: "Inter";
@@ -44,6 +54,15 @@
   font-weight: 100 800;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono-latin-ext-wght-normal.woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 /* Tokens. There are no other colours, no gradients and no shadows. */
@@ -243,6 +262,16 @@ h2.label { margin-bottom: 12px; text-wrap: wrap; }
   gap: 0 12px;
 }
 
+.site-header__tools { display: flex; align-items: center; }
+
+/* On phones the header has two rows: the mark (and name) with the theme and language buttons, then
+   the nav. */
+@media (max-width: 47.99rem) {
+  .site-header__end { display: contents; }
+  .site-header__tools { order: 1; }
+  .site-nav { order: 2; flex-basis: 100%; }
+}
+
 .site-nav ul {
   display: flex;
   flex-wrap: wrap;
@@ -280,6 +309,57 @@ h2.label { margin-bottom: 12px; text-wrap: wrap; }
 .theme-toggle circle { fill: none; stroke: currentColor; stroke-width: 2; }
 .theme-toggle path { fill: currentColor; }
 .theme-toggle[aria-pressed="true"] svg { transform: scaleX(-1); }
+
+/* The language menu: the current language's code, which opens a list of all three. It is a <details>
+   (js/language-menu.js closes it on a click elsewhere or Escape). The header is lifted above the page,
+   so the list opens over the home page's figure and its tracers. */
+.site-header { position: relative; z-index: 3; }
+.lang-menu { position: relative; }
+.lang-menu__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 44px;
+  min-height: 44px;
+  color: var(--muted);
+  list-style: none;
+  cursor: pointer;
+}
+.lang-menu__button::-webkit-details-marker { display: none; }
+.lang-menu__button:hover, .lang-menu[open] .lang-menu__button { color: var(--fg); }
+.lang-menu__button svg {
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.lang-menu[open] .lang-menu__button svg { transform: rotate(180deg); }
+.lang-menu__list {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 176px;
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+.lang-menu__list a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding-inline: 16px;
+  color: var(--muted);
+}
+.lang-menu__list a:hover, .lang-menu__list a[aria-current] { color: var(--fg); }
+.lang-menu__code { font: 500 12px/1.5 var(--font-mono); letter-spacing: 0.06em; }
+.lang-menu__list a[aria-current] .lang-menu__code { color: var(--accent); }
 
 /* Page transitions, in browsers that have cross-document view transitions (Chrome, Edge, Safari 18.2
    and later; elsewhere a link simply loads the page) and not with prefers-reduced-motion. The header
@@ -618,6 +698,8 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects, .section-link--proj
   list-style: none;
   color: var(--muted);
 }
+/* On a Czech or German page whose write-up and demo are still English only. */
+.project__note { margin-top: 16px; }
 .demo-embed { margin-bottom: 48px; }
 .demo-embed [data-demo] > img { width: 100%; }
 .model-card {
