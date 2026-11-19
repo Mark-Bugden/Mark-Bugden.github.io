@@ -1,10 +1,19 @@
 {{- /* A project card. Takes a dict from listed-projects.html. The title's link covers the whole card.
    A translated write-up's tagline and tags replace the manifest's English ones. On a Czech or German
-   page, English text (an untranslated write-up's title, the manifest's tagline) is marked as such. */ -}}
+   page, English text (an untranslated write-up's title, the manifest's tagline) is marked as such.
+   A bundle with a thumb-light.webp gets it as a second image, which site.css shows under the light
+   theme instead. */ -}}
 {{- $translated := ne site.Language.Lang "en" -}}
+{{- $sizes := "(min-width: 72rem) 24rem, (min-width: 40rem) 50vw, 100vw" -}}
+{{- $light := resources.Get (printf "demos/%s/thumb-light.webp" .slug) -}}
+{{- $class := "card__thumb" -}}
+{{- if $light }}{{ $class = "card__thumb card__thumb--dark" }}{{ end -}}
 <article class="card">
   {{- with resources.Get (printf "demos/%s/thumb.webp" .slug) }}
-  {{ partial "picture.html" (dict "image" . "widths" (slice 600 1200) "sizes" "(min-width: 72rem) 24rem, (min-width: 40rem) 50vw, 100vw" "alt" "" "class" "card__thumb") }}
+  {{ partial "picture.html" (dict "image" . "widths" (slice 600 1200) "sizes" $sizes "alt" "" "class" $class) }}
+  {{- end }}
+  {{- with $light }}
+  {{ partial "picture.html" (dict "image" . "widths" (slice 600 1200) "sizes" $sizes "alt" "" "class" "card__thumb card__thumb--light") }}
   {{- end }}
   <h2 class="card__title"{{ if and $translated (eq .page.Language.Lang "en") }} lang="en"{{ end }}><a href="{{ .page.RelPermalink }}">{{ .page.Title }}</a></h2>
   <p class="card__tagline"{{ if and $translated (not .page.Params.tagline) }} lang="en"{{ end }}>{{ .page.Params.tagline | default .manifest.tagline }}</p>

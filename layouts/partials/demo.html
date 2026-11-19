@@ -1,11 +1,17 @@
 {{- /* The demo embed from the bundle contract. Takes a dict: slug, title (the page's). The bundle's
    demo.css is linked from the page's head (projects/single.html). The script replaces the still image
-   when it mounts; until then, and with JavaScript off, the still is what shows. data-embedded tells
-   the frame that this page renders the title, tagline, model card and links itself. Demos are in
-   English, so on a Czech or German page the frame is marked as English. */ -}}
+   when it mounts; until then, and with JavaScript off, the still is what shows. A bundle with a
+   static-light.webp gets it as a second still, which site.css shows under the light theme instead;
+   both are then lazy, so a browser fetches only the one it shows. data-embedded tells the frame
+   that this page renders the title, tagline, model card and links itself. Demos are in English, so
+   on a Czech or German page the frame is marked as English. */ -}}
+{{- $light := resources.Get (printf "demos/%s/static-light.webp" .slug) }}
 <div class="demo-embed"{{ if ne site.Language.Lang "en" }} lang="en"{{ end }}>
   <div data-demo="{{ .slug }}" data-embedded>
-    <img src="{{ printf "demos/%s/static.webp" .slug | relURL }}" width="1200" height="675" alt="{{ i18n "demoStill" .title }}"{{ if ne site.Language.Lang "en" }} lang="{{ site.Language.Locale }}"{{ end }}>
+    <img src="{{ printf "demos/%s/static.webp" .slug | relURL }}" width="1200" height="675" alt="{{ i18n "demoStill" .title }}"{{ if ne site.Language.Lang "en" }} lang="{{ site.Language.Locale }}"{{ end }}{{ if $light }} class="demo-still--dark" loading="lazy"{{ end }}>
+    {{- if $light }}
+    <img src="{{ printf "demos/%s/static-light.webp" .slug | relURL }}" width="1200" height="675" alt="{{ i18n "demoStill" .title }}"{{ if ne site.Language.Lang "en" }} lang="{{ site.Language.Locale }}"{{ end }} class="demo-still--light" loading="lazy">
+    {{- end }}
   </div>
 </div>
 <script type="module" src="{{ printf "demos/%s/demo.js" .slug | relURL }}"></script>
