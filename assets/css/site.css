@@ -675,6 +675,9 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects, .section-link--proj
   gap: 6px;
 }
 .card__thumb { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; margin-bottom: 6px; }
+/* A bundle's light thumbnail (thumb-light.webp), when it has one, replaces the dark one under the light theme. */
+.card__thumb--light, :root[data-theme="light"] .card__thumb--dark { display: none; }
+:root[data-theme="light"] .card__thumb--light { display: block; }
 .card__title { font-size: 21px; line-height: 1.5; }
 .card__title a { color: var(--fg); }
 .card__title a::after { content: ""; position: absolute; inset: 0; }
@@ -702,6 +705,10 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects, .section-link--proj
 .project__note { margin-top: 16px; }
 .demo-embed { margin-bottom: 48px; }
 .demo-embed [data-demo] > img { width: 100%; }
+/* Likewise its light still (static-light.webp). These outrank the frame's own [data-demo] > img rule. */
+.demo-embed [data-demo] > img.demo-still--light,
+:root[data-theme="light"] .demo-embed [data-demo] > img.demo-still--dark { display: none; }
+:root[data-theme="light"] .demo-embed [data-demo] > img.demo-still--light { display: block; }
 .model-card {
   max-width: var(--measure);
   margin-top: 48px;
