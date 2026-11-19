@@ -3,7 +3,7 @@
     {{- /* Where Mark works now: the place of the newest role in data/timeline.yaml. His contact links
        are in the Contact section of the About page. */}}
     {{- with index hugo.Data.timeline 0 }}
-    <p class="site-footer__place">{{ .place }}</p>
+    <p class="site-footer__place">{{ (merge . (index . site.Language.Lang | default dict)).place }}</p>
     {{- end }}
   </div>
 </footer>

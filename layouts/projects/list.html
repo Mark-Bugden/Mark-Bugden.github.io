@@ -14,20 +14,29 @@
   </ul>
   {{- end }}
 
-  {{- /* An "In progress" entry with a slug drops out once that project has a card above. */}}
+  {{- /* An "In progress" entry with a slug drops out once that project has a card above. A Czech or
+     German page without its own inProgress list shows the English page's, marked as English. */}}
   {{- $listedSlugs := slice }}
   {{- range $listed }}{{ $listedSlugs = $listedSlugs | append .slug }}{{ end }}
+  {{- $entries := .Params.inProgress }}
+  {{- $english := false }}
+  {{- if not $entries }}
+    {{- with partial "in-language.html" (dict "page" . "lang" "en") }}
+      {{- $entries = .Params.inProgress }}
+      {{- $english = ne site.Language.Lang "en" }}
+    {{- end }}
+  {{- end }}
   {{- $inProgress := slice }}
-  {{- range .Params.inProgress }}{{ if not (in $listedSlugs .slug) }}{{ $inProgress = $inProgress | append . }}{{ end }}{{ end }}
+  {{- range $entries }}{{ if not (in $listedSlugs .slug) }}{{ $inProgress = $inProgress | append . }}{{ end }}{{ end }}
   {{- with $inProgress }}
   <section class="in-progress" aria-labelledby="in-progress-heading">
-    <h2 id="in-progress-heading" class="label">In progress</h2>
-    <ul class="rows">
+    <h2 id="in-progress-heading" class="label">{{ i18n "inProgress" }}</h2>
+    <ul class="rows"{{ if $english }} lang="en"{{ end }}>
       {{- range . }}
       <li class="row">
         {{- if .url }}
         <a class="in-progress__title" href="{{ .url }}" rel="noopener">{{ .title }}</a>
-        <span class="in-progress__summary">{{ .summary }}{{ with .host }} On {{ . }}.{{ end }}</span>
+        <span class="in-progress__summary">{{ .summary }}{{ with .host }} {{ i18n "onHost" . }}{{ end }}</span>
         {{- else }}
         <span class="in-progress__title">{{ .title }}</span>
         <span class="in-progress__summary">{{ .summary }}</span>

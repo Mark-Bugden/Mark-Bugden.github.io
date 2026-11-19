@@ -1,11 +1,13 @@
 {{- /* The projects to list, in data/projects.yaml order: those whose bundle is present (so it
-   validated), whose manifest status is in-progress or live, and whose write-up is published.
-   Each item is a dict: slug, status, manifest, page. */ -}}
+   validated), whose manifest status is in-progress or live, and whose English write-up is published.
+   On a Czech or German page each item is that language's version of the write-up, or the English
+   one while it has none. Each item is a dict: slug, status, manifest, page. */ -}}
 {{- $listed := slice -}}
 {{- range sort hugo.Data.projects "order" -}}
   {{- $manifest := partial "manifest.html" .slug -}}
-  {{- $page := site.GetPage (printf "/projects/%s" .slug) -}}
-  {{- if and $manifest $page (not $page.Draft) (in (slice "in-progress" "live") $manifest.status) -}}
+  {{- $en := hugo.Sites.Default.GetPage (printf "/projects/%s" .slug) -}}
+  {{- if and $manifest $en (not $en.Draft) (in (slice "in-progress" "live") $manifest.status) -}}
+    {{- $page := or (partial "in-language.html" (dict "page" $en "lang" site.Language.Lang)) $en -}}
     {{- $listed = $listed | append (dict "slug" .slug "status" $manifest.status "manifest" $manifest "page" $page) -}}
   {{- end -}}
 {{- end -}}

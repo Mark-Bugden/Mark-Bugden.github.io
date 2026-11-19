@@ -1,0 +1,50 @@
+# Interface text. Czech and German are in cs.toml and de.toml, with the same keys.
+
+skipToContent = "Skip to content"
+home = "Home"
+mainNav = "Main"
+about = "About"
+publications = "Publications"
+projects = "Projects"
+darkTheme = "Dark theme"
+language = "Language"
+
+# Home page: the summary under each section link, and the figure's caption.
+aboutSummary = "Background, experience, and contact"
+publicationsSummary = "Papers and preprints"
+projectsSummary = "Portfolio of selected work"
+phaseCaption = "Phase portrait of a simple pendulum"
+
+# About
+portraitAlt = "Portrait of Mark Bugden."
+timeline = "Timeline"
+contact = "Contact"
+email = "Email"
+cv = "CV"
+# Read out before each year on the timeline, as in "From 2023".
+from = "From"
+
+# 404
+pageNotFound = "Page not found"
+notFoundLede = "That page doesn’t exist, or it has moved. One of these may be what you were looking for:"
+notFoundDescription = "This page does not exist. Find Mark Bugden's projects, background and publications from here."
+
+# Publications
+allPapers = "All my papers on arXiv"
+
+# Projects. englishOnly is shown on a Czech or German project page whose write-up is not translated.
+live = "Live"
+inProgress = "In progress"
+onHost = "On {{ . }}."
+lastBuilt = "Last built"
+dateFormat = "2 January 2006"
+sourceOnGitHub = "Source on GitHub"
+allSourceOnGitHub = "Code, model and demo source on GitHub"
+englishOnly = ""
+demoStill = "Still of the {{ . }} demo’s opening state."
+demoPreview = "Preview of the {{ . }} demo."
+modelCard = "Model card"
+modelWhat = "What it computes"
+modelData = "Data"
+modelMetric = "Performance"
+modelLimits = "Known limits"

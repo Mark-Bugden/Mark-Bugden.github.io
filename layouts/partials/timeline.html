@@ -1,13 +1,16 @@
 {{- /* Career timeline from data/timeline.yaml, newest first. Each role's start year sits on the line
-   below it, between that role and the one before it, so every year marks a move. */ -}}
+   below it, between that role and the one before it, so every year marks a move. An entry's cs or de
+   map replaces its English fields on the Czech or German page. */ -}}
 <ol class="timeline">
   {{- range hugo.Data.timeline }}
+  {{- with merge . (index . site.Language.Lang | default dict) }}
   <li class="timeline__item">
     <p class="timeline__role">{{ .role }}</p>
     <p class="timeline__org">{{ .org }}, {{ .place }}</p>
     {{- with .since }}
-    <p class="timeline__since"><span class="visually-hidden">From </span>{{ . }}</p>
+    <p class="timeline__since"><span class="visually-hidden">{{ i18n "from" }} </span>{{ . }}</p>
     {{- end }}
   </li>
+  {{- end }}
   {{- end }}
 </ol>

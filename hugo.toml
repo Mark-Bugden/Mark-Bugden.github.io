@@ -1,19 +1,54 @@
 baseURL = "https://mark-bugden.github.io/"
-locale = "en"
 title = "Mark Bugden"
 enableRobotsTXT = true
 disableKinds = ["taxonomy", "term"]
 
+# English at the root (/about/), Czech under /cs/ and German under /de/. The language menu in the
+# header shows each one's `code`; Czech is "CZ" there, though its language tag is cs. Interface text
+# is in i18n/, page text in content/*.cs.md and *.de.md, and timeline text in data/timeline.yaml.
+defaultContentLanguage = "en"
+
+[languages.en]
+  locale = "en"
+  label = "English"
+  weight = 1
+  [languages.en.params]
+    code = "EN"
+    # Shown as separate lines under the name on the home page; joined with spaces elsewhere.
+    role = [
+      "Senior Data Scientist at Datamole.",
+      "Formerly a Theoretical Physicist, Mathematician, and Machine Learning Scientist.",
+    ]
+    description = "Mark Bugden: Senior Data Scientist at Datamole in Prague, formerly a theoretical physicist. Projects, interactive demos and publications."
+
+[languages.cs]
+  locale = "cs"
+  label = "Čeština"
+  weight = 2
+  [languages.cs.params]
+    code = "CZ"
+    role = [
+      "Senior Data Scientist ve společnosti Datamole.",
+      "Dříve teoretický fyzik, matematik a Machine Learning Scientist.",
+    ]
+    description = "Mark Bugden: Senior Data Scientist ve společnosti Datamole v Praze, dříve teoretický fyzik. Projekty, interaktivní dema a publikace."
+
+[languages.de]
+  locale = "de"
+  label = "Deutsch"
+  weight = 3
+  [languages.de.params]
+    code = "DE"
+    role = [
+      "Senior Data Scientist bei Datamole.",
+      "Zuvor theoretischer Physiker, Mathematiker und Machine Learning Scientist.",
+    ]
+    description = "Mark Bugden: Senior Data Scientist bei Datamole in Prag, zuvor theoretischer Physiker. Projekte, interaktive Demos und Publikationen."
+
 [params]
   name = "Mark Bugden"
-  # Shown as separate lines under the name on the home page; joined with spaces elsewhere.
-  role = [
-    "Senior Data Scientist at Datamole.",
-    "Formerly a Theoretical Physicist, Mathematician, and Machine Learning Scientist.",
-  ]
   jobTitle = "Senior Data Scientist"
   employer = "Datamole"
-  description = "Mark Bugden: Senior Data Scientist at Datamole in Prague, formerly a theoretical physicist. Projects, interactive demos and publications."
   email = "mathphys@mark-bugden.com"
   github = "https://github.com/Mark-Bugden"
   linkedin = "https://www.linkedin.com/in/mark-bugden/"
