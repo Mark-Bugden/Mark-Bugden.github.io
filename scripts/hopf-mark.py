@@ -109,7 +109,7 @@ def main():
     # light, but a favicon sits on the browser's tab strip, so it follows the browser's theme.
     style = (
         "path{fill:none;stroke-width:3.2;stroke-linecap:round}.f{stroke:#e8ecf2}.a{stroke:#f6be55}"
-        "@media (prefers-color-scheme:light){.f{stroke:#10151d}.a{stroke:#c2391b}}"
+        "@media (prefers-color-scheme:light){.f{stroke:#10151d}.a{stroke:#285388}}"
     )
     plain = "".join(f'<path class="{c}" d="{d}"/>' for d, _, c in arcs)
     (ROOT / "static/favicon.svg").write_text(
