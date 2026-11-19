@@ -4,7 +4,8 @@
    static-light.webp gets it as a second still, which site.css shows under the light theme instead;
    both are then lazy, so a browser fetches only the one it shows. data-embedded tells the frame
    that this page renders the title, tagline, model card and links itself. Demos are in English, so
-   on a Czech or German page the frame is marked as English. */ -}}
+   on a Czech or German page the frame is marked as English. demo-fit.js measures where the embed
+   starts, for --dk-fit-height in site.css. */ -}}
 {{- $light := resources.Get (printf "demos/%s/static-light.webp" .slug) }}
 <div class="demo-embed"{{ if ne site.Language.Lang "en" }} lang="en"{{ end }}>
   <div data-demo="{{ .slug }}" data-embedded>
@@ -14,4 +15,7 @@
     {{- end }}
   </div>
 </div>
+{{- with resources.Get "js/demo-fit.js" | minify }}
+<script>{{ .Content | safeJS }}</script>
+{{- end }}
 <script type="module" src="{{ printf "demos/%s/demo.js" .slug | relURL }}"></script>

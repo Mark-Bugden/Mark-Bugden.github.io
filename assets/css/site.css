@@ -689,8 +689,13 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects, .section-link--proj
 .in-progress__title { flex: 1 1 240px; font-weight: 500; }
 .in-progress__summary { flex: 2 1 320px; align-self: center; color: var(--muted); }
 
-/* Project page */
+/* Project page. Only the title sits above the demo, close under the header, so that the whole demo is
+   on screen when the page opens. The tagline, status, build date and source link follow the demo. */
 
+.project__header { padding-block: 12px 20px; }
+.project__header h1 { font-size: clamp(32px, 3.6vw, 44px); }
+.project__intro { margin-bottom: 40px; }
+.project__intro .lede { margin-top: 0; }
 .project__meta {
   display: flex;
   flex-wrap: wrap;
@@ -703,7 +708,13 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects, .section-link--proj
 }
 /* On a Czech or German page whose write-up and demo are still English only. */
 .project__note { margin-top: 16px; }
-.demo-embed { margin-bottom: 48px; }
+/* --dk-fit-height is the window's height, less what sits above the demo (--demo-top, which
+   demo-fit.js measures) and a 16px margin under it. A demo that sizes itself to the window reads it;
+   the demo-kit README has the contract. In svh, so it holds still as a phone's toolbars come and go. */
+.demo-embed {
+  --dk-fit-height: calc(100svh - var(--demo-top, 0px) - 16px);
+  margin-bottom: 40px;
+}
 .demo-embed [data-demo] > img { width: 100%; }
 /* Likewise its light still (static-light.webp). These outrank the frame's own [data-demo] > img rule. */
 .demo-embed [data-demo] > img.demo-still--light,

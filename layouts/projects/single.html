@@ -29,21 +29,12 @@
 {{- $manifest := partial "manifest.html" $slug }}
 {{- $translated := ne .Language.Lang "en" }}
 {{- $englishOnly := and $translated (not .Content) }}
+{{- /* Only the title sits above the demo, so the whole demo is on screen when the page opens. The
+   tagline, status, build date and source link come after it. */}}
 <article class="project">
   <header class="wrap page-header project__header">
     <p class="eyebrow"><a href="{{ "projects/" | relLangURL }}">{{ i18n "projects" }}</a></p>
     <h1>{{ .Title }}</h1>
-    {{- with $manifest }}
-    <p class="lede"{{ if and $translated (not $.Params.tagline) }} lang="en"{{ end }}>{{ $.Params.tagline | default .tagline }}</p>
-    <ul class="project__meta">
-      {{- if eq .status "in-progress" }}<li class="label">{{ i18n "inProgress" }}</li>{{ end }}
-      <li>{{ i18n "lastBuilt" }} <time datetime="{{ .built }}">{{ time.Format (i18n "dateFormat") .built }}</time></li>
-      <li><a href="{{ .repo }}" rel="noopener">{{ i18n "sourceOnGitHub" }}</a></li>
-    </ul>
-    {{- end }}
-    {{- if $englishOnly }}
-    <p class="notice project__note">{{ i18n "englishOnly" }}</p>
-    {{- end }}
   </header>
 
   {{- with $manifest }}
@@ -55,6 +46,19 @@
   {{- end }}
 
   <div class="wrap">
+    <div class="project__intro">
+      {{- with $manifest }}
+      <p class="lede"{{ if and $translated (not $.Params.tagline) }} lang="en"{{ end }}>{{ $.Params.tagline | default .tagline }}</p>
+      <ul class="project__meta">
+        {{- if eq .status "in-progress" }}<li class="label">{{ i18n "inProgress" }}</li>{{ end }}
+        <li>{{ i18n "lastBuilt" }} <time datetime="{{ .built }}">{{ time.Format (i18n "dateFormat") .built }}</time></li>
+        <li><a href="{{ .repo }}" rel="noopener">{{ i18n "sourceOnGitHub" }}</a></li>
+      </ul>
+      {{- end }}
+      {{- if $englishOnly }}
+      <p class="notice project__note">{{ i18n "englishOnly" }}</p>
+      {{- end }}
+    </div>
     {{- if $englishOnly }}
     <div class="prose" lang="en">
       {{ (partial "in-language.html" (dict "page" . "lang" "en")).Content }}
