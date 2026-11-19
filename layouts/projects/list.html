@@ -9,7 +9,7 @@
   {{- with $listed }}
   <ul class="card-grid">
     {{- range . }}
-    <li>{{ partial "project-card.html" (merge . (dict "level" 2)) }}</li>
+    <li>{{ partial "project-card.html" . }}</li>
     {{- end }}
   </ul>
   {{- end }}

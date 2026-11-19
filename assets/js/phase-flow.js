@@ -24,8 +24,8 @@
   // spans q from -3 pi to 3 pi; p = 0 is at y = 220, and one unit of p is 76 units of y.
   var VIEW_W = 1200, MID = 220, SCALE = 76;
 
-  var SPEED = 0.45;         // time units of the pendulum per second: a small swing takes about 14 s
-  var BOOST = 1.2;          // extra speed of a lit cell's dots
+  var SPEED = 0.3;          // time units of the pendulum per second: a small swing takes about 21 s
+  var LIT_SPEED = 0.99;     // the same for a lit cell's dots: a small swing takes about 6.3 s
   var TAIL = 16;            // tail samples kept per dot
   var SAMPLE = 1 / 20;      // seconds between tail samples, so a tail shows the last 0.8 s
   var FADE = 0.2;           // seconds for a cell's dots to light up or go back
@@ -128,7 +128,7 @@
       sec.lit = target ? Math.min(1, sec.lit + dt / FADE) : Math.max(0, sec.lit - dt / FADE);
     }
     for (g = 0; g !== 4; g++) {
-      var t = dt * SPEED * (g ? 1 + BOOST * sections[g - 1].lit : 1);
+      var t = dt * (g ? SPEED + (LIT_SPEED - SPEED) * sections[g - 1].lit : SPEED);
       var steps = Math.ceil(t / 0.04), h = t / steps;
       var list = groups[g];
       for (i = 0; i !== list.length; i++) {
