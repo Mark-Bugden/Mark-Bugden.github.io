@@ -22,6 +22,16 @@
 {{- else if not .Draft }}
   {{- errorf "%s is published, but static/demos/%s/ is missing. Run scripts/fetch-demos.sh; it drops stub bundles with --drop-stubs, so a published write-up needs an in-progress or live bundle." .File.Path $slug }}
 {{- end }}
+{{- /* KaTeX's styles, when the write-up shown has maths. Rendering it here is what runs
+   render-passthrough.html, which notes the maths on the page. */}}
+{{- $text := . }}
+{{- if and (ne .Language.Lang "en") (not .Content) }}{{ $text = $en }}{{ end }}
+{{- with $text }}
+  {{- if and .Content (.Store.Get "hasMath") }}
+    {{- $katex := resources.Get "css/katex.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $katex.RelPermalink }}" integrity="{{ $katex.Data.Integrity }}">
+  {{- end }}
+{{- end }}
 {{- end }}
 
 {{- define "main" }}

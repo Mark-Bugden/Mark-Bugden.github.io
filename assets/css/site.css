@@ -818,6 +818,18 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects, .section-link--proj
 .faq__answer { padding-bottom: 28px; }
 .faq__answer > * + * { margin-top: 16px; }
 
+/* Maths, typeset by KaTeX (render-passthrough.html), with its styles in css/katex.css. A displayed
+   equation is centred, with room around it. KaTeX never breaks one over lines, and nothing here
+   scrolls, so each must fit a 320px column, a 360px phone's. In a narrower column it shrinks with
+   the column, so it still fits. A note on an equation is the paragraph after it, marked
+   {.equation-note}, and sits under it like a caption. */
+.prose .katex-display {
+  margin-block: 24px 0;
+  font-size: min(1em, (100vw - 2 * var(--gutter)) / 20);
+}
+.prose .katex-display + *, .prose .equation-note + * { margin-top: 24px; }
+.prose .equation-note { margin-top: 8px; text-align: center; color: var(--muted); }
+
 .callout { font: 500 22px/1.3 var(--font-display); }
 
 .figure, .table { margin-block: 32px; }

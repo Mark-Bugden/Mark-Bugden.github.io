@@ -15,17 +15,32 @@ The demo shows a zombie outbreak on a population map of the Czech Republic, one 
 {{< /faq >}}
 
 {{< faq "How do you model a zombie outbreak?" >}}
-The outbreak follows the humans–zombies–removed (SZR) model of Munz, Hudea, Imad and Smith? (2009). Humans (S) are bitten and become zombies (Z). Humans can fight back and put zombies down, which moves them to the removed (R). As in the films, a zombie that goes down doesn't always stay down: the removed can rise again as zombies. The paper also has births and natural deaths, but since the demo only lasts a year I don't include them.
+The outbreak follows the humans–zombies–removed (SZR) model of Munz, Hudea, Imad and Smith? (2009). Humans ($S$) are bitten and become zombies ($Z$). Humans can fight back and put zombies down, which moves them to the removed ($R$). As in the films, a zombie that goes down doesn't always stay down: the removed can rise again as zombies. The paper also has births and natural deaths, but since the demo only lasts a year I don't include them.
 
 The paper's population is well mixed: everyone can meet everyone. Each square kilometre runs the same model, and people move between neighbouring squares. The equations governing the model are:
 
-```
-∂S/∂t = −β S Z + ∇·(χ S ∇z)               humans are bitten, and flee from zombies
-∂Z/∂t =  β S Z − α S Z + ζ R + D ΔZ       zombies bite, are put down, rise and wander
-∂R/∂t =  α S Z − ζ R                      where z = Z / (S + Z) is the zombie share
-```
+$$
+\frac{\partial S}{\partial t} = -\beta S Z + \nabla \cdot (\chi S \, \nabla z)
+$$
 
-The parameters χ and D describe how people move: D is how fast zombies wander at random, and χ is how fast humans flee towards neighbouring squares where zombies are a smaller share of the people around. That share is z = Z / (S + Z), the fraction of everyone in a square who is a zombie. The other three parameters come from the paper: β, α and ζ are the rates at which zombies bite, are put down and rise again.
+Humans are bitten, and flee from zombies.
+{.equation-note}
+
+$$
+\frac{\partial Z}{\partial t} = \beta S Z - \alpha S Z + \zeta R + D \, \Delta Z
+$$
+
+Zombies bite, are put down, rise and wander.
+{.equation-note}
+
+$$
+\frac{\partial R}{\partial t} = \alpha S Z - \zeta R
+$$
+
+Zombies put down are removed, and can rise again.
+{.equation-note}
+
+The parameters $\chi$ and $D$ describe how people move: $D$ is how fast zombies wander at random, and $\chi$ is how fast humans flee towards neighbouring squares where zombies are a smaller share of the people around. That share is $z = Z / (S + Z)$, the fraction of everyone in a square who is a zombie. The other three parameters come from the paper: $\beta$, $\alpha$ and $\zeta$ are the rates at which zombies bite, are put down and rise again.
 
 I have included some preset values for the parameters of the model, as four strains: *Munz et al. (2009)* uses the paper's own rates, *Shamblers* are slower, *Frenzied* are faster, and *Risers* lose most fights but rise again quickly.
 {{< /faq >}}

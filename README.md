@@ -41,6 +41,9 @@ The pre-push hook in `.githooks/` runs it before every push, once `core.hooksPat
 
   The build fails if a published write-up's bundle is missing, is still a stub, or disagrees with `data/projects.yaml`.
 - **Styles** are all in [`assets/css/site.css`](assets/css/site.css). Its design tokens on `:root` hold every colour and typeface: dark, and light only when the visitor picks it with the header button. Demos keep the kit's own tokens on `[data-demo]`. The fonts (Space Grotesk, Inter and JetBrains Mono) are self-hosted in `static/fonts/`, each in a Latin and a Latin Extended file. Browsers fetch the Latin Extended files only for text that needs them, such as Czech.
+- **Maths** in a write-up is LaTeX: `$…$` inline, and `$$…$$` on lines of its own for a displayed equation. Hugo's built-in KaTeX typesets it when the site builds, so the page runs no script for it, and a LaTeX error fails the build. Pages with maths also load [`assets/css/katex.css`](assets/css/katex.css), with fonts from `static/fonts/katex/`. These come from the KaTeX version inside the pinned Hugo, so update them when Hugo's KaTeX changes.
+  - KaTeX never breaks a displayed equation over lines, so each must fit 320px, the column on a 360px phone. Narrower columns shrink it to fit.
+  - For a note under an equation, put a paragraph after it, with `{.equation-note}` on the line below the paragraph.
 - **Deploys.** [`.github/workflows/pages.yml`](.github/workflows/pages.yml) runs on every pull request and every push to `main`. It also runs when a project releases a demo, and once a day. It runs `scripts/check.sh`, which fetches and validates the bundles, builds with `hugo --minify --panicOnWarning`, and checks the site's own links. Then it checks external links too, but only reports the ones that fail, under a warning in the run's summary, so another site's outage never fails a run or holds back a deploy. On `main` it then deploys to GitHub Pages. Stub bundles are validated but not deployed.
 - **The domain.** GitHub Pages serves the site at `mark-bugden.com`, and redirects `mark-bugden.github.io` and `www.mark-bugden.com` there. The domain is set in the repo's Settings → Pages, not in a `CNAME` file, which GitHub ignores when a site deploys from Actions. Its DNS records are at Name.com. Leave the MX and TXT records there alone: they carry the email.
 
@@ -105,4 +108,4 @@ When you change text:
 
 ## Licence
 
-The code is [MIT](LICENSE). The site's content (text and images) is not covered by that licence. The fonts are under the SIL Open Font License; the licence files are in `static/fonts/`.
+The code is [MIT](LICENSE). The site's content (text and images) is not covered by that licence. The fonts are under the SIL Open Font License, except KaTeX's maths fonts and styles, which are MIT. The licence files are in `static/fonts/` and `static/fonts/katex/`.

@@ -62,6 +62,14 @@ defaultContentLanguage = "en"
 [markup.goldmark.parser.attribute]
   block = true
 
+# Maths: $…$ inline, and $$…$$ on lines of its own for a displayed equation. Goldmark passes it
+# through untouched, and layouts/_default/_markup/render-passthrough.html typesets it.
+[markup.goldmark.extensions.passthrough]
+  enable = true
+  [markup.goldmark.extensions.passthrough.delimiters]
+    block = [["$$", "$$"]]
+    inline = [["$", "$"]]
+
 [markup.highlight]
   noClasses = false
 
