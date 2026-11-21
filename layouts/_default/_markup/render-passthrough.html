@@ -1,0 +1,13 @@
+{{- /* Maths in Markdown, in LaTeX: $…$ inline, and $$…$$ on lines of its own for a displayed equation.
+   Hugo's own KaTeX typesets it as the site builds, as HTML to show and MathML for screen readers, so
+   the page runs no script for it. A LaTeX error fails the build. The page notes that it has maths, so
+   projects/single.html loads KaTeX's styles (css/katex.css) and fonts (static/fonts/katex/). */ -}}
+{{- $opts := dict "output" "htmlAndMathml" "displayMode" (eq .Type "block") -}}
+{{- with try (transform.ToMath .Inner $opts) -}}
+  {{- with .Err -}}
+    {{- errorf "%s: KaTeX can't typeset %q: %s" $.Position $.Inner . -}}
+  {{- else -}}
+    {{- .Value -}}
+    {{- $.Page.Store.Set "hasMath" true -}}
+  {{- end -}}
+{{- end -}}

@@ -41,21 +41,23 @@ Each Doctor, writer or director gets a score from the ratings of their stories. 
 
 **Shrinkage.** Christopher Eccleston has 10 stories, while Tom Baker has 41. This means that Christopher Eccleston's average is less reliable than Tom Baker's. Shrinkage accounts for this by giving everyone extra episodes, all rated at the global average. This pulls everyone's ratings closer to the average, but has a bigger effect on Christopher Eccleston than Tom Baker. The result is that a handful of great episodes isn't enough on its own. A high score needs a high average across many episodes.
 
-More concretely, with k extra episodes at the global average m, a Doctor that averages x̄ over n episodes gets a score of:
+More concretely, with $k$ extra episodes at the global average $m$, a Doctor that averages $\bar{x}$ over $n$ episodes gets a score of:
 
-score = (k·m + n·x̄) / (k + n)
+$$
+\text{score} = \frac{k m + n \bar{x}}{k + n}
+$$
 
-The value k is a judgement call, which is why it's a slider on the demo.
+The value $k$ is a judgement call, which is why it's a slider on the demo.
 
 **Era adjustment.** The two eras don't rate the same on IMDb: the new era stories average 7.65, and the classic ones average 7.29 (vote-weighted). Comparing episodes across eras therefore gives a head start to the new era stories. The era adjustment removes it by scoring each episode against the average for its own era. A classic episode rated 7.8 scores +0.5, because it beats the classic average by half a point. A revived episode with the same 7.8 scores only +0.15. Scores then read as points above or below a typical episode of the same era.
 
 Writers and directors need at least three stories to be ranked, and a co-written story counts in full for each writer.
 
-The defaults are the vote-weighted mean, k = 5 and no era adjustment.
+The defaults are the vote-weighted mean, $k = 5$ and no era adjustment.
 {{< /faq >}}
 
 {{< faq "Does the answer depend on how you count?" >}}
-I ranked everyone under every combination of the controls: three averages, shrinkage from 0 to 20, and era adjustment on or off. This gives 3 x 21 x 2 = 126 combinations.
+I ranked everyone under every combination of the controls: three averages, shrinkage from 0 to 20, and era adjustment on or off. This gives $3 \times 21 \times 2 = 126$ combinations.
 
 Under all combinations, David Tennant comes out as the best Doctor, and Jodie Whittaker as the worst. Among the writers, Steven Moffat is first in all 126.
 
