@@ -1,0 +1,11 @@
+{{- /* A question in a write-up, which opens to show its answer.
+   {{< faq "What is this demo?" >}} The answer, in Markdown. {{< /faq >}}
+   It is a <details>, so it opens without script, and find in page searches a closed one. Its id comes
+   from the question, so a link can name it, and project-tabs.js opens it. */ -}}
+{{- $question := .Get 0 -}}
+<details class="faq" id="{{ $question | anchorize }}">
+  <summary>{{ $question }}<svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
+  <div class="faq__answer">
+    {{ .Inner | .Page.RenderString (dict "display" "block") }}
+  </div>
+</details>
