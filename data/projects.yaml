@@ -3,24 +3,20 @@
 # site build, so a demo goes live when its PR merges. To hold a demo at an older release (to roll
 # back a bad one, say), add `tag: v<major>.<minor>.<patch>` to its entry. A project is listed only
 # when its manifest status is in-progress or live and its write-up (content/projects/<slug>.md) is
-# not a draft.
+# not a draft. Projects are listed in alphabetical order of their English titles. To put one first,
+# give its entry `order: 1` (and the next `order: 2`, and so on).
 
 - slug: zombie-outbreak
   repo: Mark-Bugden/zombie-outbreak
-  order: 1
 
 - slug: doctor-who-ratings
   repo: Mark-Bugden/doctor-who-ratings
-  order: 2
 
 - slug: soudai
   repo: Mark-Bugden/soudai
-  order: 3
 
 - slug: lol-win-prediction
   repo: Mark-Bugden/lol-win-prediction
-  order: 4
 
 - slug: photon-orbits-5d
   repo: Mark-Bugden/photon-orbits-5d
-  order: 5
