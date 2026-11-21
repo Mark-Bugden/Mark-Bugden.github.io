@@ -8,29 +8,23 @@ description: "Light orbiting a five-dimensional rotating black hole: spherical p
 ---
 
 {{< faq "What is this demo?" >}}
-Close to a rotating black hole, light can orbit at a fixed distance. Such an orbit isn't confined to a plane: as the photon goes round, it swings back and forth between two latitudes, and over many turns it covers a band on a sphere. These are spherical photon orbits. Around the ordinary rotating black hole of four-dimensional spacetime, the Kerr black hole, they are well studied.
+Black holes are exotic objects in our universe, but studying the Einstein Field Equations allows us to understand them and their strange gravitational behaviour. The mathematics tells us that a black hole that is rotating will drag space and time along with it. Close to such a rotating black hole, the curvature of spacetime is so great that light can orbit the black hole as though it were a satellite. Such an orbit isn’t confined to a plane: as the photon goes round, it swings back and forth between two latitudes, and over many turns it covers a band on a sphere. These are spherical photon orbits. Around the ordinary rotating black hole of four-dimensional spacetime, the Kerr black hole, they are well studied.
 
-This demo draws them around a rotating black hole in five dimensions, the Myers–Perry black hole, following my 2018 paper, [Spherical photon orbits around a 5D Myers-Perry black hole](https://doi.org/10.1007/s10714-018-2352-x). Choose the black hole's spins and the photon's angular momenta, and the demo finds the orbit and sends the photon round it. The presets reproduce the paper's figures.
+This demo visualises what these photon orbits would look like around a rotating black hole in five-dimensional spacetime, the Myers–Perry black hole. It is based on the work I did in my 2018 paper, [Spherical photon orbits around a 5D Myers-Perry black hole](https://doi.org/10.1007/s10714-018-2352-x). You can choose the spin of the black hole, as well as the angular momenta of the photon. The demo finds the orbit and sends the photon round it. The presets reproduce the paper’s figures.
 
-The demo was inspired by Leo Stein's [Kerr spherical photon orbits](https://duetosymmetry.com/tool/kerr-circular-photon-orbits/) tool, which does the same for the Kerr black hole.
+The demo was inspired by Leo Stein’s [Kerr spherical photon orbits](https://duetosymmetry.com/tool/kerr-circular-photon-orbits/) tool, which creates a similar visualisation for the four-dimensional Kerr black hole.
 {{< /faq >}}
 
 {{< faq "How does a 5-dimensional black hole differ from a “normal” black hole in 4 dimensions?" >}}
-**Two spins.** In three dimensions of space, things rotate about an axis. With four dimensions of space, rotations happen in planes rather than about axes, and there are two independent planes to turn in. So a black hole in five-dimensional spacetime can spin in two planes at once. The Myers–Perry black hole does, with spin a in one plane and spin b in the other. A Kerr black hole has one spin.
+Apart from living in a five-dimensional universe, the main difference between a rotating black hole in four dimensions and a rotating black hole in five dimensions is the spin. In three dimensions of space, an object spins in a plane and there is only one orthogonal dimension to this, so the spin of an object is characterised by one number (the rotation parameter, a, of the Kerr black hole). With four dimensions of space, specifying a plane in which an object is rotating leaves you with two orthogonal dimensions in which the object could also be rotating – the object is therefore specified by two spins. For a spinning five-dimensional black hole there are therefore two numbers which specify how much it is spinning, these are the a and b parameters in the demo.
 
-The coordinates follow the planes. There is a radius r, an angle in each plane (φ in the plane of a, and ψ in the plane of b), and an angle θ, from 0 to π/2, which says how the photon's distance from the centre is shared between the two planes.
-
-**Two angular momenta.** Besides its energy, a photon around a Kerr black hole has two constants of motion: its angular momentum about the spin axis, and the Carter constant. Here it has three: its angular momenta Φ and Ψ in the two planes, and a constant K like Carter's. Frolov and Stojković showed that with these, the equations of motion separate.
-
-An orbit stays at one radius when the radial potential and its slope both vanish there, and that fixes r and K. So, for given spins, a pair of momenta (Φ, Ψ) gives at most one spherical orbit. This last step is numerical: in 200,000 random samples and 16 dense grids, a second orbit never turned up. The demo still checks for one every time.
-
-**Horizons.** Like a Kerr black hole, a Myers–Perry black hole has an event horizon with an inner horizon inside it. In units where the mass parameter μ is 1, they are where (r² + a²)(r² + b²) = r², and they exist only when a + b ≤ 1. The horizon is a squashed three-sphere, where Kerr's is a squashed two-sphere. And with only one spin there is no inner horizon, while any spin at all gives a Kerr black hole two.
-
-**Other black holes.** In four dimensions, a black hole in empty space has a spherical horizon, and its mass and spin fix it completely: it is a Kerr black hole. Five dimensions allow more. The black ring, found by Emparan and Reall, has a horizon shaped like S² × S¹: a ring whose cross-section is a sphere. For some masses and spins, a black ring and a Myers–Perry black hole share the same mass and spin, so those no longer fix the black hole. There are also black lenses, with yet another horizon shape, and combinations such as black Saturn, a black hole circled by a black ring. This demo sticks to the Myers–Perry black hole.
+The motion of the photon is also different in five dimensions than in four dimensions. Just as the black hole has two notions of spin, the photon has two types of angular momentum, Φ and Ψ. In the demo, you can freely choose the angular momenta of the photon within the ranges which still give spherical orbits.
 {{< /faq >}}
 
-{{< faq "How do you visualise 5 dimensional spacetime?" >}}
-A spherical photon orbit stays at one radius. So, leaving out time, the photon moves on a three-dimensional surface, described by the angles θ, φ and ψ. That is still one dimension too many to draw. The demo uses the paper's picture:
+{{< faq "How do you visualise 5-dimensional spacetime?" >}}
+A spherical photon orbit stays at one radius. So, leaving out time, the photon moves on a three-dimensional surface, described by the angles θ, φ and ψ. This set of angles describes a three-sphere, which we can't visualise very easily in three dimensions (the usual sphere you will be used to, like a beach ball, is a 2-sphere, so this is a higher-dimensional version of that). To make the orbits easier to visualise, I use a trick to encode the extra information using colour.
+
+The demo uses the paper's picture:
 
 ```
 X = √(r² + a²) sin θ cos φ
@@ -96,7 +90,5 @@ At an extremal hole, the edge of the pad's region on the side that turns with th
 
 - Bugden, M. (2018). [Spherical photon orbits around a 5D Myers-Perry black hole](https://doi.org/10.1007/s10714-018-2352-x). *General Relativity and Gravitation* 50. [arXiv:1801.03389](https://arxiv.org/abs/1801.03389).
 - Myers, R. C. and Perry, M. J. (1986). Black holes in higher dimensional space-times. *Annals of Physics* 172, 304–347.
-- Emparan, R. and Reall, H. S. (2002). [A rotating black ring in five dimensions](https://arxiv.org/abs/hep-th/0110260). *Physical Review Letters* 88, 101101.
 - Frolov, V. P. and Stojković, D. (2003). [Particle and light motion in a space-time of a five-dimensional rotating black hole](https://arxiv.org/abs/gr-qc/0301016). *Physical Review D* 68, 064011.
 - Teo, E. (2003). [Spherical photon orbits around a Kerr black hole](https://physics.nus.edu.sg/wp-content/uploads/sites/5/2019/10/paper.pdf). *General Relativity and Gravitation* 35, 1909–1926.
-- Emparan, R. and Reall, H. S. (2008). [Black holes in higher dimensions](https://arxiv.org/abs/0801.3471). *Living Reviews in Relativity* 11, 6.

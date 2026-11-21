@@ -30,8 +30,8 @@
 {{- $translated := ne .Language.Lang "en" }}
 {{- $englishOnly := and $translated (not .Content) }}
 {{- /* Only the title and the tabs sit above the demo, so the whole demo is on screen when the page
-   opens. The Demo tab holds only the demo. More info (#more-info) holds the tagline, status, build
-   date, write-up, model card and source links. project-tabs.js makes the tabs work; without it they
+   opens. The Demo tab holds only the demo. More info (#more-info) holds the tagline and status, the
+   write-up and model card, and at the bottom the build date and the source link. project-tabs.js makes the tabs work; without it they
    are links to the two panels, which stack, demo first. */}}
 <article class="project">
   <header class="wrap page-header project__header">
@@ -57,11 +57,9 @@
     <div class="project__intro">
       {{- with $manifest }}
       <p class="lede"{{ if and $translated (not $.Params.tagline) }} lang="en"{{ end }}>{{ $.Params.tagline | default .tagline }}</p>
-      <ul class="project__meta">
-        {{- if eq .status "in-progress" }}<li class="label">{{ i18n "inProgress" }}</li>{{ end }}
-        <li>{{ i18n "lastBuilt" }} <time datetime="{{ .built }}">{{ time.Format (i18n "dateFormat") .built }}</time></li>
-        <li><a href="{{ .repo }}" rel="noopener">{{ i18n "sourceOnGitHub" }}</a></li>
-      </ul>
+      {{- if eq .status "in-progress" }}
+      <p class="label project__status">{{ i18n "inProgress" }}</p>
+      {{- end }}
       {{- end }}
       {{- if $englishOnly }}
       <p class="notice project__note">{{ i18n "englishOnly" }}</p>
@@ -78,7 +76,10 @@
     {{- end }}
     {{- with $manifest }}
     {{- with .modelCard }}{{ partial "model-card.html" . }}{{ end }}
-    <p class="project__source"><a href="{{ .repo }}" rel="noopener">{{ i18n "allSourceOnGitHub" }}</a></p>
+    <ul class="project__meta">
+      <li>{{ i18n "lastBuilt" }} <time datetime="{{ .built }}">{{ time.Format (i18n "dateFormat") .built }}</time></li>
+      <li><a href="{{ .repo }}" rel="noopener">{{ i18n "sourceOnGitHub" }}</a></li>
+    </ul>
     {{- end }}
   </div>
   {{- with resources.Get "js/project-tabs.js" | minify }}

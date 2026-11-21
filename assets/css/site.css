@@ -151,7 +151,7 @@ a:hover { color: var(--fg); }
 
 /* Standalone links are at least 44px tall, so they are easy to hit. */
 .contact a, .pub__links a, .more-link, .eyebrow a, .project__meta a,
-.project__source a, .in-progress__title, .link-list a {
+.in-progress__title, .link-list a {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
@@ -690,8 +690,8 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects, .section-link--proj
 .in-progress__summary { flex: 2 1 320px; align-self: center; color: var(--muted); }
 
 /* Project page. Only the title and the tabs sit above the demo, close under the header, so that the
-   whole demo is on screen when the page opens. The tagline, status, build date and source link open
-   the More info tab. */
+   whole demo is on screen when the page opens. The More info tab opens with the tagline, and ends with
+   the build date and the source link. */
 
 .project__header { padding-block: 12px 20px; }
 .project__header h1 { font-size: clamp(32px, 3.6vw, 44px); }
@@ -721,12 +721,14 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects, .section-link--proj
 .project--tabbed .project__panel { scroll-margin-top: 100vh; }
 .project__intro { margin-bottom: 40px; }
 .project__intro .lede { margin-top: 0; }
+.project__status { margin-top: 12px; }
+/* The build date and the source link, under the write-up. */
 .project__meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0 24px;
-  margin-top: 16px;
+  margin-top: 48px;
   padding: 0;
   list-style: none;
   color: var(--muted);
@@ -757,7 +759,6 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects, .section-link--proj
 .model-card dt:first-child { margin-top: 0; }
 .model-card dd { margin-top: 4px; color: var(--muted); }
 .model-card ul { padding-left: 1.2em; }
-.project__source { margin-top: 32px; }
 
 /* Prose */
 
@@ -783,8 +784,9 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects, .section-link--proj
 }
 .prose pre code { padding: 0; font-size: inherit; background: none; border: 0; }
 
-/* A write-up's questions (the faq shortcode), between hairlines. Each opens to its answer, and its
-   chevron, the language menu's, turns over. */
+/* A write-up's questions (the faq shortcode), between hairlines. Each question is in the accent, so
+   the breaks between answers stand out, and turns to the text colour on hover, as links do. Its
+   chevron, the language menu's, turns over when it opens. */
 .faq { border-block: 1px solid var(--line); }
 .prose > .faq + .faq { margin-top: 0; border-top: 0; }
 .faq > summary {
@@ -795,6 +797,7 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects, .section-link--proj
   min-height: 44px;
   padding-block: 14px;
   font: 500 19px/1.3 var(--font-display);
+  color: var(--accent);
   text-wrap: balance;
   list-style: none;
   cursor: pointer;
@@ -805,12 +808,12 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects, .section-link--proj
   width: 12px;
   height: 12px;
   fill: none;
-  stroke: var(--muted);
+  stroke: currentColor;
   stroke-width: 1.5;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.faq > summary:hover svg { stroke: var(--fg); }
+.faq > summary:hover { color: var(--fg); }
 .faq[open] > summary svg { transform: rotate(180deg); }
 .faq__answer { padding-bottom: 28px; }
 .faq__answer > * + * { margin-top: 16px; }
