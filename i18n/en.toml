@@ -33,7 +33,6 @@ notFoundDescription = "This page does not exist. Find Mark Bugden's projects, ba
 allPapers = "All my papers on arXiv"
 
 # Projects. englishOnly is shown on a Czech or German project page whose write-up is not translated.
-live = "Live"
 inProgress = "In progress"
 onHost = "On {{ . }}."
 lastBuilt = "Last built"

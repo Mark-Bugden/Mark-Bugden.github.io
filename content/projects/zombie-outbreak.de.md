@@ -3,7 +3,7 @@
 # English. A body here replaces the English write-up. tagline and tags replace the manifest's.
 title: "Quarantäne in Zahlen"
 demo: zombie-outbreak
-tagline: "Ein Zombie-Ausbruch, simuliert auf einer echten Bevölkerungskarte."
+tagline: "Ein Zombie-Ausbruch, simuliert in ganz Tschechien."
 tags: ["mathematische Modellierung", "PDGL", "Epidemiologie", "Datenvisualisierung"]
 description: "Ein Zombie-Ausbruch, simuliert auf einer echten Bevölkerungskarte: ein SIR-Modell in jedem Quadratkilometer, dazu Menschen, die zwischen benachbarten Zellen wandern."
 ---

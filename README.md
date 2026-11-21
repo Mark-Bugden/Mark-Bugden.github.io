@@ -29,7 +29,7 @@ The pre-push hook in `.githooks/` runs it before every push, once `core.hooksPat
 
 ## How it fits together
 
-- **Demos.** [`data/projects.yaml`](data/projects.yaml) lists each demo's slug and repo. [`scripts/fetch-demos.sh`](scripts/fetch-demos.sh) does the following for each one:
+- **Demos.** [`data/projects.yaml`](data/projects.yaml) lists each demo's slug and repo. Projects are listed in alphabetical order of their English titles, unless an entry has an `order`. [`scripts/fetch-demos.sh`](scripts/fetch-demos.sh) does the following for each one:
   - downloads `demo-<slug>.zip` from the repo's latest release, or from the release in the entry's `tag`, if it has one
   - validates it with the demo-kit version it was built with (`kitVersion` in its manifest)
   - unpacks it into `static/demos/<slug>/`, which is gitignored

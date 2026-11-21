@@ -25,7 +25,6 @@ notFoundDescription = "Diese Seite existiert nicht. Von hier aus finden Sie Mark
 
 allPapers = "Alle meine Artikel auf arXiv"
 
-live = "Live"
 inProgress = "In Arbeit"
 onHost = "Auf {{ . }}."
 lastBuilt = "Stand:"

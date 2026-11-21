@@ -3,7 +3,7 @@
 # English. A body here replaces the English write-up. tagline and tags replace the manifest's.
 title: "Kvantifikace karantény"
 demo: zombie-outbreak
-tagline: "Simulace šíření zombie nákazy na skutečné mapě zalidnění."
+tagline: "Simulace šíření zombie nákazy po celé České republice."
 tags: ["matematické modelování", "PDR", "epidemiologie", "vizualizace dat"]
 description: "Simulace šíření zombie nákazy na skutečné mapě zalidnění: model SIR v každém čtverečním kilometru, přičemž lidé se přesouvají mezi sousedními buňkami."
 ---
