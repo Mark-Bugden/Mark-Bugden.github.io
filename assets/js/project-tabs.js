@@ -1,7 +1,7 @@
 // The Demo and More info tabs on a project page. Without this script they are links to the two
 // panels, which stack, demo first. With it, one panel shows at a time: the demo, unless the URL's
-// fragment is #more-info or names something inside it, such as a heading of the write-up. A tab click
-// adds a history entry, so Back returns to the other tab. The other panel is hidden "until-found", so
+// fragment is #more-info or names something inside it, such as one of the write-up's questions, which
+// then opens too. A tab click adds a history entry, so Back returns to the other tab. The other panel is hidden "until-found", so
 // find in page still searches it and opens its tab. Arrow keys move between the tabs, as in the ARIA
 // tabs pattern.
 // This runs inline at the end of the article, before the demo's script mounts. Keep "<" out of it, as
@@ -34,11 +34,14 @@
     window.dispatchEvent(new Event('resize'));
   }
 
-  // The tab whose panel holds the fragment's target, or else the demo.
-  function current() {
+  // Shows the fragment's target: selects the tab whose panel holds it, or else the demo, and opens the
+  // question it is, or is in.
+  function reveal() {
     var id = decodeURIComponent(location.hash.slice(1));
     var target = id && document.getElementById(id);
-    return Math.max(0, panels.findIndex(function (panel) { return target && panel.contains(target); }));
+    var question = target && target.closest('details');
+    if (question) question.open = true;
+    select(Math.max(0, panels.findIndex(function (panel) { return target && panel.contains(target); })));
   }
 
   tabs.forEach(function (tab, i) {
@@ -62,7 +65,7 @@
   panels.forEach(function (panel, i) {
     panel.addEventListener('beforematch', function () { select(i); });
   });
-  // Back and Forward between the tabs, and links to a fragment, such as a heading's.
-  window.addEventListener('popstate', function () { select(current()); });
-  select(current());
+  // Back and Forward between the tabs, and links to a fragment, such as a question's.
+  window.addEventListener('popstate', reveal);
+  reveal();
 })();
