@@ -5,5 +5,5 @@ title: "Quarantäne in Zahlen"
 demo: zombie-outbreak
 tagline: "Ein Zombie-Ausbruch, simuliert in ganz Tschechien."
 tags: ["mathematische Modellierung", "PDGL", "Epidemiologie"]
-description: "Ein Zombie-Ausbruch, simuliert auf einer echten Bevölkerungskarte: ein SIR-Modell in jedem Quadratkilometer, dazu Menschen, die zwischen benachbarten Zellen wandern."
+description: "Ein Zombie-Ausbruch, simuliert auf einer echten Bevölkerungskarte Tschechiens: ein SZR-Modell (Menschen, Zombies, Entfernte) in jedem Quadratkilometer, dazu Menschen, die zwischen benachbarten Zellen wandern."
 ---
