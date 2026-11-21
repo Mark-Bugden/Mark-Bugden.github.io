@@ -1,10 +1,17 @@
 // The header's language menu is a <details>, so it opens and shuts without script. This closes it the
 // way a menu should close: on a click or tap outside it, on Escape (focus goes back to its button),
 // when focus moves out of it, and before the page is cached, so going back to it doesn't find it open.
+// A link to this page in another language (data-same-page) takes the page's fragment along, so a
+// project page that is on its More info tab opens on it in the other language too.
 // This runs inline in head and listens on the document, so the menu needn't be parsed yet. Keep "<"
 // out of this file, as in theme.js.
 (function () {
   function openMenus() { return document.querySelectorAll('[data-lang-menu][open]'); }
+
+  document.addEventListener('click', function (event) {
+    var link = event.target.closest && event.target.closest('[data-lang-menu] a[data-same-page]');
+    if (link) link.hash = location.hash;
+  });
 
   // pointerdown, not click: a tap on plain text sends no click on phones.
   document.addEventListener('pointerdown', function (event) {
