@@ -45,17 +45,14 @@ When Φ = 0 the orbit passes straight over the pole, and when Ψ = 0 it crosses 
 {{< /faq >}}
 
 {{< faq "What do the controls do? What do the graphs show?" >}}
-- **Preset** picks one of the paper's figures, from Fig 4.2 to Fig 4.12, or one of two special holes. With equal spins, an orbit's radius depends only on Φ + Ψ. With no spin, the Tangherlini black hole, every orbit is a great circle at r = √2. A preset sets the spins and momenta, and also where the photon starts, the colours and the viewpoint, all fitted to the figure's image. The demo opens on the orbit of Figs 4.4 and 4.5.
-- **Spins** sets a and b, each from 0 to 0.99. They are held to a + b ≤ 1, since beyond that there is no horizon. At a + b = 1 the hole is extremal, and an “Extremal” label appears. Negative spins would only mirror the picture.
-- **Momenta** is a pad, with Φ across and Ψ up. The shaded region holds the pairs that have a spherical orbit, tinted by the orbit's radius, darker for orbits closer in, with a key in the corner. Drag the dot to choose an orbit. It snaps to the axes, where Φ = 0 or Ψ = 0, and the sliders and the arrow keys move it in finer steps. With a > 0 the hole turns towards −φ, so photons that orbit with the spin have Φ < 0, and the pad labels its halves “with a” and “against a”. Likewise for b. When the spins change, the dot keeps its direction, and how far it is towards the edge.
-- **Trail length** is how much of the photon's past path stays drawn. It is measured in the affine parameter λ, which is the demo's clock. Coordinate time isn't computed.
-- **Play/Pause** starts and stops the photon, and **Reset** puts it back where the last preset started it.
-- **The 3D view** turns when you drag it, and zooms with its buttons or a pinch. The third button resets the view. The arrow below the spheroid shows which way the hole turns in the plane of a. Its turning in the plane of b shows only in the colours, so b's arrow goes round the colour key.
-- **The status line** gives the orbit's radius, its band of latitudes, and how far φ and ψ advance for each swing in latitude.
+- **Spins** sets the rotation parameters, a and b, of the black hole. They are held to a + b ≤ 1, since beyond that there is no horizon. At a + b = 1 the hole is extremal, and an “Extremal” label appears.
+- **Momenta** is a pad, with Φ across and Ψ up. The shaded region holds the pairs that have a spherical orbit, and the tint shows the radius of the orbit, darker for orbits closer in, lighter for farther out. Drag the dot to choose an orbit. It snaps to the axes, where Φ = 0 or Ψ = 0, and the sliders and the arrow keys move it in finer steps.
+- **Trail length** is how much of the photon’s past path stays drawn. It is measured in the affine parameter λ, which is the demo’s clock.
+- The arrow below the spheroid shows which way the hole turns in the plane of a. Its turning in the plane of b shows only in the colours, so b’s arrow goes round the colour key.
 
-The region on the pad is a convex, curved diamond, and outside it there is no spherical orbit. Its corners are circular orbits in each of the two planes, and its edges are orbits that stay at one latitude; Fig 4.12 is one of them.
+The region on the pad is a convex, curved diamond, and outside it there is no spherical orbit. Its corners are circular orbits in each of the two planes, and its edges are orbits that stay at one latitude.
 
-The side panel plots θ, φ and ψ against λ over the visible trail, with the photon at the right-hand end, as the paper's Figs 4.9 and 4.11 do for the orbits of Figs 4.8 and 4.10. The dashed lines are the edges of the band of latitudes, and the strip of colour under ψ is the trail's colour at each moment. φ and ψ run from 0 to 2π and wrap round. The curves are geodesics, so they stay smooth through the axes: there, θ carries on past 0 or π/2 instead of jumping.
+The side panel plots θ, φ and ψ against λ over the visible trail. The strip of colour under ψ is the trail’s colour at each moment. φ and ψ run from 0 to 2π and wrap round. The curves are geodesics, so they stay smooth through the axes: there, θ carries on past 0 or π/2 instead of jumping.
 
 The second tab puts the trail on a torus, with φ across and ψ up, each from 0 to 2π. Each swing in latitude advances φ and ψ by a fixed number of turns, which the status line gives. Only if both are rational does the orbit close, and then it is a closed curve on the torus. Any other orbit never repeats: over time it fills the square, and in 3D the whole band of latitudes.
 {{< /faq >}}
@@ -64,26 +61,20 @@ The second tab puts the trail on a torus, with φ across and ψ up, each from 0 
 A black hole of a given mass can only spin so fast. A rotating black hole has two horizons, the event horizon and an inner horizon inside it. As the spin grows, they move together, and at the fastest spin they merge. That black hole is extremal. Any faster, and there would be no horizon at all, just a naked singularity, which the cosmic censorship conjecture says should never form. An extremal black hole is also cold: its Hawking temperature is zero.
 
 For a Kerr black hole of mass M, extremal means a = M, in units where G = c = 1. For the Myers–Perry black hole, with μ = 1, it means a + b = 1, and the two horizons meet at r² = ab. With only one spin, there is no inner horizon to meet, and as a approaches 1 the event horizon shrinks to nothing. So the demo's extremal holes spin in both planes. Fig 4.8, with a = 0.9 and b = 0.1, is one.
-
-At an extremal hole, the edge of the pad's region on the side that turns with the hole becomes the straight segment Φ + Ψ = −1. Along it, the orbits close down onto the horizon while still sweeping a wide band of latitudes. Near that edge the hole drags the photon round: just inside it, at a = b = 0.5, φ turns about 21 times for each swing in latitude. The pad stops the dot just short of the edge. This straight edge isn't in the paper; it turned up while building the demo.
 {{< /faq >}}
 
 {{< faq "How was this demo made?" >}}
-**The computation.** The demo never integrates the equations of motion step by step. At a fixed radius, writing the motion in Mino time (dσ = dλ/ρ²) separates the latitude from everything else. A change of variable, sin²θ = ȳ − Δy cos χ, turns the swing between the band's edges into an angle χ that only ever increases. Then λ, φ and ψ are integrals over χ of known functions. One swing is tabulated by Simpson's rule at 256 points (512 when the band comes within about half a degree of an axis), and the sharp peaks next to the axes are integrated exactly. A longer path repeats the table, moved on by each swing's advance in λ, φ and ψ. So the path is accurate to about 10⁻⁷, and a long trail doesn't drift. That matters near the axes: on Fig 4.10's orbit, which passes close to both, a fixed-step integration in λ (fourth-order Runge–Kutta, in steps of 0.05) is off by 1.8 radians in ψ after a single swing.
+**The computation.** The demo doesn’t simulate the photon one small step at a time. Instead, it makes use of how regular the orbit is. A spherical photon orbit stays at a fixed radius, and each swing between its two latitudes is the same as the last, apart from how far the photon has turned in φ and ψ. So the demo works out a single swing very precisely, and builds the whole path by repeating it. To do this, it writes the equations of motion in Mino time, which separates the swing in latitude from everything else, and integrates over one swing with Simpson’s rule, handling the sharp spikes near the axes exactly. The path is accurate to about 10⁻⁷, a long trail never drifts, and a direct integration of the full geodesic equations agrees with it. These orbits are unstable, so, as in the paper, the demo holds the radius fixed and shows the ideal orbit.
 
-**The checks.** On six orbits, a direct integration of the geodesic equations, from the metric itself, agrees with the tables to 2 × 10⁻⁸ in θ, φ and ψ, and to 1.2 × 10⁻⁷ in ψ for Fig 4.10, where ψ swings sharply near the equator. The demo's JavaScript is a port of a Python reference model, and reproduces its results to 3 × 10⁻¹⁶.
+**The code** is on [GitHub](https://github.com/Mark-Bugden/photon-orbits-5d). The Python model’s tests check it against the paper, against closed forms and against the direct integration, and the JavaScript’s tests replay the model’s results. The 3D view is drawn with [three.js](https://threejs.org/), and the pad and the side panel on plain canvases.
 
-**The fixed radius.** Every one of these orbits is unstable. A small nudge off the radius grows by a factor of about e⁴ per swing, and a full integration that includes the radius leaves the sphere within about six swings, however tight the tolerance. So the demo holds the radius fixed, as the paper does, and shows the ideal orbit.
+**Agentic coding:** I built the demo with Claude Code, Anthropic’s coding agent, in stages.
 
-**The code** is on [GitHub](https://github.com/Mark-Bugden/photon-orbits-5d). The Python model's tests check it against the paper, against closed forms and against the direct integration, and the JavaScript's tests replay the model's results. The 3D view is drawn with [three.js](https://threejs.org/), and the pad and the side panel on plain canvases.
-
-**The agent.** I built the demo with Claude Code, Anthropic's coding agent, in stages. Each stage was a pull request that I reviewed before it went live:
-
-1. **Research.** The agent checked the paper line by line, reproduced its figures, and surveyed the tools that already exist, Leo Stein's among them.
+1. **Research.** The agent checked the paper line by line, reproduced its figures, and surveyed the tools that already exist, Leo Stein’s among them.
 2. **A plan,** in which I settled the design questions, such as the colour wheel, how to draw orbits through the axes, and which clock to use.
-3. **The physics, before any drawing:** the Python model and its tests, and a document of every equation as implemented, which I reviewed.
-4. **The JavaScript port,** whose tests replay the Python model's results.
-5. **The interface:** the 3D view, then the pad and the presets, fitted to the paper's figures by script, then the side panel. The agent checked each in a headless browser before I reviewed it.
+3. **The physics:** the Python model and its tests, and a document of every equation as implemented, which I reviewed.
+4. **The JavaScript port,** whose tests replay the Python model’s results.
+5. **The interface:** the 3D view, then the pad and the presets, fitted to the paper’s figures by script, then the side panel. The agent checked each in a headless browser before I reviewed it.
 {{< /faq >}}
 
 ## References
