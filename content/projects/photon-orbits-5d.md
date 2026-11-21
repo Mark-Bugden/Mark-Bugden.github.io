@@ -8,11 +8,13 @@ description: "Light orbiting a five-dimensional rotating black hole: spherical p
 ---
 
 {{< faq "What is this demo?" >}}
-Black holes are exotic objects in our universe, but studying the Einstein Field Equations allows us to understand them and their strange gravitational behaviour. The mathematics tells us that a black hole that is rotating will drag space and time along with it. Close to such a rotating black hole, the curvature of spacetime is so great that light can orbit the black hole as though it were a satellite. Such an orbit isn’t confined to a plane: as the photon goes round, it swings back and forth between two latitudes, and over many turns it covers a band on a sphere. These are spherical photon orbits. Around the ordinary rotating black hole of four-dimensional spacetime, the Kerr black hole, they are well studied.
-
 This demo visualises what these photon orbits would look like around a rotating black hole in five-dimensional spacetime, the Myers–Perry black hole. It is based on the work I did in my 2018 paper, [Spherical photon orbits around a 5D Myers-Perry black hole](https://doi.org/10.1007/s10714-018-2352-x). You can choose the spin of the black hole, as well as the angular momenta of the photon. The demo finds the orbit and sends the photon round it. The presets reproduce the paper’s figures.
 
 The demo was inspired by Leo Stein’s [Kerr spherical photon orbits](https://duetosymmetry.com/tool/kerr-circular-photon-orbits/) tool, which creates a similar visualisation for the four-dimensional Kerr black hole.
+{{< /faq >}}
+
+{{< faq "How can we study light orbiting a black hole?" >}}
+Black holes are exotic objects in our universe, but studying the Einstein Field Equations which describe gravity allows us to understand these objects and their strange gravitational behaviour. The mathematics tells us that a black hole that is rotating will drag space and time along with it. Close to such a rotating black hole, the curvature of spacetime is so great that light can orbit the black hole as though it were a satellite. The light stays at a constant distance away from the black hole, so these orbits are called spherical photon orbits. Around the ordinary rotating black hole of four-dimensional spacetime, the Kerr black hole, they are well studied. They are also related to a wide array of other topics such as what a star would look like undergoing gravitational collapse, what a black hole shadow would look like and what the night sky would look like to an observer near a black hole.
 {{< /faq >}}
 
 {{< faq "How does a 5-dimensional black hole differ from a “normal” black hole in 4 dimensions?" >}}
