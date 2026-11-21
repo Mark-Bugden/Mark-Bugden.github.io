@@ -1,0 +1,27 @@
+#!/bin/sh
+# Runs scripts/check.sh before a push: the checks that decide whether the pages workflow passes, so a
+# push that would fail CI stops here, before it opens or updates a pull request.
+# Enable it once per clone: git config core.hooksPath .githooks
+#
+# The check builds the working tree, so that has to be what is pushed: push the branch you have
+# checked out, with no uncommitted changes. Deleting a remote branch, or pushing a tag, skips it.
+
+head=$(git rev-parse HEAD)
+check=false
+while read -r local_ref local_sha remote_ref remote_sha; do
+  case "$local_ref" in refs/tags/*) continue ;; esac
+  case "$local_sha" in *[!0]*) ;; *) continue ;; esac
+  if [ "$local_sha" != "$head" ]; then
+    echo "pre-push: $local_ref is not checked out, so scripts/check.sh can't check it. Check it out, then push." >&2
+    exit 1
+  fi
+  check=true
+done
+$check || exit 0
+
+if [ -n "$(git status --porcelain)" ]; then
+  echo "pre-push: scripts/check.sh builds the working tree, and it has changes that aren't committed." >&2
+  echo "Commit or stash them, then push." >&2
+  exit 1
+fi
+exec scripts/check.sh

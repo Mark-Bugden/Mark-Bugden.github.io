@@ -1,8 +1,7 @@
-# Link check for the built site (public/). The pages workflow runs it as
-#   lychee --config lychee.toml --root-dir "$PWD/public" \
-#     --remap "https://mark-bugden\.com/(.*) file://$PWD/public/\$1" 'public/**/*.html'
-# The remap checks the site's own absolute URLs (canonical, og:url, og:image) against this build
-# rather than against whatever is live.
+# Link check for the built site (public/), used twice. scripts/check.sh checks the site's own links
+# with --offline, and fails on a broken one. The pages workflow then checks every link, and only
+# reports external ones that fail. Both remap the site's own absolute URLs (canonical, og:url,
+# og:image) to this build rather than to whatever is live.
 
 index_files = ["index.html"]
 max_retries = 3
