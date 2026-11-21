@@ -12,3 +12,6 @@ resources/
 
 # Filled by scripts/fetch-demos.sh
 static/demos/
+
+# Pinned Hugo and lychee, from scripts/install-tools.sh
+.tools/

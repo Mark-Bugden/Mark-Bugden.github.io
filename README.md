@@ -4,13 +4,28 @@ Mark Bugden's personal site, at [mark-bugden.com](https://mark-bugden.com/): pro
 
 ## Run it locally
 
-You need Hugo extended 0.170.0, Node 20 or later, and the GitHub CLI signed in (`gh auth login`).
+You need Node 20 or later, the GitHub CLI signed in (`gh auth login`) and, on Windows, Git Bash. `scripts/install-tools.sh` puts the Hugo extended and lychee versions that CI uses into `.tools/`.
 
 ```sh
 git clone https://github.com/Mark-Bugden/Mark-Bugden.github.io.git && cd Mark-Bugden.github.io
+git config core.hooksPath .githooks   # check before every push (see below)
+scripts/install-tools.sh && export PATH="$PWD/.tools:$PATH"
 scripts/fetch-demos.sh
 hugo server -D        # http://localhost:1313, draft write-ups included
 ```
+
+### Check before you push
+
+`scripts/check.sh` runs the checks that decide whether CI passes. It does four things:
+
+- installs the pinned tools
+- fetches and validates every bundle
+- builds the site as production does
+- checks the site's own links
+
+The pages workflow runs the same script, so a branch that passes it here passes there.
+
+The pre-push hook in `.githooks/` runs it before every push, once `core.hooksPath` is set as above. The script builds the working tree, so the hook stops a push that has uncommitted changes or isn't of the checked-out branch.
 
 ## How it fits together
 
@@ -26,7 +41,7 @@ hugo server -D        # http://localhost:1313, draft write-ups included
 
   The build fails if a published write-up's bundle is missing, is still a stub, or disagrees with `data/projects.yaml`.
 - **Styles** are all in [`assets/css/site.css`](assets/css/site.css). Its design tokens on `:root` hold every colour and typeface: dark, and light only when the visitor picks it with the header button. Demos keep the kit's own tokens on `[data-demo]`. The fonts (Space Grotesk, Inter and JetBrains Mono) are self-hosted in `static/fonts/`, each in a Latin and a Latin Extended file. Browsers fetch the Latin Extended files only for text that needs them, such as Czech.
-- **Deploys.** [`.github/workflows/pages.yml`](.github/workflows/pages.yml) runs on every pull request and every push to `main`. It also runs when a project releases a demo, and once a day. It fetches and validates the bundles, builds with `hugo --minify --panicOnWarning`, and checks every link with lychee. On `main` it then deploys to GitHub Pages. Stub bundles are validated but not deployed.
+- **Deploys.** [`.github/workflows/pages.yml`](.github/workflows/pages.yml) runs on every pull request and every push to `main`. It also runs when a project releases a demo, and once a day. It runs `scripts/check.sh`, which fetches and validates the bundles, builds with `hugo --minify --panicOnWarning`, and checks the site's own links. Then it checks external links too, but only reports the ones that fail, under a warning in the run's summary, so another site's outage never fails a run or holds back a deploy. On `main` it then deploys to GitHub Pages. Stub bundles are validated but not deployed.
 - **The domain.** GitHub Pages serves the site at `mark-bugden.com`, and redirects `mark-bugden.github.io` and `www.mark-bugden.com` there. The domain is set in the repo's Settings → Pages, not in a `CNAME` file, which GitHub ignores when a site deploys from Actions. Its DNS records are at Name.com. Leave the MX and TXT records there alone: they carry the email.
 
 ## How a change goes live

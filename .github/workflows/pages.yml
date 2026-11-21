@@ -1,6 +1,7 @@
 name: Pages
 
-# Every pull request is built and link-checked; a push to main (or a manual run on main) also deploys.
+# Every pull request is built and checked by scripts/check.sh, as the pre-push hook does locally; a push
+# to main (or a manual run on main) also deploys.
 # A project's Demo workflow starts a manual run when it releases a demo, using its SITE_DEPLOY_TOKEN
 # secret. The daily run picks up any release that did not (if that secret is missing or has expired).
 on:
@@ -18,12 +19,6 @@ concurrency:
   group: pages-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
-env:
-  HUGO_VERSION: 0.170.0
-  HUGO_SHA256: f9708cd2eee28504a0c5b488ddb8e8b49008bd7e99862bccfa76bbe50809d3ee
-  LYCHEE_VERSION: 0.24.2
-  LYCHEE_SHA256: 1f4e0ef7f6554a6ed33dd7ac144fb2e1bbed98598e7af973042fc5cd43951c9a
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -34,35 +29,26 @@ jobs:
         with:
           node-version: 24
 
-      - name: Install Hugo extended and lychee
-        run: |
-          cd "$RUNNER_TEMP"
-          curl -fsSL -o hugo.deb "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
-          echo "${HUGO_SHA256}  hugo.deb" | sha256sum --check
-          sudo dpkg -i hugo.deb
-          curl -fsSL -o lychee.tar.gz "https://github.com/lycheeverse/lychee/releases/download/lychee-v${LYCHEE_VERSION}/lychee-x86_64-unknown-linux-gnu.tar.gz"
-          echo "${LYCHEE_SHA256}  lychee.tar.gz" | sha256sum --check
-          mkdir lychee && tar -xzf lychee.tar.gz -C lychee --strip-components=1
-          echo "$RUNNER_TEMP/lychee" >> "$GITHUB_PATH"
-          hugo version
-
-      # Downloads every bundle in data/projects.yaml from its project's latest release, validates it
-      # with the demo-kit version it was built with (tag check on), and drops stubs so they are not
-      # published.
-      - name: Fetch and validate demo bundles
-        run: scripts/fetch-demos.sh --drop-stubs
+      # The same script the pre-push hook runs, so a branch that passed it passes this. It installs the
+      # pinned Hugo and lychee, fetches every bundle in data/projects.yaml from its project's latest
+      # release and validates it with the demo-kit version it was built with, builds the site into
+      # public/ without stubs, and checks the site's own links.
+      - name: Fetch bundles, build and check
+        run: scripts/check.sh
         env:
           GH_TOKEN: ${{ github.token }}
 
-      - name: Build
-        run: hugo --minify --panicOnWarning
-
-      - name: Check links
+      # Other sites' outages, slow replies and bot blocks aren't this repo's to fix, so external links
+      # never fail a run or hold back a deploy. Any that fail are listed in the run's summary, under a
+      # warning.
+      - name: Report external links
         run: |
-          lychee --version
-          lychee --config lychee.toml --root-dir "$PWD/public" \
-            --remap "https://mark-bugden\.com/(.*) file://$PWD/public/\$1" \
-            'public/**/*.html'
+          if ! .tools/lychee --config lychee.toml --root-dir "$PWD/public" \
+              --remap "https://mark-bugden\.com/(.*) file://$PWD/public/\$1" \
+              --format markdown --output "$RUNNER_TEMP/links.md" 'public/**/*.html'; then
+            cat "$RUNNER_TEMP/links.md" | tee -a "$GITHUB_STEP_SUMMARY"
+            echo "::warning title=External links::Some external links failed. The run's summary lists them."
+          fi
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
