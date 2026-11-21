@@ -1,6 +1,6 @@
-# mark-bugden.github.io
+# mark-bugden.com
 
-Mark Bugden's personal site: projects with interactive demos, background and publications, in English, Czech and German. It is built with Hugo. Each demo is a bundle that its own project repo publishes on a GitHub release, and the site fetches each project's latest release.
+Mark Bugden's personal site, at [mark-bugden.com](https://mark-bugden.com/): projects with interactive demos, background and publications, in English, Czech and German. It is built with Hugo. Each demo is a bundle that its own project repo publishes on a GitHub release, and the site fetches each project's latest release.
 
 ## Run it locally
 
@@ -27,6 +27,7 @@ hugo server -D        # http://localhost:1313, draft write-ups included
   The build fails if a published write-up's bundle is missing, is still a stub, or disagrees with `data/projects.yaml`.
 - **Styles** are all in [`assets/css/site.css`](assets/css/site.css). Its design tokens on `:root` hold every colour and typeface: dark, and light only when the visitor picks it with the header button. Demos keep the kit's own tokens on `[data-demo]`. The fonts (Space Grotesk, Inter and JetBrains Mono) are self-hosted in `static/fonts/`, each in a Latin and a Latin Extended file. Browsers fetch the Latin Extended files only for text that needs them, such as Czech.
 - **Deploys.** [`.github/workflows/pages.yml`](.github/workflows/pages.yml) runs on every pull request and every push to `main`. It also runs when a project releases a demo, and once a day. It fetches and validates the bundles, builds with `hugo --minify --panicOnWarning`, and checks every link with lychee. On `main` it then deploys to GitHub Pages. Stub bundles are validated but not deployed.
+- **The domain.** GitHub Pages serves the site at `mark-bugden.com`, and redirects `mark-bugden.github.io` and `www.mark-bugden.com` there. The domain is set in the repo's Settings → Pages, not in a `CNAME` file, which GitHub ignores when a site deploys from Actions. Its DNS records are at Name.com. Leave the MX and TXT records there alone: they carry the email.
 
 ## How a change goes live
 

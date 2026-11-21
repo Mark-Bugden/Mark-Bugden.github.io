@@ -61,7 +61,7 @@ jobs:
         run: |
           lychee --version
           lychee --config lychee.toml --root-dir "$PWD/public" \
-            --remap "https://mark-bugden\.github\.io/(.*) file://$PWD/public/\$1" \
+            --remap "https://mark-bugden\.com/(.*) file://$PWD/public/\$1" \
             'public/**/*.html'
         env:
           GITHUB_TOKEN: ${{ github.token }}
