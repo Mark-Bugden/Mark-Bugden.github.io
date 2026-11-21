@@ -29,23 +29,31 @@
 {{- $manifest := partial "manifest.html" $slug }}
 {{- $translated := ne .Language.Lang "en" }}
 {{- $englishOnly := and $translated (not .Content) }}
-{{- /* Only the title sits above the demo, so the whole demo is on screen when the page opens. The
-   tagline, status, build date and source link come after it. */}}
+{{- /* Only the title and the tabs sit above the demo, so the whole demo is on screen when the page
+   opens. The Demo tab holds only the demo. More info (#more-info) holds the tagline, status, build
+   date, write-up, model card and source links. project-tabs.js makes the tabs work; without it they
+   are links to the two panels, which stack, demo first. */}}
 <article class="project">
   <header class="wrap page-header project__header">
     <p class="eyebrow"><a href="{{ "projects/" | relLangURL }}">{{ i18n "projects" }}</a></p>
-    <h1>{{ .Title }}</h1>
+    <h1 id="project-title">{{ .Title }}</h1>
+    <div class="project__tabs">
+      <ul aria-labelledby="project-title">
+        <li><a href="#demo">{{ i18n "demoTab" }}</a></li>
+        <li><a href="#more-info">{{ i18n "moreInfoTab" }}</a></li>
+      </ul>
+    </div>
   </header>
 
-  {{- with $manifest }}
-  <div class="wrap">
+  <div class="wrap project__panel" id="demo">
+    {{- with $manifest }}
     {{ partial "demo.html" (dict "slug" $slug "title" $.Title) }}
+    {{- else }}
+    <p class="notice">No demo bundle in <code>static/demos/{{ $slug }}/</code>. Run <code>scripts/fetch-demos.sh</code> to preview it here.</p>
+    {{- end }}
   </div>
-  {{- else }}
-  <div class="wrap"><p class="notice">No demo bundle in <code>static/demos/{{ $slug }}/</code>. Run <code>scripts/fetch-demos.sh</code> to preview it here.</p></div>
-  {{- end }}
 
-  <div class="wrap">
+  <div class="wrap project__panel" id="more-info">
     <div class="project__intro">
       {{- with $manifest }}
       <p class="lede"{{ if and $translated (not $.Params.tagline) }} lang="en"{{ end }}>{{ $.Params.tagline | default .tagline }}</p>
@@ -73,5 +81,8 @@
     <p class="project__source"><a href="{{ .repo }}" rel="noopener">{{ i18n "allSourceOnGitHub" }}</a></p>
     {{- end }}
   </div>
+  {{- with resources.Get "js/project-tabs.js" | minify }}
+  <script>{{ .Content | safeJS }}</script>
+  {{- end }}
 </article>
 {{- end }}
