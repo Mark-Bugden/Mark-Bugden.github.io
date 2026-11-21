@@ -4,6 +4,6 @@
 title: "Hodnocení regenerací"
 demo: doctor-who-ratings
 tagline: "Všechny řadové epizody seriálu Doctor Who od roku 1963 a jejich hodnocení na IMDb."
-tags: ["vizualizace dat", "statistika", "Doctor Who"]
+tags: ["analýza dat", "hodnocení na IMDb", "Doctor Who"]
 description: "Hodnocení z IMDb pro všechny řadové epizody seriálu Doctor Who od roku 1963: na časové ose, v teplotní mapě a v žebříčku Doktorů, scenáristů a režisérů."
 ---

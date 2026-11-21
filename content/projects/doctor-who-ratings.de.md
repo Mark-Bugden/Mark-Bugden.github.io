@@ -4,6 +4,6 @@
 title: "Regenerationen im Ranking"
 demo: doctor-who-ratings
 tagline: "Alle regulären Doctor-Who-Folgen seit 1963 mit ihren IMDb-Bewertungen."
-tags: ["Datenvisualisierung", "Statistik", "Doctor Who"]
+tags: ["Datenanalyse", "IMDb-Bewertungen", "Doctor Who"]
 description: "IMDb-Bewertungen aller regulären Doctor-Who-Folgen seit 1963: auf einer Zeitleiste, in einer Heatmap und in einer Rangliste der Doctors, Autoren und Regisseure."
 ---
