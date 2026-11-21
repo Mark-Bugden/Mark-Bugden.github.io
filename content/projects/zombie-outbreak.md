@@ -3,79 +3,69 @@ title: "Quantifying the Quarantine"
 slug: zombie-outbreak
 date: 2026-11-17
 demo: zombie-outbreak
-summary: "A simulation of a zombie outbreak spreading across a country, running an SIR model in every cell of a population density map."
-description: "Simulating a zombie outbreak across a real population map: an SIR model in every square kilometre, with people moving between neighbouring cells."
+summary: "A simulation of a zombie outbreak spreading across a country, running a humans–zombies–removed model in every cell of a population density map."
+description: "Simulating a zombie outbreak across a real population map of the Czech Republic: a humans–zombies–removed model per square kilometre, with people moving between neighbouring cells."
 aliases: ["/portfolio/zombies.html"]
 ---
 
-A zombie outbreak on a population map of Czechia, one square kilometre to a pixel. The outbreak starts in Prague, Brno or Ostrava. Nobody notices it for a week. Then one crew starts building whatever blockades you have drawn, and the demo counts how many people that saves compared with doing nothing.
+{{< faq "What is this demo?" >}}
+Whenever I see a zombie movie, I think how unrealistic it is: the zombies take over the cities in a day or two, and the rest of the world soon after. Zombie outbreaks have been modelled mathematically before (the first academic paper I ever read was about one), but most models treat the whole population at once, so you can't see how the zombies spread through a country. I wanted to see what the spread of infection would look like in the country I lived in.
 
-## The model
+The demo shows a zombie outbreak on a population map of the Czech Republic, one square kilometre to a pixel. For the first week of the infection, nobody notices it. You can plan blockades from the start by clicking on the different regions, but nothing is built until day 7, and even then there is only one crew, who don't build instantaneously. The same outbreak with no quarantine runs in the background, which is how the demo knows how many people your quarantine saved. It also counts the people you sealed in: those inside an area that you cut off from the rest of the country, trapped in with the zombies. You monster.
+{{< /faq >}}
 
-The outbreak follows the humans–zombies–removed (SZR) model of Munz, Hudea, Imad and Smith? (2009). Humans (S) are bitten and become zombies (Z). Humans destroy zombies, which join the removed (R). The removed can rise again as zombies. The paper also has births and natural deaths; the demo leaves them out, since a run lasts a year.
+{{< faq "How do you model a zombie outbreak?" >}}
+The outbreak follows the humans–zombies–removed (SZR) model of Munz, Hudea, Imad and Smith? (2009). Humans (S) are bitten and become zombies (Z). Humans can fight back and put zombies down, which moves them to the removed (R). As in the films, a zombie that goes down doesn't always stay down: the removed can rise again as zombies. The paper also has births and natural deaths, but since the demo only lasts a year I don't include them.
 
-The paper's population is well mixed: everyone can meet everyone. On the map, every square kilometre runs the same equations, and people move between neighbouring squares:
+The paper's population is well mixed: everyone can meet everyone. Each square kilometre runs the same model, and people move between neighbouring squares. The equations governing the model are:
 
 ```
-∂S/∂t = −β S Z + ∇·(χ S ∇z)              humans are bitten, and flee from zombies
-∂Z/∂t =  β S Z − α S Z + ζ R + D ΔZ       zombies bite, are destroyed, rise and wander
+∂S/∂t = −β S Z + ∇·(χ S ∇z)               humans are bitten, and flee from zombies
+∂Z/∂t =  β S Z − α S Z + ζ R + D ΔZ       zombies bite, are put down, rise and wander
 ∂R/∂t =  α S Z − ζ R                      where z = Z / (S + Z) is the zombie share
 ```
 
-Three choices shape what happens.
+The parameters χ and D describe how people move: D is how fast zombies wander at random, and χ is how fast humans flee towards neighbouring squares where zombies are a smaller share of the people around. That share is z = Z / (S + Z), the fraction of everyone in a square who is a zombie. The other three parameters come from the paper: β, α and ζ are the rates at which zombies bite, are put down and rise again.
 
-- **Densities.** S, Z and R are people per square kilometre, and encounters are mass action (βSZ), so crowded places fall faster. In Prague's most crowded square kilometre, about 4,900 people, one zombie bites about 46 people a day at the paper's rate. Cities fall within days; the countryside holds out for weeks.
-- **Movement.** Zombies wander at random (diffusion, D). Humans flee from squares where zombies are a larger share of everyone walking around (χ). Using the share rather than the number of zombies keeps the flight bounded however dense the zombies get.
-- **A cutoff.** In a square kilometre with fewer than one zombie, zombies can't bite. Without this, the equations spread tiny fractions of a zombie everywhere, those fractions grow, and no blockade could hold: a thousandth of a zombie would seep through any gap and start again on the other side. Brunet and Derrida (1997) studied this kind of cutoff for spreading fronts. It stands in for the fact that zombies come whole.
+I have included some preset values for the parameters of the model, as four strains: *Munz et al. (2009)* uses the paper's own rates, *Shamblers* are slower, *Frenzied* are faster, and *Risers* lose most fights but rise again quickly.
+{{< /faq >}}
 
-The strains are illustrative settings, not estimates. *Munz et al. (2009)* uses the paper's rates (β = 0.0095, α = 0.005, ζ = 0.0001), reading its population of 500 as 500 people per square kilometre. That reading is a judgement call: the paper counts people in a well-mixed group, not per area. *Shamblers* are slower, *Frenzied* are faster, and *Risers* lose most fights but rise again within days.
+{{< faq "Where does the data come from?" >}}
+The population data comes from WorldPop's 2020 estimate for the Czech Republic, adjusted so that the national total matches the UN's figure. WorldPop's grid is measured in angles rather than distances: each cell is 30 arc-seconds of latitude by 30 arc-seconds of longitude. Lines of longitude get closer together as you move away from the equator, so at around 50°N, where the Czech Republic is, a cell is about 0.93 km from north to south but only 0.60 km from east to west. This means that each cell covers about 0.55 km², not a full square kilometre. If you treat each cell as a square kilometre anyway, you end up counting 19.3 million people instead of 10.75 million, and the map comes out stretched sideways. To avoid this, the demo resamples the data onto an equal-area grid of 1 km squares (ETRS89-LAEA), which avoids distorting the population. The region and national borders come from Natural Earth.
+{{< /faq >}}
 
-Each step of a tenth of a day applies the bites, the wandering, the fleeing and a clean-up, in that order. The bites use an exponential form that can't push any count below zero. The wandering step is kept at D·dt ≤ 0.2, below the textbook stability limit of 0.25: at that limit a checkerboard pattern flips sign every step without dying away, and it showed up on the map as hatching. The browser's solver is a port of a NumPy reference model, and its tests check that the two agree to within about 1 part in 10¹⁴.
+{{< faq "Can a quarantine stop the outbreak?" >}}
+This is up to you to find out. Try different strains and find an optimal strategy for creating blockades. You can also open the *Advanced* menu to manually adjust the parameters, or draw your own blockades.
+{{< /faq >}}
 
-## The map
+{{< faq "Is this a realistic model?" >}}
+I know, I know, zombies don't exist.
 
-The population is WorldPop's 2020 estimate for the Czech Republic at 30 arc-seconds, adjusted to the UN's national total. Those cells aren't square kilometres. At 50°N, 30 arc-seconds is about 0.93 km north to south but only 0.60 km east to west, so a cell covers about 0.55 km². Treating each cell as a square kilometre would count 19.3 million people instead of 10.75 million, and stretch the map sideways. The demo resamples the data onto an equal-area 1 km grid (ETRS89-LAEA), which keeps the total exactly. Region and national borders come from Natural Earth.
+But let's assume for the moment that they do. What are the limitations of the model, and how does it differ from what would really happen?
 
-## The quarantine
+- People travel. In the model, zombies only wander into neighbouring squares and humans only flee next door, but a real outbreak could jump from Prague to Brno in an afternoon by car or train. This is a big part of why blockades can work at all in the demo.
+- In a real crowd, the number of people you can meet levels off. In the model, bites keep growing with how crowded a square is.
+- Nobody has measured how fast zombies bite or how often they are put down, so the rates are illustrative. So are the detection day and the crew's speed, which were chosen so that a quarantine can work but has to be quick.
+- Real outbreaks involve luck, but the model is deterministic, so the same plan always gives the same result.
+- Real people would do more than run. Nobody in the model hides, evacuates or organises, and nobody gets any better at fighting zombies.
+- Real blockades leak, and real borders work both ways. In the demo, nothing crosses a finished blockade, zombies that cross the national border leave the model, and humans never leave the Czech Republic.
+{{< /faq >}}
 
-Nobody notices the outbreak until day 7. You can plan at any time, by sealing whole regions or by drawing blockades freehand, but one crew builds everything, in the order you planned it, at 40 km a day from day 7.
+{{< faq "How was this demo made?" >}}
+**The code** is on [GitHub](https://github.com/Mark-Bugden/zombie-outbreak). A Python pipeline regrids the population data onto the 1 km grid, and a NumPy reference model runs the outbreak. The demo runs it again in JavaScript, in a web worker, and its tests check that the two agree exactly. The map and the chart are drawn on plain canvases.
 
-On the grid, people and zombies move between neighbouring squares across the edge they share. So a blockade is a chain of square edges, and each edge is 1 km of fence. A freehand stroke is snapped onto the grid lines, so it has no gaps, and nothing crosses it once it's built. Sealing a region closes its borders with the other regions, but not its national border: zombies that cross into Germany, Poland, Austria or Slovakia leave the model, counted as exported.
+**Agentic coding:** I built the demo with Claude Code, Anthropic's coding agent, in stages.
 
-The same outbreak with no quarantine runs alongside, which is how the demo knows how many people your quarantine saved. It also counts the people you sealed in: those inside an area cut off from the rest of the country while it held zombies able to bite, at the moment it closed.
-
-## What the trials showed
-
-The detection day and the crew's speed were chosen by trial, with a plan drawn the moment the outbreak is detected: a ring around the starting city, some margin beyond the visible outbreak, or a straight line across the country beyond it. Like the strains, these settings are illustrative.
-
-- **Cities fall before anyone notices.** At the paper's rates, 1.43 million people have been bitten by day 3, more than live in Prague itself (1.34 million on this map). By day 7, zombies are 17 to 44 km from where they started, depending on the city and the strain. Sealing the starting region holds around Ostrava against every strain except Frenzied, around Brno only against Risers, and around Prague never: Prague's own region is only about 13 km in radius.
-- **The crew has to outbuild the front about eight times over.** A ring that follows the grid lines around a circle of radius r is 8r long, as long as the square around the circle. The front then moves about 1.5 km a day at the paper's rates and 3.3 km a day for Frenzied zombies (measured from Prague). At 40 km a day, a ring around Prague holds the paper's strain if it starts at least 20 km beyond the visible outbreak, and then 8.2 million people survive. Frenzied zombies need a ring 65 km out, which saves 5.2 million: about as many as a straight line across the country that gives up the west.
-- **All or nothing.** Every ring either held completely or failed completely. When one failed, only 20,000 to 60,000 people were left on day 365, about as many as with no quarantine.
-- **Geography matters.** Ostrava sits in a corner against Poland and Slovakia, so half of any ring around it lies outside Czechia and costs nothing. Every strain can be contained there. Prague, in the middle, is the hard case.
-
-Survivors on day 365, out of 10.75 million, with the plan drawn on day 7:
-
-{{< table >}}
-| Strain, city | Narrowest ring that held | A ring 10–20 km tighter | Line across the country | No quarantine |
-| --- | --- | --- | --- | --- |
-| Munz et al., Prague | 20 km out: 8.17M | 10 km out: 0.02M | 5.33M | 0.02M |
-| Frenzied, Prague | 65 km out: 5.17M | 45 km out: 0.06M | 5.08M | 0.02M |
-| Frenzied, Brno | 30 km out: 8.96M | 20 km out: 0.02M | 6.54M | 0.02M |
-| Frenzied, Ostrava | 10 km out: 9.56M | | 8.91M | 0.02M |
-{{< /table >}}
-
-These trials are a best case: the simulated planner draws a perfect circle the moment the outbreak shows. At 1×, each second spent drawing costs two days, unless the run is paused.
-
-## Limits
-
-- The rates, the detection day and the crew's speed are illustrative, chosen so a quarantine can work but has to be quick. They aren't estimates of anything.
-- The model is deterministic. The same plan always gives the same result: there is no luck, and no lone zombie slipping through.
-- Nobody is born or dies of other causes, humans never leave Czechia, and zombies that cross the border are counted but not followed.
-- Humans only flee. They don't commute, travel or organise, and at 1 km a town is a handful of squares.
+1. **Research.** The agent went through my original notebooks from 2023, which ran an SIR model with migration on a population map of Germany.
+2. **A plan,** in which I settled the design questions, such as noticing the outbreak only after a week, having one crew build every blockade, and running the same outbreak with no quarantine alongside to count the people saved.
+3. **The data:** the population regridded onto an equal-area 1 km grid, and checked against the national total, the regions' official populations and where the cities are.
+4. **The model:** the NumPy reference model and its tests, then the JavaScript port, whose tests replay the reference model's results.
+5. **The quarantine:** blockades, seals and the crew, then the run with no quarantine and the summary. The strains, the detection day and the crew's speed were tuned with me on the full map, from trials the agent ran.
+6. **Polish,** from my notes on the live demo: the chart as a timeline, fewer controls, "blockade" in place of "cordon", a colour for the dead, and a demo that fits the window.
+{{< /faq >}}
 
 ## Credits
 
 - Munz, P., Hudea, I., Imad, J. and Smith?, R. J. (2009). [When zombies attack!: Mathematical modelling of an outbreak of zombie infection](https://loe.org/images/content/091023/Zombie%20Publication.pdf). In *Infectious Disease Modelling Research Progress*, pp. 133–150. Nova Science.
-- Brunet, É. and Derrida, B. (1997). [Shift in the velocity of a front due to a cutoff](https://arxiv.org/abs/cond-mat/0005362). *Physical Review E* 56, 2597–2604.
 - Population: [WorldPop](https://dx.doi.org/10.5258/SOTON/WP00675), Czech Republic 2020, UN-adjusted, 1 km ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)). WorldPop (www.worldpop.org - School of Geography and Environmental Science, University of Southampton; Department of Geography and Geosciences, University of Louisville; Departement de Geographie, Universite de Namur) and Center for International Earth Science Information Network (CIESIN), Columbia University (2018). Global High Resolution Population Denominators Project - Funded by The Bill and Melinda Gates Foundation (OPP1134076).
 - Borders: [Natural Earth](https://www.naturalearthdata.com/), 1:10m (public domain).
