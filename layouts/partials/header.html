@@ -31,19 +31,24 @@
         {{- /* The language menu: a <details>, so it works without script (js/language-menu.js closes it
            on a click elsewhere or Escape). Each language links to its version of this page, or else to
            its version of the nearest page above this one: an English-only write-up's Czech link goes
-           to the Czech Projects page. */}}
+           to the Czech Projects page. A link to this page's own version is marked data-same-page, and
+           language-menu.js gives it the page's current fragment, so a project page stays on More info. */}}
         <details class="lang-menu" data-lang-menu>
           <summary class="lang-menu__button"><span class="visually-hidden">{{ i18n "language" }}: </span>{{ site.Params.code }}<svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 4.5 6 7.5 9 4.5"/></svg></summary>
           <ul class="lang-menu__list">
             {{- range hugo.Sites }}
             {{- $lang := .Language.Lang }}
+            {{- $same := false }}
             {{- $target := false }}
             {{- if ne $.Kind "404" }}
-              {{- range (slice $) | append $.Ancestors }}
+              {{- $same = partial "in-language.html" (dict "page" $ "lang" $lang) }}
+              {{- $target = $same }}
+              {{- range $.Ancestors }}
                 {{- if not $target }}{{ $target = partial "in-language.html" (dict "page" . "lang" $lang) }}{{ end }}
               {{- end }}
             {{- end }}
             <li><a href="{{ (or $target .Home).RelPermalink }}" hreflang="{{ .Language.Locale }}" lang="{{ .Language.Locale }}"
+              {{- if $same }} data-same-page{{ end }}
               {{- if eq $lang site.Language.Lang }} aria-current="true"{{ end }}><span class="lang-menu__code">{{ .Params.code }}</span> {{ .Language.Label }}</a></li>
             {{- end }}
           </ul>
