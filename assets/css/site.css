@@ -689,11 +689,36 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects, .section-link--proj
 .in-progress__title { flex: 1 1 240px; font-weight: 500; }
 .in-progress__summary { flex: 2 1 320px; align-self: center; color: var(--muted); }
 
-/* Project page. Only the title sits above the demo, close under the header, so that the whole demo is
-   on screen when the page opens. The tagline, status, build date and source link follow the demo. */
+/* Project page. Only the title and the tabs sit above the demo, close under the header, so that the
+   whole demo is on screen when the page opens. The tagline, status, build date and source link open
+   the More info tab. */
 
 .project__header { padding-block: 12px 20px; }
 .project__header h1 { font-size: clamp(32px, 3.6vw, 44px); }
+/* The Demo and More info tabs, styled like the header nav. project-tabs.js marks the selected one;
+   without it they are plain links to the panels, and neither is marked. */
+.project__tabs { margin-top: 12px; }
+.project__tabs ul {
+  display: flex;
+  gap: 0 28px;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--line);
+}
+.project__tabs li { display: flex; }
+.project__tabs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-bottom: -1px;
+  color: var(--muted);
+  border-bottom: 2px solid transparent;
+}
+.project__tabs a:hover, .project__tabs a[aria-selected="true"] { color: var(--fg); }
+.project__tabs a[aria-selected="true"] { border-bottom-color: var(--accent); }
+/* A link to #more-info opens the page at the top, with the tabs in view: this margin is taller than
+   everything above the panel, and a scroll stops at the top of the page. */
+.project--tabbed .project__panel { scroll-margin-top: 100vh; }
 .project__intro { margin-bottom: 40px; }
 .project__intro .lede { margin-top: 0; }
 .project__meta {
