@@ -1,4 +1,4 @@
-baseURL = "https://mark-bugden.github.io/"
+baseURL = "https://mark-bugden.com/"
 title = "Mark Bugden"
 enableRobotsTXT = true
 disableKinds = ["taxonomy", "term"]
