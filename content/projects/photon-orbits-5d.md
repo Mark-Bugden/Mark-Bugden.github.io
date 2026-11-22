@@ -8,7 +8,7 @@ description: "Light orbiting a five-dimensional rotating black hole: spherical p
 ---
 
 {{< faq "What is this demo?" >}}
-This demo visualises what these photon orbits would look like around a rotating black hole in five-dimensional spacetime, the Myers–Perry black hole. It is based on the work I did in my 2018 paper, [Spherical photon orbits around a 5D Myers-Perry black hole](https://doi.org/10.1007/s10714-018-2352-x). You can choose the spin of the black hole, as well as the angular momenta of the photon. The demo finds the orbit and sends the photon round it. The presets reproduce the paper’s figures.
+This demo visualises what photon orbits would look like around a rotating black hole in five-dimensional spacetime, the Myers–Perry black hole. It is based on the work I did in my 2018 paper, [Spherical photon orbits around a 5D Myers-Perry black hole](https://doi.org/10.1007/s10714-018-2352-x). You can choose the spin of the black hole, as well as the angular momenta of the photon. The demo finds the orbit and sends the photon round it. The presets reproduce the paper’s figures, as well as some other interesting orbits.
 
 The demo was inspired by Leo Stein’s [Kerr spherical photon orbits](https://duetosymmetry.com/tool/kerr-circular-photon-orbits/) tool, which creates a similar visualisation for the four-dimensional Kerr black hole.
 {{< /faq >}}
