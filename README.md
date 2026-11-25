@@ -101,7 +101,7 @@ When you change text:
 
 ## Other tasks
 
-- **See what's happening in every repo:** run `scripts/status.sh`. For this repo, demo-kit and each project, it lists the latest release, the open PRs, the PRs merged in the last day, and the branches with commits that aren't in main. Each branch is shown with its PR, if it has one. A branch whose PR has merged is often just a leftover.
+- **See what's happening in every repo:** run `scripts/status.sh`. For this repo, demo-kit and each project, it lists the latest release, the open PRs, the PRs merged in the last day, and the branches with commits that aren't in main. Each branch is shown with its PR, if it has one. A branch whose PR has merged is often just a leftover. Then come the open issues, each with its status on the project board (unless that's Todo) and the PRs that will close it.
 - **Redraw the mark:** run `python scripts/hopf-mark.py`. It draws four fibres of the Hopf fibration and writes the header SVG and `static/favicon.svg`.
 - **Preview accent colours:** under `hugo server`, an Accent button at the bottom right of every page opens a panel of colour pairs (dark and light theme) with their contrast. It is left out of production builds.
 - **Redraw the home page figure:** run `python scripts/phase-portrait.py`. It draws the phase portrait of a simple pendulum and writes `layouts/partials/phase-portrait.html`.
