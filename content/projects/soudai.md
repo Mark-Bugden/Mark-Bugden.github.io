@@ -7,14 +7,14 @@ summary: "Predicting how long civil court cases in the Czech Republic take, from
 description: "A model that forecasts when a civil case at a Czech district court will end, from its history so far, and the routes cases take from filing to a final decision."
 ---
 
+**Not legal advice.** Nothing on this page or in the demo is legal advice. The forecasts are statistics from the public records of past cases. They know only a case's court and the dates and types of its events, and nothing about its facts, its parties or the law, so don't rely on them in any decision about a real case. For that, ask a lawyer. The records may contain errors, and they're shown as they stood in November 2026. This project isn't affiliated with the courts or the Ministry of Justice, and it makes no claims about why courts differ.
+
 {{< faq "What does the demo show?" >}}
 The demo has two tabs.
 
 **Forecast.** Pick a real past case, at random or by its court and case number, or describe one yourself: its court and its events so far. A model gives the chance that the case ends within 1, 3, 6 and 12 months. A case ends when its decision becomes legally final, which means it can no longer be appealed. For a real case, the demo also shows what happened next. "How well it does" scores the model against simpler methods, on cases it never saw.
 
 **Process map.** The journey of a civil case from filing to a legally final decision: the stages cases pass through, the share of cases making each move, and the typical wait between stages. Pick a court to compare it with the whole country.
-
-**Nothing here is legal advice.** The forecasts come from patterns in the records of past cases, and know nothing about the facts or the law of any case. The project makes no claims about why courts differ.
 {{< /faq >}}
 
 {{< faq "Where does the data come from?" >}}
