@@ -1,6 +1,6 @@
 ---
-# Front matter only: the page shows the English write-up and demo, with a note that they are in
-# English. A body here replaces the English write-up. tagline and tags replace the manifest's.
+# The body translates the English write-up in photon-orbits-5d.md, which stays the source of truth:
+# a change there needs the same change here. tagline and tags replace the manifest's.
 title: "Photonen im Orbit"
 demo: photon-orbits-5d
 tagline: "Licht, das ein rotierendes fünfdimensionales Schwarzes Loch umkreist."
@@ -9,7 +9,7 @@ description: "Licht, das ein rotierendes fünfdimensionales Schwarzes Loch umkre
 ---
 
 {{< faq "Was ist das für eine Demo?" >}}
-Diese Demo zeigt, wie Photonenbahnen um ein rotierendes Schwarzes Loch in einer fünfdimensionalen Raumzeit aussähen, um das Schwarze Loch vom Myers-Perry-Typ. Grundlage ist meine Forschung, die ich 2018 im Artikel [Spherical photon orbits around a 5D Myers-Perry black hole](https://doi.org/10.1007/s10714-018-2352-x) veröffentlicht habe. Sie können den Spin des Schwarzen Lochs wählen und dazu die Drehimpulse des Photons. Die Demo findet die Bahn und lässt das Photon darauf umlaufen. Die Voreinstellungen reproduzieren die Abbildungen aus dem Artikel und einige weitere interessante Bahnen.
+Diese Demo zeigt, wie Photonenbahnen um ein rotierendes Schwarzes Loch in einer fünfdimensionalen Raumzeit aussähen, also um das Schwarze Loch vom Myers-Perry-Typ. Grundlage ist meine Forschung, die ich 2018 im Artikel [Spherical photon orbits around a 5D Myers-Perry black hole](https://doi.org/10.1007/s10714-018-2352-x) veröffentlicht habe. Sie können den Spin des Schwarzen Lochs wählen und dazu die Drehimpulse des Photons. Die Demo findet die Bahn und lässt das Photon darauf umlaufen. Die Voreinstellungen reproduzieren die Abbildungen aus dem Artikel und einige weitere interessante Bahnen.
 
 Angeregt wurde die Demo durch Leo Steins Tool [Kerr spherical photon orbits](https://duetosymmetry.com/tool/kerr-circular-photon-orbits/), das eine ähnliche Darstellung für das vierdimensionale Kerr-Loch erzeugt.
 {{< /faq >}}
@@ -65,11 +65,11 @@ Der zweite Reiter zeigt die Spur auf einem Torus, mit $\phi$ nach rechts und $\p
 {{< faq "Was bedeutet „extremal“?" >}}
 Ein Schwarzes Loch einer bestimmten Masse kann sich nur begrenzt schnell drehen. Ein rotierendes Schwarzes Loch hat zwei Horizonte, den Ereignishorizont und darin einen inneren Horizont. Mit wachsendem Spin rücken sie zusammen, und beim schnellstmöglichen Spin verschmelzen sie. Ein solches Schwarzes Loch ist extremal. Drehte es sich noch schneller, gäbe es überhaupt keinen Horizont mehr, nur eine nackte Singularität, und die sollte laut der Hypothese der kosmischen Zensur nie entstehen. Ein extremales Schwarzes Loch ist außerdem kalt: Seine Hawking-Temperatur ist null.
 
-Für ein Kerr-Loch der Masse $M$ bedeutet extremal $a = M$, in Einheiten mit $G = c = 1$. Für das Schwarze Loch vom Myers-Perry-Typ mit $\mu = 1$ bedeutet es $a + b = 1$, und die beiden Horizonte treffen sich bei $r^2 = ab$. Mit nur einem Spin gibt es keinen inneren Horizont, auf den der Ereignishorizont treffen könnte, und wenn $a$ gegen $1$ geht, schrumpft der Ereignishorizont zu nichts zusammen. Die extremalen Löcher der Demo drehen sich daher in beiden Ebenen. Abb. 4.8 mit $a = 0.9$ und $b = 0.1$ zeigt ein solches.
+Für ein Kerr-Loch der Masse $M$ bedeutet extremal $a = M$, in Einheiten mit $G = c = 1$. Für das Schwarze Loch vom Myers-Perry-Typ mit $\mu = 1$ bedeutet es $a + b = 1$, und die beiden Horizonte treffen sich bei $r^2 = ab$. Mit nur einem Spin gibt es keinen inneren Horizont, auf den der Ereignishorizont treffen könnte, und wenn $a$ gegen $1$ geht, schrumpft der Ereignishorizont zu nichts zusammen. Die extremalen Löcher der Demo drehen sich daher in beiden Ebenen. Abb. 4.8 mit $a = 0{,}9$ und $b = 0{,}1$ zeigt ein solches.
 {{< /faq >}}
 
 {{< faq "Wie ist diese Demo entstanden?" >}}
-**Die Berechnung.** Die Demo simuliert das Photon nicht in vielen kleinen Schritten. Stattdessen nutzt sie aus, wie regelmäßig die Bahn ist. Eine sphärische Photonenbahn bleibt auf festem Radius, und jede Schwingung zwischen ihren beiden Breiten gleicht der vorigen, bis darauf, wie weit sich das Photon in $\phi$ und $\psi$ gedreht hat. Die Demo berechnet also eine einzige Schwingung sehr genau und setzt den ganzen Weg durch Wiederholen daraus zusammen. Dazu schreibt sie die Bewegungsgleichungen in der Mino-Zeit, in der sich die Schwingung in der Breite von allem anderen trennt, und integriert über eine Schwingung mit der Simpsonregel, wobei sie die scharfen Spitzen nahe den Achsen exakt behandelt. Der Weg ist auf etwa $10^{-7}$ genau, auch eine lange Spur driftet nie, und eine direkte Integration der vollständigen Geodätengleichungen stimmt damit überein. Diese Bahnen sind instabil, deshalb hält die Demo, wie der Artikel, den Radius fest und zeigt die ideale Bahn.
+**Die Berechnung.** Die Demo simuliert das Photon nicht in vielen kleinen Schritten. Stattdessen nutzt sie aus, wie regelmäßig die Bahn ist. Eine sphärische Photonenbahn bleibt auf festem Radius, und jede Schwingung zwischen ihren beiden Breiten gleicht der vorigen, abgesehen davon, wie weit sich das Photon in $\phi$ und $\psi$ gedreht hat. Die Demo berechnet also eine einzige Schwingung sehr genau und setzt den ganzen Weg durch Wiederholen daraus zusammen. Dazu schreibt sie die Bewegungsgleichungen in der Mino-Zeit, in der sich die Schwingung in der Breite von allem anderen trennt, und integriert über eine Schwingung mit der Simpsonregel, wobei sie die scharfen Spitzen nahe den Achsen exakt behandelt. Der Weg ist auf etwa $10^{-7}$ genau, auch eine lange Spur driftet nie, und eine direkte Integration der vollständigen Geodätengleichungen stimmt damit überein. Diese Bahnen sind instabil, deshalb hält die Demo, wie der Artikel, den Radius fest und zeigt die ideale Bahn.
 
 **Der Code** liegt auf [GitHub](https://github.com/Mark-Bugden/photon-orbits-5d). Die Tests des Python-Modells gleichen es mit dem Artikel, mit geschlossenen Ausdrücken und mit der direkten Integration ab, und die Tests des JavaScript-Codes rechnen die Ergebnisse des Modells nach. Die 3D-Ansicht wird mit [three.js](https://threejs.org/) gezeichnet, das Feld und die Seitenleiste auf einfachen Canvas-Elementen.
 

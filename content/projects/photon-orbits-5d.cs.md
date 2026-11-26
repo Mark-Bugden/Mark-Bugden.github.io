@@ -1,6 +1,6 @@
 ---
-# Front matter only: the page shows the English write-up and demo, with a note that they are in
-# English. A body here replaces the English write-up. tagline and tags replace the manifest's.
+# The body translates the English write-up in photon-orbits-5d.md, which stays the source of truth:
+# a change there needs the same change here. tagline and tags replace the manifest's.
 title: "Po stopách fotonů"
 demo: photon-orbits-5d
 tagline: "Světlo obíhající kolem rotující pětirozměrné černé díry."
@@ -42,11 +42,11 @@ V rovině $a$ je foton ve vzdálenosti $\sqrt{r^2 + a^2}\,\sin\theta$ od středu
 
 Při pevném poloměru leží všechny body na sféroidu. Pro $a > b$ je zploštělý, pro $a = b$ je to sféra a pro $b > a$ je protáhlý podél $Z$ jako „ragbyový míč“ na obr. 4.6 v článku. Projekce v článku navíc obraz otáčí o konstantní úhel $\arctan(a/r)$. Při pevném poloměru jde o otočení celého obrazu, takže ho demo vynechává a místo toho otáčí kamerou.
 
-Barvy odpovídají barevnému kruhu z obr. 4.1 v článku: červená při $\psi = 0$, pak po každých $\pi/3$ žlutá, zelená, azurová, modrá a purpurová. Prstenec vlevo nahoře ve 3D pohledu slouží jako legenda a ručička na něm ukazuje $\psi$ fotonu. Divákům s červeno-zelenou barvoslepostí se protilehlé barvy rozlišují hůř, a proto torus v bočním panelu ukazuje $\psi$ i polohou.
+Barvy odpovídají barevnému kruhu z obr. 4.1 v článku: červená při $\psi = 0$, pak po každých $\pi/3$ žlutá, zelená, azurová, modrá a purpurová. Prstenec vlevo nahoře ve 3D pohledu slouží jako legenda a ručička na něm ukazuje $\psi$ fotonu. Lidé s červeno-zelenou barvoslepostí rozlišují protilehlé barvy hůř, a proto torus v bočním panelu ukazuje $\psi$ i polohou.
 
 Pro $\Phi = 0$ prochází orbita přímo přes pól a pro $\Psi = 0$ protíná rovník. Souřadnice tam plynule pokračují dál, stejně jako na obrázcích v článku: dráha vede přes pól, nebo přejde na dolní polovinu sféroidu a barvu si zachová. Jakýkoli nenulový moment hybnosti drží orbitu mimo osu a orbita se těsně před ní obrátí, přičemž se $\phi$ nebo $\psi$ prudce změní.
 
-**Vztah ke Kerrově černé díře.** Pro $b = 0$ a $\Psi = 0$ se díra v rovině $b$ neotáčí a foton v ní nemá žádný moment hybnosti. Pohybuje se tedy po pevné přímce procházející středem této roviny: $\psi$ se nikdy nemění a celá orbita má jednu barvu. Obraz pak vypadá jako běžné obrázky sférických fotonových orbit kolem Kerrovy černé díry. $X$ a $Y$ určují rovinu, v níž se díra otáčí, osa $Z$ je k ní kolmá, podobně jako osa Kerrovy černé díry, a orbita se kývá přes rovník z jedné strany na druhou. Tak vypadají obrázky 4.2 a 4.3. Samotné orbity nejsou stejné jako u Kerrovy černé díry, protože jde o jinou černou díru, ale čtou se stejně.
+**Vztah ke Kerrově černé díře.** Pro $b = 0$ a $\Psi = 0$ se díra v rovině $b$ neotáčí a foton v ní nemá žádný moment hybnosti. Pohybuje se tedy po pevné přímce procházející středem této roviny: $\psi$ se nikdy nemění a celá orbita má jednu barvu. Obraz pak vypadá jako běžné obrázky sférických fotonových orbit kolem Kerrovy černé díry. $X$ a $Y$ určují rovinu, v níž se díra otáčí, osa $Z$ je k ní kolmá, podobně jako osa Kerrovy černé díry, a orbita se kývá přes rovník z jedné strany na druhou. Tak vypadají obr. 4.2 a 4.3. Samotné orbity nejsou stejné jako u Kerrovy černé díry, protože jde o jinou černou díru, ale čtou se stejně.
 {{< /faq >}}
 
 {{< faq "K čemu slouží ovládací prvky? Co ukazují grafy?" >}}
@@ -55,7 +55,7 @@ Pro $\Phi = 0$ prochází orbita přímo přes pól a pro $\Psi = 0$ protíná r
 - **Trail length** určuje, jak velká část dosavadní dráhy fotonu zůstává vykreslená. Délka stopy se měří afinním parametrem $\lambda$, který demu slouží jako hodiny.
 - Šipka pod sféroidem ukazuje, kterým směrem se díra otáčí v rovině $a$. Otáčení díry v rovině $b$ je vidět jen na barvách, a proto šipka pro $b$ vede kolem barevné legendy.
 
-Oblast na ovládací ploše má tvar konvexního kosočtverce se zakřivenými stranami a mimo ni žádná sférická orbita neexistuje. Její rohy jsou kruhové orbity v každé ze dvou rovin a její hrany jsou orbity, které se drží na jedné rovnoběžce.
+Oblast na ovládací ploše má tvar konvexního kosočtverce se zakřivenými stranami a mimo ni žádná sférická orbita neexistuje. Její rohy jsou kruhové orbity v každé ze dvou rovin a její strany jsou orbity, které se drží na jedné rovnoběžce.
 
 Boční panel vykresluje $\theta$, $\phi$ a $\psi$ v závislosti na $\lambda$ podél viditelné stopy. Barevný pruh pod $\psi$ ukazuje barvu stopy v každém okamžiku. $\phi$ a $\psi$ probíhají od $0$ do $2\pi$ a pak začínají znovu. Křivky jsou geodetiky, a proto zůstávají hladké i při průchodu osami: $\theta$ tam místo skoku pokračuje za $0$ nebo $\pi/2$.
 
@@ -65,7 +65,7 @@ Druhá záložka zobrazuje stopu na toru, s $\phi$ vodorovně a $\psi$ svisle, o
 {{< faq "Co znamená „extremální“?" >}}
 Černá díra dané hmotnosti se nemůže otáčet libovolně rychle. Rotující černá díra má dva horizonty: horizont událostí a uvnitř něj vnitřní horizont. Jak spin roste, horizonty se k sobě přibližují, a při nejrychlejší možné rotaci splynou. Taková černá díra je extremální. Kdyby se otáčela ještě rychleji, nebyl by tu žádný horizont, jen nahá singularita, a ta by podle hypotézy kosmické cenzury nikdy neměla vzniknout. Extremální černá díra je také studená: její Hawkingova teplota je nulová.
 
-Kerrova černá díra o hmotnosti $M$ je extremální pro $a = M$, v jednotkách, kde $G = c = 1$. U Myersovy–Perryho černé díry s $\mu = 1$ to znamená $a + b = 1$ a oba horizonty se setkají při $r^2 = ab$. Má-li díra jen jeden spin, není tu žádný vnitřní horizont, se kterým by se horizont událostí mohl setkat, a když se $a$ blíží $1$, horizont událostí se zmenší do ztracena. Extremální díry v demu se proto otáčejí v obou rovinách. Jednu takovou ukazuje obr. 4.8 s $a = 0.9$ a $b = 0.1$.
+Kerrova černá díra o hmotnosti $M$ je extremální pro $a = M$, v jednotkách, kde $G = c = 1$. U Myersovy–Perryho černé díry s $\mu = 1$ to znamená $a + b = 1$ a oba horizonty se setkají při $r^2 = ab$. Má-li díra jen jeden spin, není tu žádný vnitřní horizont, se kterým by se horizont událostí mohl setkat, a když se $a$ blíží $1$, horizont událostí se zmenší do ztracena. Extremální díry v demu se proto otáčejí v obou rovinách. Jednu takovou ukazuje obr. 4.8 s $a = 0{,}9$ a $b = 0{,}1$.
 {{< /faq >}}
 
 {{< faq "Jak toto demo vzniklo?" >}}
