@@ -15,7 +15,8 @@
   {{- end }}
 
   {{- /* An "In progress" entry with a slug drops out once that project has a card above. A Czech or
-     German page without its own inProgress list shows the English page's, marked as English. */}}
+     German page without its own inProgress list shows the English page's, marked as English. An entry
+     whose slug is in data/projects.yaml takes its title from there, in English. */}}
   {{- $listedSlugs := slice }}
   {{- range $listed }}{{ $listedSlugs = $listedSlugs | append .slug }}{{ end }}
   {{- $entries := .Params.inProgress }}
@@ -33,12 +34,16 @@
     <h2 id="in-progress-heading" class="label">{{ i18n "inProgress" }}</h2>
     <ul class="rows"{{ if $english }} lang="en"{{ end }}>
       {{- range . }}
+      {{- $title := .title }}
+      {{- $named := false }}
+      {{- range where hugo.Data.projects "slug" .slug }}{{ $title = .title }}{{ $named = true }}{{ end }}
+      {{- $markEnglish := and $named (ne site.Language.Lang "en") (not $english) }}
       <li class="row">
         {{- if .url }}
-        <a class="in-progress__title" href="{{ .url }}" rel="noopener">{{ .title }}</a>
+        <a class="in-progress__title" href="{{ .url }}" rel="noopener"{{ if $markEnglish }} lang="en"{{ end }}>{{ $title }}</a>
         <span class="in-progress__summary">{{ .summary }}{{ with .host }} {{ i18n "onHost" . }}{{ end }}</span>
         {{- else }}
-        <span class="in-progress__title">{{ .title }}</span>
+        <span class="in-progress__title"{{ if $markEnglish }} lang="en"{{ end }}>{{ $title }}</span>
         <span class="in-progress__summary">{{ .summary }}</span>
         {{- end }}
       </li>

@@ -1,5 +1,4 @@
 ---
-title: "Plotting the Photons"
 slug: photon-orbits-5d
 date: 2026-11-17
 demo: photon-orbits-5d

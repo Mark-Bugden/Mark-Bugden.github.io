@@ -1,6 +1,7 @@
 {{- $title := site.Title -}}
+{{- $page := partial "title.html" . -}}
 {{- if eq .Kind "404" }}{{ $title = printf "%s · %s" (i18n "pageNotFound") site.Title }}
-{{- else if not .IsHome }}{{ $title = printf "%s · %s" .Title site.Title }}{{ end -}}
+{{- else if not .IsHome }}{{ $title = printf "%s · %s" $page site.Title }}{{ end -}}
 {{- $description := .Description | default site.Params.description -}}
 {{- if eq .Kind "404" }}{{ $description = i18n "notFoundDescription" }}{{ end -}}
 {{- $og := partial "og-image.html" . -}}
@@ -45,7 +46,7 @@
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:site_name" content="{{ site.Title }}">
-<meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}">
+<meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ $page }}{{ end }}">
 <meta property="og:description" content="{{ $description }}">
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:image" content="{{ $og.url }}">
@@ -53,7 +54,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="{{ $og.alt }}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}">
+<meta name="twitter:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ $page }}{{ end }}">
 <meta name="twitter:description" content="{{ $description }}">
 <meta name="twitter:image" content="{{ $og.url }}">
 <meta name="twitter:image:alt" content="{{ $og.alt }}">

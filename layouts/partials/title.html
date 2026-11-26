@@ -1,0 +1,7 @@
+{{- /* A page's title. A project page's is the project's name, its title in data/projects.yaml, which
+   stays English in every language. Any other page's is the title in its front matter. */ -}}
+{{- $title := .Title -}}
+{{- with .Params.demo -}}
+  {{- range where hugo.Data.projects "slug" . }}{{ $title = .title }}{{ end -}}
+{{- end -}}
+{{- return $title -}}

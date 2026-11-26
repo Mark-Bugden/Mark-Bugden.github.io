@@ -1,5 +1,4 @@
 ---
-title: "Predicting the Play"
 slug: lol-win-prediction
 date: 2026-11-17
 demo: lol-win-prediction

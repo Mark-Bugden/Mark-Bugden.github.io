@@ -1,7 +1,6 @@
 ---
 # The body translates the English write-up in photon-orbits-5d.md, which stays the source of truth:
 # a change there needs the same change here. tagline and tags replace the manifest's.
-title: "Po stopách fotonů"
 demo: photon-orbits-5d
 tagline: "Vizualizace světla obíhajícího kolem rotující pětirozměrné černé díry."
 tags: ["teoretická fyzika", "černé díry", "geodetiky"]

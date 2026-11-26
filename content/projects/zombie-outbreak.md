@@ -1,5 +1,4 @@
 ---
-title: "Quantifying the Quarantine"
 slug: zombie-outbreak
 date: 2026-11-17
 demo: zombie-outbreak

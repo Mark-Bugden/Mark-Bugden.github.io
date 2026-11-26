@@ -1,5 +1,4 @@
 ---
-title: "Rating the Regenerations"
 slug: doctor-who-ratings
 date: 2025-05-17
 demo: doctor-who-ratings

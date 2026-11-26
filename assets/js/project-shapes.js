@@ -25,7 +25,7 @@ export function tone(k) {
   return r < 0.3 ? 0 : r < 0.72 ? 1 : 2;
 }
 
-// Plotting the Photons: five tilted great circles on a sphere, with the particles going round them,
+// photon-orbits-5d: five tilted great circles on a sphere, with the particles going round them,
 // and the sphere's outline.
 var TILTS = [0.3, 1.0, 1.7, 2.3, 2.9], INCLINATIONS = [1.25, 0.9, 1.1, 0.6, 1.4];
 function sphere(k, s, area, out) {
@@ -42,7 +42,7 @@ function sphere(k, s, area, out) {
   out[2] = 2;
 }
 
-// Quantifying the Quarantine: the Czech Republic, filled, with a slowly pulsing ring round Prague.
+// zombie-outbreak: the Czech Republic, filled, with a slowly pulsing ring round Prague.
 // The border is 116 points from Natural Earth 1:50m (public domain, via the world-atlas package,
 // country 203): an equirectangular projection scaled by the cosine of the central latitude, simplified
 // with Douglas-Peucker. Units are 1/1000 of the country's half-width; x is east, y is south, and the
@@ -109,7 +109,7 @@ function border(ctx, area, alpha, colour) {
   ctx.globalAlpha = 1;
 }
 
-// Rating the Regenerations: a heatmap of 16 rows of uneven length, whose particles grow from dots
+// doctor-who-ratings: a heatmap of 16 rows of uneven length, whose particles grow from dots
 // into tiles.
 var COLS = 34, ROWS = 16;
 function heatmap(k, s, area, out) {

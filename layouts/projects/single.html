@@ -12,6 +12,8 @@
 {{- $entry := false }}
 {{- range where hugo.Data.projects "slug" $slug }}{{ $entry = . }}{{ end }}
 {{- if not $entry }}{{ errorf "%s: demo %q is not listed in data/projects.yaml" .File.Path $slug }}{{ end }}
+{{- if not $entry.title }}{{ errorf "data/projects.yaml: %q needs a title, the project's name" $slug }}{{ end }}
+{{- with .Params.title }}{{ errorf "%s: remove title %q. The project's name is its title in data/projects.yaml." $.File.Path . }}{{ end }}
 {{- $manifest := partial "manifest.html" $slug }}
 {{- if $manifest }}
   {{- if ne $manifest.slug $slug }}{{ errorf "%s: bundle for %q has manifest slug %q" .File.Path $slug $manifest.slug }}{{ end }}
@@ -39,6 +41,7 @@
 {{- $manifest := partial "manifest.html" $slug }}
 {{- $translated := ne .Language.Lang "en" }}
 {{- $englishOnly := and $translated (not .Content) }}
+{{- $title := partial "title.html" . }}
 {{- /* Only the title and the tabs sit above the demo, so the whole demo is on screen when the page
    opens. The Demo tab holds only the demo. More info (#more-info) holds the tagline and status, the
    write-up, and at the bottom the build date and the source link. Model card (#model-card) holds the
@@ -47,7 +50,7 @@
 <article class="project">
   <header class="wrap page-header project__header">
     <p class="eyebrow"><a href="{{ "projects/" | relLangURL }}">{{ i18n "projects" }}</a></p>
-    <h1 id="project-title">{{ .Title }}</h1>
+    <h1 id="project-title"{{ if $translated }} lang="en"{{ end }}>{{ $title }}</h1>
     <div class="project__tabs">
       <ul aria-labelledby="project-title">
         <li><a href="#demo">{{ i18n "demoTab" }}</a></li>
@@ -61,7 +64,7 @@
 
   <div class="wrap project__panel" id="demo">
     {{- with $manifest }}
-    {{ partial "demo.html" (dict "slug" $slug "title" $.Title) }}
+    {{ partial "demo.html" (dict "slug" $slug "title" $title) }}
     {{- else }}
     <p class="notice">No demo bundle in <code>static/demos/{{ $slug }}/</code>. Run <code>scripts/fetch-demos.sh</code> to preview it here.</p>
     {{- end }}
