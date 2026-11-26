@@ -6,10 +6,10 @@
 {{- end }}
 
 {{- define "main" }}
-{{- /* The three sections, in reading order: a pill on the figure and a link below it for each. */}}
+{{- /* The three sections, in reading order, each with a pill on the figure. */}}
 {{- $sections := slice }}
 {{- range slice "about" "publications" "projects" }}
-  {{- $sections = $sections | append (dict "key" . "name" (i18n .) "url" (printf "%s/" . | relLangURL) "summary" (i18n (printf "%sSummary" .))) }}
+  {{- $sections = $sections | append (dict "key" . "name" (i18n .) "url" (printf "%s/" . | relLangURL)) }}
 {{- end }}
 <div class="wrap">
   <div class="home-intro">
@@ -35,16 +35,17 @@
   <figcaption class="wrap label">{{ i18n "phaseCaption" }}</figcaption>
 </figure>
 
+{{- /* Under the figure, the project cards, as on the Projects page. */}}
+{{- with partial "listed-projects.html" . }}
 <div class="wrap">
-  <ul class="section-links">
-    {{- range $sections }}
-    <li>
-      <a class="section-link section-link--{{ .key }}" href="{{ .url }}">
-        <span class="section-link__title">{{ .name }}</span>
-        <span class="section-link__desc">{{ .summary }}</span>
-      </a>
-    </li>
-    {{- end }}
-  </ul>
+  <section class="section" aria-labelledby="projects-heading">
+    <h2 id="projects-heading" class="label">{{ i18n "projects" }}</h2>
+    <ul class="card-grid">
+      {{- range . }}
+      <li>{{ partial "project-card.html" . }}</li>
+      {{- end }}
+    </ul>
+  </section>
 </div>
+{{- end }}
 {{- end }}

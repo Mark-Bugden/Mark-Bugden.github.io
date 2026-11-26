@@ -5,8 +5,8 @@
 // The dots start evenly spread over the strip of the plane the band shows. The flow preserves area
 // (Liouville), so they stay evenly spread: a dot inside a cell circles its centre for ever, and the
 // dots above and below drift right and left. A leapfrog step keeps each dot on its energy level. While
-// a section is lit (its cell, pill or section link hovered or focused, as in site.css), the dots in
-// its cell take the accent colour and speed up.
+// a section is lit (its cell or pill hovered or focused, as in site.css), the dots in its cell take
+// the accent colour and speed up.
 //
 // With prefers-reduced-motion there are no tracers, and the loop runs only while the band is on screen.
 (function () {
@@ -33,7 +33,7 @@
   // The linked cells, centred on q = -2 pi, 0 and 2 pi, in the order of the dots' groups 1 to 3.
   var sections = ['about', 'publications', 'projects'].map(function (key) {
     return {
-      links: document.querySelectorAll('.phase__cell--' + key + ', .phase__pill--' + key + ', .section-link--' + key),
+      links: document.querySelectorAll('.phase__cell--' + key + ', .phase__pill--' + key),
       lit: 0
     };
   });

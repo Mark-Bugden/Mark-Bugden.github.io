@@ -1,9 +1,9 @@
 // Page transitions (site.css opts in): the link the visitor followed grows into the next page's
-// title. As the old page is captured, the followed pill, section link or header link takes the name
-// page-title from that page's own title. On the way back to the home page, the pill of the section
-// just left takes the name, so the title shrinks back into it. Where there is no transition (an older
-// browser, or prefers-reduced-motion), pageswap and pagereveal come without a viewTransition, and
-// this does nothing.
+// title. As the old page is captured, the followed pill or header link takes the name page-title
+// from that page's own title. On the way back to the home page, the pill of the section just left
+// takes the name, so the title shrinks back into it. Where there is no transition (an older browser,
+// or prefers-reduced-motion), pageswap and pagereveal come without a viewTransition, and this does
+// nothing.
 // This runs inline in head, so it is listening before the new page's first frame. Keep "<" out of
 // it, as in theme.js.
 (function () {
@@ -23,13 +23,12 @@
     followed = event.target.closest ? event.target.closest('a[href]') : null;
   }, true);
 
-  // What grows into the next page's title: the pill, for a click anywhere in its cell; a section
-  // link's title; or the pill or header link itself.
+  // What grows into the next page's title: the pill, for a click anywhere in its cell; or the pill
+  // or header link itself.
   function source(link) {
     if (!link) return null;
     var cell = (link.getAttribute('class') || '').match(/phase__cell--(\w+)/);
     if (cell) return document.querySelector('.phase__pill--' + cell[1]);
-    if (link.matches('.section-link')) return link.querySelector('.section-link__title');
     if (link.matches('.phase__pill, .site-nav a')) return link;
     return null;
   }

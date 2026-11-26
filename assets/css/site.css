@@ -529,39 +529,16 @@ h2.label { margin-bottom: 12px; text-wrap: wrap; }
 
 .phase figcaption { margin-top: 10px; }
 
-/* A section lights up while the pointer is anywhere in its cell, or while its pill or its section link
-   below the figure is hovered or focused: its orbits and its section link change together. --lit is
-   the accent for the orbits, the link's hairline and its title; --lit-text brightens the summary. */
-main:has(:is(.phase__cell--about, .phase__pill--about, .section-link--about):is(:hover, :focus-visible)) :is(.phase__orbits--about, .section-link--about),
-main:has(:is(.phase__cell--publications, .phase__pill--publications, .section-link--publications):is(:hover, :focus-visible)) :is(.phase__orbits--publications, .section-link--publications),
-main:has(:is(.phase__cell--projects, .phase__pill--projects, .section-link--projects):is(:hover, :focus-visible)) :is(.phase__orbits--projects, .section-link--projects) {
+/* A section lights up while the pointer is anywhere in its cell, or while its pill is hovered or
+   focused: --lit turns its orbits the accent colour. */
+main:has(:is(.phase__cell--about, .phase__pill--about):is(:hover, :focus-visible)) .phase__orbits--about,
+main:has(:is(.phase__cell--publications, .phase__pill--publications):is(:hover, :focus-visible)) .phase__orbits--publications,
+main:has(:is(.phase__cell--projects, .phase__pill--projects):is(:hover, :focus-visible)) .phase__orbits--projects {
   --lit: var(--accent);
-  --lit-text: var(--fg);
 }
-
-.section-links {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
-  gap: 0 32px;
-  margin-top: 32px;
-  padding: 0;
-  list-style: none;
-}
-.section-link {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding-block: 18px;
-  border-top: 1px solid var(--lit, var(--line));
-  color: var(--fg);
-  transition: border-color 0.2s;
-}
-.section-link:hover { color: var(--fg); }
-.section-link__title { font: 500 22px/1.5 var(--font-display); color: var(--lit, var(--fg)); transition: color 0.2s; }
-.section-link__desc { color: var(--lit-text, var(--muted)); transition: color 0.2s; }
 
 @media (prefers-reduced-motion: reduce) {
-  .phase__orbits, .phase__flow, .section-link, .section-link__title, .section-link__desc { transition: none; }
+  .phase__orbits, .phase__flow { transition: none; }
 }
 
 /* About. space-between puts the portrait at the right edge of the column while it sits beside the
