@@ -587,8 +587,8 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects):is(:hover, :focus-v
 }
 .morph-on .phase__cue { display: inline; }
 
-/* The heading over the cards ("Selected projects") takes the name's place, in its style, and fades in
-   once the name has mostly faded out. The cards show one at a time, at the bottom left of the box,
+/* The heading over the cards ("Selected projects") takes the name's place, on one line at the size of
+   the cards' titles, and fades in once the name has mostly faded out. The cards show one at a time, at the bottom left of the box,
    fading in and out. */
 .morph-on .home-projects {
   position: absolute;
@@ -604,12 +604,11 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects):is(:hover, :focus-v
   position: absolute;
   top: 0;
   left: 0;
-  max-width: var(--panel-w, 100%);
   margin: 0;
-  font: 500 clamp(40px, 5.4vw, 68px)/1.05 var(--font-display);
-  letter-spacing: -0.02em;
+  font: 500 clamp(30px, 3.6vw, 46px)/1.1 var(--font-display);
+  letter-spacing: normal;
   text-transform: none;
-  text-wrap: balance;
+  white-space: nowrap;
   color: var(--fg);
   opacity: var(--heading, 0);
 }

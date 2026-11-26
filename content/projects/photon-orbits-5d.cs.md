@@ -3,8 +3,8 @@
 # a change there needs the same change here. tagline and tags replace the manifest's.
 title: "Po stopách fotonů"
 demo: photon-orbits-5d
-tagline: "Světlo obíhající kolem rotující pětirozměrné černé díry."
-tags: ["obecná teorie relativity", "černé díry", "geodetiky"]
+tagline: "Vizualizace světla obíhajícího kolem rotující pětirozměrné černé díry."
+tags: ["matematická fyzika", "černé díry", "geodetiky"]
 description: "Světlo obíhající kolem rotující pětirozměrné černé díry: sférické fotonové orbity kolem Myersovy–Perryho černé díry, vykreslené přímo v prohlížeči."
 ---
 

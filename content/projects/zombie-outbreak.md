@@ -6,6 +6,8 @@ demo: zombie-outbreak
 summary: "A simulation of a zombie outbreak spreading across a country, running a humans–zombies–removed model in every cell of a population density map."
 description: "Simulating a zombie outbreak across a real population map of the Czech Republic: a humans–zombies–removed model per square kilometre, with people moving between neighbouring cells."
 aliases: ["/portfolio/zombies.html"]
+# tagline and tags, where given, replace the manifest's (the demo's own, in its repo).
+tagline: "A simulation of a zombie outbreak across the Czech Republic."
 ---
 
 {{< faq "What is this demo?" >}}
