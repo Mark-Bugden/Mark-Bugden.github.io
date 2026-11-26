@@ -224,15 +224,17 @@ h2.label { margin-bottom: 12px; text-wrap: wrap; }
 /* Images: a hairline border, square corners. */
 .about__photo, .card__thumb, .figure img, .demo-embed [data-demo] > img { border: 1px solid var(--line); }
 
-/* Header. It stays at the top of the window on every page, over the page as it scrolls, so it has
-   the page's background across the window's full width. It is lifted above the page, so the language
-   list opens over it. Anchors scroll to below it (scroll-padding-top, under Base). */
+/* Header. It stays at the top of the window on every page, over the page as it scrolls: a bar in the
+   panel colour, a shade off the page's own, across the window's full width, with a hairline under it.
+   It is lifted above the page, so the language list opens over it. Anchors scroll to below it
+   (scroll-padding-top, under Base). */
 
 .site-header {
   position: sticky;
   top: 0;
   z-index: 3;
-  background: var(--bg);
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
 }
 
 .site-header__inner {
@@ -242,7 +244,6 @@ h2.label { margin-bottom: 12px; text-wrap: wrap; }
   justify-content: space-between;
   gap: 4px 32px;
   padding-block: 14px;
-  border-bottom: 1px solid var(--line);
 }
 
 .brand {
@@ -256,11 +257,11 @@ h2.label { margin-bottom: 12px; text-wrap: wrap; }
 }
 .brand:hover { color: var(--fg); }
 
-/* The mark: four linked Hopf fibres, one in the accent. Each half is drawn over a halo of the page
-   colour, so the fibres cross over and under. */
+/* The mark: four linked Hopf fibres, one in the accent. Each half is drawn over a halo of the
+   header's colour, so the fibres cross over and under. */
 .mark { width: 28px; height: 28px; flex: none; }
 .mark path { fill: none; stroke-linecap: round; }
-.mark .h { stroke: var(--bg); stroke-width: 5; }
+.mark .h { stroke: var(--panel); stroke-width: 5; }
 .mark .f { stroke: var(--fg); stroke-width: 2.4; }
 .mark .a { stroke: var(--accent); stroke-width: 2.4; }
 
