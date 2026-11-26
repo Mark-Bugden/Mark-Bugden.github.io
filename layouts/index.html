@@ -1,6 +1,7 @@
 {{- define "head" }}
 {{- partial "jsonld-person.html" . }}
-{{- with resources.Get "js/phase-flow.js" | minify | fingerprint }}
+{{- /* js.Build bundles js/phase-flow.js with the project pictures it imports (js/project-shapes.js). */}}
+{{- with resources.Get "js/phase-flow.js" | js.Build (dict "minify" true) | fingerprint }}
 <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
 {{- end }}
 {{- end }}
@@ -11,41 +12,55 @@
 {{- range slice "about" "publications" "projects" }}
   {{- $sections = $sections | append (dict "key" . "name" (i18n .) "url" (printf "%s/" . | relLangURL)) }}
 {{- end }}
-<div class="wrap">
-  <div class="home-intro">
-    <h1>{{ site.Params.name }}</h1>
-    <p class="home-intro__role">{{ range $i, $line := site.Params.role }}{{ if $i }}<br>{{ end }}{{ $line }}{{ end }}</p>
-  </div>
-</div>
+{{- /* The selected projects: those with home: true in data/projects.yaml. */}}
+{{- $selected := where (partial "listed-projects.html" .) "home" true }}
 
-{{- /* The figure runs the full width of the window: the panel keeps to the content column, with its
-   pills on the three linked cells, and the curves carry on past it to both edges. js/phase-flow.js
-   adds the moving tracers on a canvas across the whole band. */}}
-<figure class="phase">
-  <div class="phase__band">
+{{- /* The scroll sequence. Without script, on narrow or short screens, and with prefers-reduced-motion,
+   this is an ordinary page: the name, the figure, then the selected projects as cards. Otherwise
+   js/phase-flow.js adds .morph-on to <html>: the stage is then pinned under the header, and scrolling
+   through the track moves the figure's dots into a picture of each project in turn, with its card
+   beside it (site.css, "The scroll sequence"). */}}
+<div class="home-morph" data-home-morph>
+  <div class="home-morph__stage" data-active="0">
     <div class="wrap">
-      <div class="phase__panel">
-        {{ partial "phase-portrait.html" . }}
-        {{- range $sections }}
-        <a class="phase__pill phase__pill--{{ .key }}" href="{{ .url }}">{{ .name }}</a>
-        {{- end }}
+      <div class="home-intro">
+        <h1>{{ site.Params.name }}</h1>
+        <p class="home-intro__role">{{ range $i, $line := site.Params.role }}{{ if $i }}<br>{{ end }}{{ $line }}{{ end }}</p>
       </div>
     </div>
-  </div>
-  <figcaption class="wrap label">{{ i18n "phaseCaption" }}</figcaption>
-</figure>
 
-{{- /* Under the figure, the project cards, as on the Projects page. */}}
-{{- with partial "listed-projects.html" . }}
-<div class="wrap">
-  <section class="section" aria-labelledby="projects-heading">
-    <h2 id="projects-heading" class="label">{{ i18n "projects" }}</h2>
-    <ul class="card-grid">
-      {{- range . }}
-      <li>{{ partial "project-card.html" . }}</li>
-      {{- end }}
-    </ul>
-  </section>
+    {{- /* The figure runs the full width of the window: the panel keeps to the content column, with its
+       pills on the three linked cells, and the curves carry on past it to both edges. js/phase-flow.js
+       adds the moving tracers on a canvas across the whole band. The cue beside the caption shows
+       only while the sequence runs. */}}
+    <figure class="phase">
+      <div class="phase__band">
+        <div class="wrap">
+          <div class="phase__panel">
+            {{ partial "phase-portrait.html" . }}
+            {{- range $sections }}
+            <a class="phase__pill phase__pill--{{ .key }}" href="{{ .url }}">{{ .name }}</a>
+            {{- end }}
+          </div>
+        </div>
+      </div>
+      <figcaption class="wrap label"><span>{{ i18n "phaseCaption" }}</span>{{ with $selected }}<span class="phase__cue" aria-hidden="true">{{ i18n "homeScrollCue" }}</span>{{ end }}</figcaption>
+    </figure>
+
+    {{- /* Under the figure, the selected projects' cards, as on the Projects page. While the sequence
+       runs, their heading takes the name's place. */}}
+    {{- with $selected }}
+    <div class="wrap home-projects">
+      <section class="section" aria-labelledby="projects-heading">
+        <h2 id="projects-heading" class="label">{{ i18n "selectedProjects" }}</h2>
+        <ul class="card-grid">
+          {{- range $i, $project := . }}
+          <li data-step="{{ add $i 1 }}" data-slug="{{ .slug }}">{{ partial "project-card.html" (merge . (dict "step" (add $i 1) "steps" (len $selected))) }}</li>
+          {{- end }}
+        </ul>
+      </section>
+    </div>
+    {{- end }}
+  </div>
 </div>
-{{- end }}
 {{- end }}

@@ -103,7 +103,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  scroll-padding-top: 24px;
+  scroll-padding-top: calc(73px + 24px); /* the header, and room under it */
 }
 
 body {
@@ -224,7 +224,18 @@ h2.label { margin-bottom: 12px; text-wrap: wrap; }
 /* Images: a hairline border, square corners. */
 .about__photo, .card__thumb, .figure img, .demo-embed [data-demo] > img { border: 1px solid var(--line); }
 
-/* Header */
+/* Header. It stays at the top of the window on every page, over the page as it scrolls: a bar in the
+   panel colour, a shade off the page's own, across the window's full width, with a hairline under it.
+   It is lifted above the page, so the language list opens over it. Anchors scroll to below it
+   (scroll-padding-top, under Base). */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
 
 .site-header__inner {
   display: flex;
@@ -233,7 +244,6 @@ h2.label { margin-bottom: 12px; text-wrap: wrap; }
   justify-content: space-between;
   gap: 4px 32px;
   padding-block: 14px;
-  border-bottom: 1px solid var(--line);
 }
 
 .brand {
@@ -247,11 +257,11 @@ h2.label { margin-bottom: 12px; text-wrap: wrap; }
 }
 .brand:hover { color: var(--fg); }
 
-/* The mark: four linked Hopf fibres, one in the accent. Each half is drawn over a halo of the page
-   colour, so the fibres cross over and under. */
+/* The mark: four linked Hopf fibres, one in the accent. Each half is drawn over a halo of the
+   header's colour, so the fibres cross over and under. */
 .mark { width: 28px; height: 28px; flex: none; }
 .mark path { fill: none; stroke-linecap: round; }
-.mark .h { stroke: var(--bg); stroke-width: 5; }
+.mark .h { stroke: var(--panel); stroke-width: 5; }
 .mark .f { stroke: var(--fg); stroke-width: 2.4; }
 .mark .a { stroke: var(--accent); stroke-width: 2.4; }
 
@@ -267,6 +277,7 @@ h2.label { margin-bottom: 12px; text-wrap: wrap; }
 /* On phones the header has two rows: the mark (and name) with the theme and language buttons, then
    the nav. */
 @media (max-width: 47.99rem) {
+  html { scroll-padding-top: calc(121px + 24px); } /* the header has two rows */
   .site-header__end { display: contents; }
   .site-header__tools { order: 1; }
   .site-nav { order: 2; flex-basis: 100%; }
@@ -311,9 +322,7 @@ h2.label { margin-bottom: 12px; text-wrap: wrap; }
 .theme-toggle[aria-pressed="true"] svg { transform: scaleX(-1); }
 
 /* The language menu: the current language's code, which opens a list of all three. It is a <details>
-   (js/language-menu.js closes it on a click elsewhere or Escape). The header is lifted above the page,
-   so the list opens over the home page's figure and its tracers. */
-.site-header { position: relative; z-index: 3; }
+   (js/language-menu.js closes it on a click elsewhere or Escape). */
 .lang-menu { position: relative; }
 .lang-menu__button {
   display: flex;
@@ -541,6 +550,113 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects):is(:hover, :focus-v
   .phase__orbits, .phase__flow { transition: none; }
 }
 
+/* The scroll sequence (layouts/index.html, js/phase-flow.js). By default the home page is an ordinary
+   page, and the cue beside the caption and each card's step label and "Open the demo" link are
+   hidden. On screens at least 48rem wide and 37.5rem tall, without prefers-reduced-motion, the script
+   adds .morph-on to <html>. The stage is then pinned in the window under the header, and the footer
+   to the window's bottom: scrolling through the track, which the script makes tall enough for the
+   whole sequence, moves the animation and never the page.
+   The script sets these variables on the stage: --intro, how much of the first figure shows (the
+   name, the curves, the pills and the caption), which fades out with the curves; --heading, how much
+   the heading over the cards shows; --phase-w, a
+   narrower panel for the figure when the window is too short for all of it; and --box-top, --box-h
+   and --panel-w, the box the name and the band fill, where each project's card sits beside its
+   picture. It sets --header-h on <html>. */
+.phase__cue, .card__step, .card__open { display: none; }
+
+/* The stage is a layer of its own; an opaque background keeps its text's subpixel antialiasing. */
+.morph-on .home-morph__stage {
+  position: sticky;
+  top: var(--header-h, 0px);
+  height: calc(100vh - var(--header-h, 0px));
+  height: calc(100svh - var(--header-h, 0px));
+  overflow: hidden;
+  background: var(--bg);
+}
+.morph-on .phase__panel { width: min(100%, var(--phase-w, 100%)); margin-inline: auto; }
+/* The tracers' canvas covers the whole stage, and the script fades the dots at the band's edges. */
+.morph-on .phase__flow { mask-image: none; }
+
+.morph-on :is(.home-intro, .phase__curves, .phase__pill, .phase figcaption) { opacity: var(--intro, 1); }
+.morph-on .home-morph__stage:not([data-active="0"]) :is(.phase__pill, .phase__cell path) { pointer-events: none; }
+.morph-on .phase figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0 24px;
+}
+.morph-on .phase__cue { display: inline; }
+
+/* The heading over the cards ("Selected projects") takes the name's place, in its style, and fades in
+   once the name has mostly faded out. The cards show one at a time, at the bottom left of the box,
+   fading in and out. */
+.morph-on .home-projects {
+  position: absolute;
+  z-index: 2;
+  top: var(--box-top, 0px);
+  right: 0;
+  left: 0;
+  height: var(--box-h, 100%);
+  pointer-events: none;
+}
+.morph-on .home-projects .section { position: relative; height: 100%; margin: 0; }
+.morph-on .home-projects .section > h2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: var(--panel-w, 100%);
+  margin: 0;
+  font: 500 clamp(40px, 5.4vw, 68px)/1.05 var(--font-display);
+  letter-spacing: -0.02em;
+  text-transform: none;
+  text-wrap: balance;
+  color: var(--fg);
+  opacity: var(--heading, 0);
+}
+.morph-on .home-projects .card-grid { display: block; }
+.morph-on .home-projects li {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: var(--panel-w, 100%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.morph-on .home-projects li.is-current { opacity: 1; pointer-events: auto; }
+.morph-on .home-projects :is(.card__thumb, .card > .label:not(.card__step)) { display: none; }
+.morph-on .home-projects .card { gap: 0; }
+.morph-on .home-projects .card__step { display: block; }
+.morph-on .home-projects .card__title { margin-top: 10px; font-size: clamp(30px, 3.6vw, 46px); line-height: 1.1; }
+.morph-on .home-projects .card__title a::after { content: none; }
+.morph-on .home-projects .card:has(a:focus-visible) { outline: none; }
+.morph-on .home-projects .card__title a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.morph-on .home-projects .card__tagline { margin-top: 10px; font-size: 18px; }
+.morph-on .home-projects .card__open {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  min-height: 46px;
+  margin-top: 18px;
+  padding: 0 22px;
+  background: var(--accent);
+  border-radius: 999px;
+  color: var(--bg);
+  font: 600 16px/1.5 var(--font-text);
+}
+.morph-on .home-projects .card__open:hover { color: var(--bg); }
+
+/* The footer fades in at the end of the sequence (the script sets its opacity). */
+.morph-on .site-footer {
+  position: fixed;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin-top: 0;
+  opacity: 0;
+}
+.morph-on .site-footer:not(.is-shown) { pointer-events: none; }
+
 /* About. space-between puts the portrait at the right edge of the column while it sits beside the
    text, and leaves it at the left once it drops under the text on phones. */
 
@@ -738,6 +854,7 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects):is(:hover, :focus-v
 .demo-embed {
   --dk-fit-height: calc(100svh - var(--demo-top, 0px) - 16px);
   margin-bottom: 40px;
+  isolation: isolate; /* a demo's layers (its search lists, say) stay under the pinned header */
 }
 .demo-embed [data-demo] > img { width: 100%; }
 /* Likewise its light still (static-light.webp). These outrank the frame's own [data-demo] > img rule. */

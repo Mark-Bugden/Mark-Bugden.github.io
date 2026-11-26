@@ -9,11 +9,15 @@ projects = "Projects"
 darkTheme = "Dark theme"
 language = "Language"
 
-# Home page: the summary under each section link, and the figure's caption.
+# Home page: the summary under each section link, the figure's caption, the heading over the selected
+# projects, and for the scroll sequence the cue beside the caption and the link on each project.
 aboutSummary = "Background, experience, and contact"
 publicationsSummary = "Papers and preprints"
 projectsSummary = "Portfolio of selected work"
 phaseCaption = "Phase portrait of a simple pendulum"
+selectedProjects = "Selected projects"
+homeScrollCue = "Selected projects · scroll ↓"
+openDemo = "Open the demo"
 
 # About
 portraitAlt = "Portrait of Mark Bugden."

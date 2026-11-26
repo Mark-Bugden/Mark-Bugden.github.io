@@ -40,6 +40,11 @@ The pre-push hook in `.githooks/` runs it before every push, once `core.hooksPat
   - its write-up is not a draft
 
   The build fails if a published write-up's bundle is missing, is still a stub, or disagrees with `data/projects.yaml`.
+- **The home page** shows only the selected projects, those with `home: true` in `data/projects.yaml`. Screens at least 48rem wide and 37.5rem tall get a scroll sequence instead of an ordinary page, unless the visitor prefers reduced motion:
+  - Scrolling moves an animation, never the page.
+  - The name gives way to the heading "Selected projects". The phase portrait's dots form a picture of each selected project in turn, beside its card. At the end, the footer fades in.
+  - The code is in [`assets/js/phase-flow.js`](assets/js/phase-flow.js). The pictures are in [`assets/js/project-shapes.js`](assets/js/project-shapes.js), keyed by slug.
+  - A new selected project needs a picture there. Until it has one, its dots just spread out.
 - **Styles** are all in [`assets/css/site.css`](assets/css/site.css). Its design tokens on `:root` hold every colour and typeface: dark, and light only when the visitor picks it with the header button. Demos keep the kit's own tokens on `[data-demo]`. The fonts (Space Grotesk, Inter and JetBrains Mono) are self-hosted in `static/fonts/`, each in a Latin and a Latin Extended file. Browsers fetch the Latin Extended files only for text that needs them, such as Czech.
 - **Maths** in a write-up is LaTeX: `$…$` inline, and `$$…$$` on lines of its own for a displayed equation. Hugo's built-in KaTeX typesets it when the site builds, so the page runs no script for it, and a LaTeX error fails the build. Pages with maths also load [`assets/css/katex.css`](assets/css/katex.css), with fonts from `static/fonts/katex/`. These come from the KaTeX version inside the pinned Hugo, so update them when Hugo's KaTeX changes.
   - KaTeX never breaks a displayed equation over lines, so each must fit 320px, the column on a 360px phone. Narrower columns shrink it to fit.

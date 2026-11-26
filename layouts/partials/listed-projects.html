@@ -1,7 +1,8 @@
 {{- /* The projects to list: those whose bundle is present (so it validated), whose manifest status
    is in-progress or live, and whose English write-up is published. On a Czech or German page each
    item is that language's version of the write-up, or the English one while it has none. Each item
-   is a dict: slug, status, manifest, page, title (the English one) and order.
+   is a dict: slug, status, manifest, page, title (the English one), order and home (true for the
+   selected projects the home page shows).
    They are in alphabetical order of their English titles, so every language has the same order.
    Entries in data/projects.yaml with an order come first, lowest first. */ -}}
 {{- $ordered := slice -}}
@@ -11,7 +12,7 @@
   {{- $en := hugo.Sites.Default.GetPage (printf "/projects/%s" .slug) -}}
   {{- if and $manifest $en (not $en.Draft) (in (slice "in-progress" "live") $manifest.status) -}}
     {{- $page := or (partial "in-language.html" (dict "page" $en "lang" site.Language.Lang)) $en -}}
-    {{- $item := dict "slug" .slug "status" $manifest.status "manifest" $manifest "page" $page "title" $en.Title "order" .order -}}
+    {{- $item := dict "slug" .slug "status" $manifest.status "manifest" $manifest "page" $page "title" $en.Title "order" .order "home" (.home | default false) -}}
     {{- if .order }}{{ $ordered = $ordered | append $item }}{{ else }}{{ $listed = $listed | append $item }}{{ end -}}
   {{- end -}}
 {{- end -}}
