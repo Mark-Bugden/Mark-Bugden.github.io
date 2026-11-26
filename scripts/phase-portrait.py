@@ -67,7 +67,7 @@ def main():
     shared = "".join(orbit(0.0, E) for E in energies)
     shifts = [k * W / 3 for k in range(-(PERIODS + 1), PERIODS + 2) if abs(k) > 1]
     # Each link goes to the section of the same name; the href is Hugo template code, so the partial
-    # resolves it against the site's base URL.
+    # resolves it against the base URL of the page's language.
     cells = {name: cell(qc) for name, qc in centres}
     separatrix = "".join(curve(lambda q, s=s: s * 2 * math.cos(q / 2), 20) for s in (1, -1))
     rotations = "".join(
@@ -83,7 +83,7 @@ def main():
         *(f'<use class="phase__outer" href="#phase-orbits" x="{fmt(dx)}"/>' for dx in shifts),
         *(f'<path class="phase__orbits phase__orbits--{name}" d="{d}"/>' for name, d in groups.items()),
         *(
-            f'<a class="phase__cell phase__cell--{name}" href="{{{{ "{name}/" | relURL }}}}" tabindex="-1"><path d="{d}"/></a>'
+            f'<a class="phase__cell phase__cell--{name}" href="{{{{ "{name}/" | relLangURL }}}}" tabindex="-1"><path d="{d}"/></a>'
             for name, d in cells.items()
         ),
         "</svg>",
