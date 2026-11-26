@@ -12,7 +12,7 @@ description: "A model that forecasts when a civil case at a Czech district court
 {{< faq "What does the demo show?" >}}
 The demo has two tabs.
 
-**Forecast.** Pick a real past case, at random or by its court and case number, or describe one yourself: its court and its events so far. A model gives the chance that the case ends within 1, 3, 6 and 12 months. A case ends when its decision becomes legally final, which means it can no longer be appealed. For a real case, the demo also shows what happened next. "How well it does" scores the model against simpler methods, on cases it never saw.
+**Forecast.** Pick a real past case, at random or by its court and case number, or describe one yourself: its court and its events so far. A model gives the chance that the case ends within 1, 3, 6 and 12 months. A case ends when its decision becomes legally final, which means it can no longer be appealed. For a real case, the demo also shows what happened next.
 
 **Process map.** The journey of a civil case from filing to a legally final decision: the stages cases pass through, the share of cases making each move, and the typical wait between stages. Pick a court to compare it with the whole country.
 {{< /faq >}}

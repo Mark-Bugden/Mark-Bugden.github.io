@@ -803,12 +803,12 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects):is(:hover, :focus-v
 
 /* Project page. Only the title and the tabs sit above the demo, close under the header, so that the
    whole demo is on screen when the page opens. The More info tab opens with the tagline, and ends with
-   the build date and the source link. */
+   the build date and the source link. The Model card tab, when there is one, holds only the card. */
 
 .project__header { padding-block: 12px 20px; }
 .project__header h1 { font-size: clamp(32px, 3.6vw, 44px); }
-/* The Demo and More info tabs, styled like the header nav. project-tabs.js marks the selected one;
-   without it they are plain links to the panels, and neither is marked. */
+/* The tabs, styled like the header nav. project-tabs.js marks the selected one; without it they are
+   plain links to the panels, and none is marked. */
 .project__tabs { margin-top: 12px; }
 .project__tabs ul {
   display: flex;
@@ -862,11 +862,12 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects):is(:hover, :focus-v
 :root[data-theme="light"] .demo-embed [data-demo] > img.demo-still--light { display: block; }
 .model-card {
   max-width: var(--measure);
-  margin-top: 48px;
   padding: 24px;
   background: var(--panel);
   border: 1px solid var(--line);
 }
+/* Without project-tabs.js the panels stack, and the card's panel follows More info. */
+.project:not(.project--tabbed) .model-card { margin-top: 48px; }
 .model-card h2 { font-size: 22px; line-height: 1.5; margin-bottom: 16px; }
 .model-card dt { font-weight: 500; margin-top: 16px; }
 .model-card dt:first-child { margin-top: 0; }

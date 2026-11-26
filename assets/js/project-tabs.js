@@ -1,7 +1,7 @@
-// The Demo and More info tabs on a project page. Without this script they are links to the two
-// panels, which stack, demo first. With it, one panel shows at a time: the demo, unless the URL's
-// fragment is #more-info or names something inside it, such as one of the write-up's questions, which
-// then opens too. A tab click adds a history entry, so Back returns to the other tab. The other panel is hidden "until-found", so
+// The tabs on a project page: Demo, More info and, when the project has one, Model card. Without this
+// script they are links to the panels, which stack, demo first. With it, one panel shows at a time: the
+// demo, unless the URL's fragment names another panel or something inside it, such as one of the
+// write-up's questions, which then opens too. A tab click adds a history entry, so Back returns to the other tab. The other panel is hidden "until-found", so
 // find in page still searches it and opens its tab. Arrow keys move between the tabs, as in the ARIA
 // tabs pattern.
 // This runs inline at the end of the article, before the demo's script mounts. Keep "<" out of it, as

@@ -41,8 +41,9 @@
 {{- $englishOnly := and $translated (not .Content) }}
 {{- /* Only the title and the tabs sit above the demo, so the whole demo is on screen when the page
    opens. The Demo tab holds only the demo. More info (#more-info) holds the tagline and status, the
-   write-up and model card, and at the bottom the build date and the source link. project-tabs.js makes the tabs work; without it they
-   are links to the two panels, which stack, demo first. */}}
+   write-up, and at the bottom the build date and the source link. Model card (#model-card) holds the
+   model card, and is there only when the manifest has one. project-tabs.js makes the tabs work; without
+   it they are links to the panels, which stack, demo first. */}}
 <article class="project">
   <header class="wrap page-header project__header">
     <p class="eyebrow"><a href="{{ "projects/" | relLangURL }}">{{ i18n "projects" }}</a></p>
@@ -51,6 +52,9 @@
       <ul aria-labelledby="project-title">
         <li><a href="#demo">{{ i18n "demoTab" }}</a></li>
         <li><a href="#more-info">{{ i18n "moreInfoTab" }}</a></li>
+        {{- with $manifest }}{{ if .modelCard }}
+        <li><a href="#model-card">{{ i18n "modelCard" }}</a></li>
+        {{- end }}{{ end }}
       </ul>
     </div>
   </header>
@@ -85,13 +89,18 @@
     </div>
     {{- end }}
     {{- with $manifest }}
-    {{- with .modelCard }}{{ partial "model-card.html" . }}{{ end }}
     <ul class="project__meta">
       <li>{{ i18n "lastBuilt" }} <time datetime="{{ .built }}">{{ time.Format (i18n "dateFormat") .built }}</time></li>
       <li><a href="{{ .repo }}" rel="noopener">{{ i18n "sourceOnGitHub" }}</a></li>
     </ul>
     {{- end }}
   </div>
+  {{- with $manifest }}{{ with .modelCard }}
+
+  <div class="wrap project__panel" id="model-card">
+    {{ partial "model-card.html" . }}
+  </div>
+  {{- end }}{{ end }}
   {{- with resources.Get "js/project-tabs.js" | minify }}
   <script>{{ .Content | safeJS }}</script>
   {{- end }}
