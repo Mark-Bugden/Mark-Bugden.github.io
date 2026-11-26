@@ -9,9 +9,9 @@ description: "Simulace šíření zombie nákazy na skutečné mapě zalidnění
 ---
 
 {{< faq "Co je to za demo?" >}}
-Kdykoli vidím film o zombie, říkám si, jak je nerealistický: zombie ovládnou města za den nebo dva a zbytek světa krátce nato. Zombie nákazy se matematicky modelovaly už dřív (první odborný článek, který jsem kdy četl, byl právě o zombie nákaze), ale většina modelů pracuje s celou populací najednou, takže z nich není vidět, jak se zombie šíří po zemi. Chtěl jsem vidět, jak by šíření nákazy vypadalo v zemi, kde jsem žil.
+Kdykoli vidím film o zombie, říkám si, jak je nerealistický: zombie ovládnou města za den nebo dva a zbytek světa krátce nato. Zombie nákazy se matematicky modelovaly už dřív (první odborný článek, který jsem kdy četl, byl právě o zombie nákaze), ale většina modelů pracuje s celou populací najednou, takže z nich není vidět, jak se zombie šíří po celé zemi. Chtěl jsem vidět, jak by šíření nákazy vypadalo v zemi, kde jsem žil.
 
-Demo ukazuje zombie nákazu na mapě zalidnění České republiky, kde jeden pixel odpovídá jednomu čtverečnímu kilometru. První týden si nákazy nikdo nevšimne. Blokády můžete plánovat od začátku klikáním na jednotlivé kraje, ale stavět se začne až 7. den, a i pak je k dispozici jen jedna stavební četa, která nestaví okamžitě. Na pozadí běží stejná nákaza bez karantény, a díky tomu demo ví, kolik lidí vaše karanténa zachránila. Počítá také lidi, které jste zavřeli: všechny v oblasti, kterou jste odřízli od zbytku země, uvězněné tam spolu se zombie. Vy zrůdo.
+Demo ukazuje zombie nákazu na mapě zalidnění České republiky, kde jeden pixel odpovídá jednomu čtverečnímu kilometru. První týden si nákazy nikdo nevšimne. Blokády můžete plánovat od začátku klikáním na jednotlivé kraje, ale stavět se začne až 7. den, a i pak je k dispozici jen jedna stavební četa, která nestaví lusknutím prstů. Na pozadí běží stejná nákaza bez karantény, a díky tomu demo ví, kolik lidí vaše karanténa zachránila. Počítá také lidi, které jste zavřeli: všechny v oblasti, kterou jste odřízli od zbytku země, uvězněné tam spolu se zombie. Vy zrůdo.
 {{< /faq >}}
 
 {{< faq "Jak se modeluje zombie nákaza?" >}}
