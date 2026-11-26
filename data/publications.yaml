@@ -1,7 +1,8 @@
 # Publications, newest first. Sources: the README of Mark-Bugden/Publications (venues), the
 # PhD-Thesis repo, and arXiv (IDs, titles and author lists; names keep their Czech diacritics).
 # `year` is the year of the published volume; for the thesis it is the year it was submitted
-# (August 2018, as on its title page). It went up on arXiv later, in April 2019.
+# (August 2018, as on its title page). It went up on arXiv later, in April 2019. `project` is
+# the slug of a project whose demo comes from the paper; the entry links to that project's page.
 
 - title: "Exceptional algebroids and type IIB superstrings"
   authors: ["Mark Bugden", "Ondřej Hulík", "Fridrich Valach", "Daniel Waldram"]
@@ -51,6 +52,7 @@
   year: 2018
   arxiv: "1801.03389"
   doi: "10.1007/s10714-018-2352-x"
+  project: photon-orbits-5d
 
 - title: "Hidden isometry of “T-duality without isometry”"
   authors: ["Peter Bouwknegt", "Mark Bugden", "Ctirad Klimčík", "Kyle Wright"]
