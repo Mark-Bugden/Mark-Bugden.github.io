@@ -1,21 +1,50 @@
 {{- /* The model card from a manifest's optional modelCard. Takes the modelCard dict. Its text comes
-   from the bundle, in English; only the headings are translated. */ -}}
+   from the bundle, in English; only the headings are translated. `what` is required and the rest are
+   optional, shown in this order when present: text for use, architecture, parameters, training, data
+   and metric; `comparison`, a table of { columns, rows, note } with optional `groups` of columns
+   ([{ label, span }], a heading over several); `limits`, a list; and `version`, text. */ -}}
+{{- $card := . }}
+{{- $translated := ne site.Language.Lang "en" }}
+{{- $text := slice (slice "what" "modelWhat") (slice "use" "modelUse") (slice "architecture" "modelArchitecture") (slice "parameters" "modelParameters") (slice "training" "modelTraining") (slice "data" "modelData") (slice "metric" "modelMetric") }}
 <section class="model-card" aria-labelledby="model-card-heading">
   <h2 id="model-card-heading">{{ i18n "modelCard" }}</h2>
   <dl>
-    <dt>{{ i18n "modelWhat" }}</dt>
-    <dd{{ if ne site.Language.Lang "en" }} lang="en"{{ end }}>{{ .what }}</dd>
-    {{- with .data }}
-    <dt>{{ i18n "modelData" }}</dt>
-    <dd{{ if ne site.Language.Lang "en" }} lang="en"{{ end }}>{{ . }}</dd>
+    {{- range $field := $text }}
+    {{- with index $card (index $field 0) }}
+    <dt>{{ i18n (index $field 1) }}</dt>
+    <dd{{ if $translated }} lang="en"{{ end }}>{{ . }}</dd>
     {{- end }}
-    {{- with .metric }}
-    <dt>{{ i18n "modelMetric" }}</dt>
-    <dd{{ if ne site.Language.Lang "en" }} lang="en"{{ end }}>{{ . }}</dd>
+    {{- end }}
+    {{- with .comparison }}
+    <dt>{{ i18n "modelComparison" }}</dt>
+    <dd{{ if $translated }} lang="en"{{ end }}>
+      <div class="model-card__table">
+        <table>
+          <thead>
+            {{- with .groups }}
+            <tr>{{ range . }}{{ if .label }}<th scope="colgroup" colspan="{{ .span }}">{{ .label }}</th>{{ else }}<td colspan="{{ .span }}"></td>{{ end }}{{ end }}</tr>
+            {{- end }}
+            <tr>{{ range .columns }}<th scope="col">{{ . }}</th>{{ end }}</tr>
+          </thead>
+          <tbody>
+            {{- range .rows }}
+            <tr>{{ range $i, $cell := . }}{{ if eq $i 0 }}<th scope="row">{{ $cell }}</th>{{ else }}<td>{{ $cell }}</td>{{ end }}{{ end }}</tr>
+            {{- end }}
+          </tbody>
+        </table>
+      </div>
+      {{- with .note }}
+      <p>{{ . }}</p>
+      {{- end }}
+    </dd>
     {{- end }}
     {{- with .limits }}
     <dt>{{ i18n "modelLimits" }}</dt>
-    <dd{{ if ne site.Language.Lang "en" }} lang="en"{{ end }}><ul>{{ range . }}<li>{{ . }}</li>{{ end }}</ul></dd>
+    <dd{{ if $translated }} lang="en"{{ end }}><ul>{{ range . }}<li>{{ . }}</li>{{ end }}</ul></dd>
+    {{- end }}
+    {{- with .version }}
+    <dt>{{ i18n "modelVersion" }}</dt>
+    <dd{{ if $translated }} lang="en"{{ end }}>{{ . }}</dd>
     {{- end }}
   </dl>
 </section>

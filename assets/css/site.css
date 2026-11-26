@@ -865,6 +865,7 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects):is(:hover, :focus-v
   padding: 24px;
   background: var(--panel);
   border: 1px solid var(--line);
+  border-radius: 12px;
 }
 /* Without project-tabs.js the panels stack, and the card's panel follows More info. */
 .project:not(.project--tabbed) .model-card { margin-top: 48px; }
@@ -873,6 +874,17 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects):is(:hover, :focus-v
 .model-card dt:first-child { margin-top: 0; }
 .model-card dd { margin-top: 4px; color: var(--muted); }
 .model-card ul { padding-left: 1.2em; }
+/* A comparison table, which scrolls sideways on narrow screens rather than squeezing. */
+.model-card__table { margin-top: 8px; overflow-x: auto; }
+.model-card table { border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+.model-card th, .model-card td { padding: 6px 10px; text-align: right; border-bottom: 1px solid var(--line); }
+.model-card th:first-child { padding-left: 0; text-align: left; }
+.model-card thead th { color: var(--muted); font-weight: 400; vertical-align: bottom; }
+.model-card thead th[colspan] { padding-bottom: 2px; text-align: center; }
+.model-card thead th:not(:first-child) { white-space: nowrap; }
+.model-card thead tr:first-child > * { border-bottom: 0; }
+.model-card tbody th { color: var(--fg); font-weight: 400; }
+.model-card dd p { margin-top: 8px; }
 
 /* Prose */
 
