@@ -17,7 +17,7 @@ defaultContentLanguage = "en"
     # Shown as separate lines under the name on the home page; joined with spaces elsewhere.
     role = [
       "Senior Data Scientist at Datamole.",
-      "Formerly a Theoretical Physicist, Mathematician, and Machine Learning Scientist.",
+      "I work in machine learning, drawing on physics-based intuition and mathematical modelling.",
     ]
     description = "Mark Bugden: Senior Data Scientist at Datamole in Prague, formerly a theoretical physicist. Projects, interactive demos and publications."
 
@@ -29,7 +29,7 @@ defaultContentLanguage = "en"
     code = "CZ"
     role = [
       "Senior Data Scientist ve společnosti Datamole.",
-      "Dříve teoretický fyzik, matematik a Machine Learning Scientist.",
+      "Pracuji v oblasti strojového učení a čerpám přitom z fyzikální intuice a matematického modelování.",
     ]
     description = "Mark Bugden: Senior Data Scientist ve společnosti Datamole v Praze, dříve teoretický fyzik. Projekty, interaktivní dema a publikace."
 
@@ -41,7 +41,7 @@ defaultContentLanguage = "en"
     code = "DE"
     role = [
       "Senior Data Scientist bei Datamole.",
-      "Zuvor theoretischer Physiker, Mathematiker und Machine Learning Scientist.",
+      "Ich arbeite im Bereich maschinelles Lernen und stütze mich dabei auf physikalische Intuition und mathematische Modellierung.",
     ]
     description = "Mark Bugden: Senior Data Scientist bei Datamole in Prag, zuvor theoretischer Physiker. Projekte, interaktive Demos und Publikationen."
 
