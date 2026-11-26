@@ -5,12 +5,16 @@
 # when its manifest status is in-progress or live and its write-up (content/projects/<slug>.md) is
 # not a draft. Projects are listed in alphabetical order of their English titles. To put one first,
 # give its entry `order: 1` (and the next `order: 2`, and so on).
+# The home page shows only the selected projects, those with `home: true`. On wide screens their dots
+# form a picture for each one as the visitor scrolls; js/project-shapes.js has a picture for each slug.
 
 - slug: zombie-outbreak
   repo: Mark-Bugden/zombie-outbreak
+  home: true
 
 - slug: doctor-who-ratings
   repo: Mark-Bugden/doctor-who-ratings
+  home: true
 
 - slug: soudai
   repo: Mark-Bugden/soudai
@@ -20,3 +24,4 @@
 
 - slug: photon-orbits-5d
   repo: Mark-Bugden/photon-orbits-5d
+  home: true

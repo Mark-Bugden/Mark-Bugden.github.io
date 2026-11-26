@@ -11,6 +11,8 @@ aboutSummary = "Vzdělání, zkušenosti a kontakt"
 publicationsSummary = "Vědecké články a preprinty"
 projectsSummary = "Portfolio vybraných prací"
 phaseCaption = "Fázový portrét matematického kyvadla"
+homeScrollCue = "Vybrané projekty · rolujte ↓"
+openDemo = "Otevřít demo"
 
 portraitAlt = "Portrét Marka Bugdena."
 timeline = "Profesní dráha"

@@ -4,7 +4,10 @@
    The label line starts with "Interactive demo", then "In progress" for a project in progress, then
    the tags. When it wraps, each item stays whole and the dot before the next one ends the line.
    A bundle with a thumb-light.webp gets it as a second image, which site.css shows under the light
-   theme instead. */ -}}
+   theme instead.
+   On the home page the dict also has step and steps, its place in the scroll sequence. The card then
+   gets a step label ("01 / 03" and the first tag) and an "Open the demo" link, described by the
+   title, which site.css shows only while the sequence runs (.morph-on). */ -}}
 {{- $translated := ne site.Language.Lang "en" -}}
 {{- $sizes := "(min-width: 72rem) 24rem, (min-width: 40rem) 50vw, 100vw" -}}
 {{- $light := resources.Get (printf "demos/%s/thumb-light.webp" .slug) -}}
@@ -17,11 +20,18 @@
   {{- with $light }}
   {{ partial "picture.html" (dict "image" . "widths" (slice 600 1200) "sizes" $sizes "alt" "" "class" "card__thumb card__thumb--light") }}
   {{- end }}
-  <h2 class="card__title"{{ if and $translated (eq .page.Language.Lang "en") }} lang="en"{{ end }}><a href="{{ .page.RelPermalink }}">{{ .page.Title }}</a></h2>
+  {{- with .step }}
+  {{- $tags := $.page.Params.tags | default $.manifest.tags }}
+  <p class="label card__step"{{ if and $translated (not $.page.Params.tags) }} lang="en"{{ end }}>{{ printf "%02d / %02d" . $.steps }} · {{ index $tags 0 }}</p>
+  {{- end }}
+  <h2 class="card__title"{{ with .step }} id="card-{{ $.slug }}"{{ end }}{{ if and $translated (eq .page.Language.Lang "en") }} lang="en"{{ end }}><a href="{{ .page.RelPermalink }}">{{ .page.Title }}</a></h2>
   <p class="card__tagline"{{ if and $translated (not .page.Params.tagline) }} lang="en"{{ end }}>{{ .page.Params.tagline | default .manifest.tagline }}</p>
   {{- $label := slice (i18n "cardDemo") }}
   {{- if ne .status "live" }}{{ $label = $label | append (i18n "inProgress") }}{{ end }}
   {{- $label = $label | append (.page.Params.tags | default .manifest.tags) }}
   {{- $last := sub (len $label) 1 }}
   <p class="label">{{ range $i, $item := $label }}{{ if $i }} {{ end }}<span class="card__label-item">{{ $item }}{{ if lt $i $last }}&nbsp;·{{ end }}</span>{{ end }}</p>
+  {{- with .step }}
+  <a class="card__open" href="{{ $.page.RelPermalink }}" aria-describedby="card-{{ $.slug }}">{{ i18n "openDemo" }}</a>
+  {{- end }}
 </article>

@@ -541,6 +541,106 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects):is(:hover, :focus-v
   .phase__orbits, .phase__flow { transition: none; }
 }
 
+/* The scroll sequence (layouts/index.html, js/phase-flow.js). By default the home page is an ordinary
+   page, and the cue beside the caption and each card's step label and "Open the demo" link are
+   hidden. On screens at least 48rem wide and 37.5rem tall, without prefers-reduced-motion, the script
+   adds .morph-on to <html>. The header then stays at the top, the stage is pinned in the rest of the
+   window, and the footer is pinned to its bottom: scrolling through the track, which the script makes
+   tall enough for the whole sequence, moves the animation and never the page.
+   The script sets these variables on the stage: --intro, how much of the first figure shows (the
+   name, the curves, the pills and the caption), which fades out with the curves; --phase-w, a
+   narrower panel for the figure when the window is too short for all of it; and --box-top, --box-h
+   and --panel-w, the box the name and the band fill, where each project's card sits beside its
+   picture. It sets --header-h on <html>. */
+.phase__cue, .card__step, .card__open { display: none; }
+
+.morph-on .site-header { position: sticky; top: 0; }
+/* The stage is a layer of its own; an opaque background keeps its text's subpixel antialiasing. */
+.morph-on .home-morph__stage {
+  position: sticky;
+  top: var(--header-h, 0px);
+  height: calc(100vh - var(--header-h, 0px));
+  height: calc(100svh - var(--header-h, 0px));
+  overflow: hidden;
+  background: var(--bg);
+}
+.morph-on .phase__panel { width: min(100%, var(--phase-w, 100%)); margin-inline: auto; }
+/* The tracers' canvas covers the whole stage, and the script fades the dots at the band's edges. */
+.morph-on .phase__flow { mask-image: none; }
+
+.morph-on :is(.home-intro, .phase__curves, .phase__pill, .phase figcaption) { opacity: var(--intro, 1); }
+.morph-on .home-morph__stage:not([data-active="0"]) :is(.phase__pill, .phase__cell path) { pointer-events: none; }
+.morph-on .phase figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0 24px;
+}
+.morph-on .phase__cue { display: inline; }
+
+/* The cards: one at a time, at the bottom left of the box, fading in and out. */
+.morph-on .home-projects {
+  position: absolute;
+  z-index: 2;
+  top: var(--box-top, 0px);
+  right: 0;
+  left: 0;
+  height: var(--box-h, 100%);
+  pointer-events: none;
+}
+.morph-on .home-projects .section { position: relative; height: 100%; margin: 0; }
+.morph-on .home-projects .section > .label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.morph-on .home-projects .card-grid { display: block; }
+.morph-on .home-projects li {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: var(--panel-w, 100%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.morph-on .home-projects li.is-current { opacity: 1; pointer-events: auto; }
+.morph-on .home-projects :is(.card__thumb, .card > .label:not(.card__step)) { display: none; }
+.morph-on .home-projects .card { gap: 0; }
+.morph-on .home-projects .card__step { display: block; }
+.morph-on .home-projects .card__title { margin-top: 10px; font-size: clamp(30px, 3.6vw, 46px); line-height: 1.1; }
+.morph-on .home-projects .card__title a::after { content: none; }
+.morph-on .home-projects .card:has(a:focus-visible) { outline: none; }
+.morph-on .home-projects .card__title a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.morph-on .home-projects .card__tagline { margin-top: 10px; font-size: 18px; }
+.morph-on .home-projects .card__open {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  min-height: 46px;
+  margin-top: 18px;
+  padding: 0 22px;
+  background: var(--accent);
+  border-radius: 999px;
+  color: var(--bg);
+  font: 600 16px/1.5 var(--font-text);
+}
+.morph-on .home-projects .card__open:hover { color: var(--bg); }
+
+/* The footer fades in at the end of the sequence (the script sets its opacity). */
+.morph-on .site-footer {
+  position: fixed;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin-top: 0;
+  opacity: 0;
+}
+.morph-on .site-footer:not(.is-shown) { pointer-events: none; }
+
 /* About. space-between puts the portrait at the right edge of the column while it sits beside the
    text, and leaves it at the left once it drops under the text on phones. */
 
