@@ -4,7 +4,7 @@
 title: "Photonen im Orbit"
 demo: photon-orbits-5d
 tagline: "Eine Visualisierung von Licht, das ein rotierendes fünfdimensionales Schwarzes Loch umkreist."
-tags: ["mathematische Physik", "Schwarze Löcher", "Geodäten"]
+tags: ["theoretische Physik", "Schwarze Löcher", "Geodäten"]
 description: "Licht, das ein rotierendes fünfdimensionales Schwarzes Loch umkreist: sphärische Photonenbahnen um ein Schwarzes Loch vom Myers-Perry-Typ, direkt im Browser gezeichnet."
 ---
 
