@@ -35,7 +35,7 @@ The pre-push hook in `.githooks/` runs it before every push, once `core.hooksPat
   - unpacks it into `static/demos/<slug>/`, which is gitignored
 
   The bundle contract is in the [demo-kit README](https://github.com/Mark-Bugden/demo-kit#readme).
-- **Write-ups** live in `content/projects/<slug>.md`, with `demo: <slug>` in the front matter. A project page has two tabs: Demo, which holds only the demo, and More info (`#more-info`), which holds the tagline and the write-up, and ends with the build date and a link to the source. A project is listed only when two things are true:
+- **Write-ups** live in `content/projects/<slug>.md`, with `demo: <slug>` in the front matter. A project page has two tabs, or three: Demo, which holds only the demo; More info (`#more-info`), which holds the tagline and the write-up, and ends with the build date and a link to the source; and, when the manifest has a `modelCard`, Model card (`#model-card`). The card shows the fields of `modelCard` that are there, in this order: `what` (required), `use`, `architecture`, `parameters`, `training`, `data`, `metric`, `comparison` (a table: `columns`, `rows`, and optionally `groups` of columns under one heading and a `note`), `limits` and `version`. A project is listed only when two things are true:
   - its manifest status is `in-progress` or `live`
   - its write-up is not a draft
 
