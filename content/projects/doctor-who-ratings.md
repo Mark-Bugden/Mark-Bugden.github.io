@@ -6,6 +6,8 @@ demo: doctor-who-ratings
 summary: "Who is the best Doctor? IMDb ratings for every regular Doctor Who episode since 1963, and a leaderboard whose assumptions you can change."
 description: "IMDb ratings for every regular Doctor Who episode since 1963, on a timeline, in a heatmap and on a leaderboard of Doctors, writers and directors."
 aliases: ["/portfolio/doctorwho.html"]
+# tagline and tags, where given, replace the manifest's (the demo's own, in its repo).
+tagline: "An analysis of every regular Doctor Who episode since 1963, as rated on IMDb."
 ---
 
 {{< faq "Who is the best Doctor?" >}}

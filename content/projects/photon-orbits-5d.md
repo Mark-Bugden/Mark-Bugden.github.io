@@ -5,6 +5,9 @@ date: 2026-11-17
 demo: photon-orbits-5d
 summary: "Spherical photon orbits around a five-dimensional rotating (Myers-Perry) black hole, after the 2018 paper in General Relativity and Gravitation."
 description: "Light orbiting a five-dimensional rotating black hole: spherical photon orbits around a Myers-Perry black hole, drawn in your browser."
+# tagline and tags, where given, replace the manifest's (the demo's own, in its repo).
+tagline: "A visualisation of light orbiting a five-dimensional rotating black hole."
+tags: ["theoretical physics", "black holes", "geodesics"]
 ---
 
 {{< faq "What is this demo?" >}}
