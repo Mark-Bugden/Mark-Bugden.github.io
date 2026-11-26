@@ -33,7 +33,9 @@ notFoundDescription = "This page does not exist. Find Mark Bugden's projects, ba
 allPapers = "All my papers on arXiv"
 publicationDemo = "Interactive demo"
 
-# Projects. englishOnly is shown on a Czech or German project page whose write-up is not translated.
+# Projects. cardDemo starts the label line on every project card. englishOnly is shown on a Czech or
+# German project page whose write-up is not translated.
+cardDemo = "Interactive demo"
 inProgress = "In progress"
 onHost = "On {{ . }}."
 lastBuilt = "Last built"

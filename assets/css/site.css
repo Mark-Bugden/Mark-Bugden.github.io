@@ -549,11 +549,13 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects, .section-link--proj
   .phase__orbits, .phase__flow, .section-link, .section-link__title, .section-link__desc { transition: none; }
 }
 
-/* About */
+/* About. space-between puts the portrait at the right edge of the column while it sits beside the
+   text, and leaves it at the left once it drops under the text on phones. */
 
 .about {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   align-items: flex-start;
   gap: 32px 56px;
 }
@@ -684,6 +686,9 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects, .section-link--proj
 .card__title a:focus-visible { outline: none; }
 .card:has(a:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
 .card__tagline { color: var(--muted); }
+/* Each item on the label line, with the dot after it, wraps as a whole, unless it is wider than the
+   card on its own. */
+.card__label-item { display: inline-block; }
 
 .card-grid + .in-progress { margin-top: 48px; }
 .in-progress__title { flex: 1 1 240px; font-weight: 500; }

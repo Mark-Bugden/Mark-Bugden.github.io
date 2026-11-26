@@ -1,7 +1,8 @@
 {{- /* A project card. Takes a dict from listed-projects.html. The title's link covers the whole card.
    A translated write-up's tagline and tags replace the manifest's English ones. On a Czech or German
    page, English text (an untranslated write-up's title, the manifest's tagline) is marked as such.
-   The label line starts with "In progress" for a project in progress; a live one shows only its tags.
+   The label line starts with "Interactive demo", then "In progress" for a project in progress, then
+   the tags. When it wraps, each item stays whole and the dot before the next one ends the line.
    A bundle with a thumb-light.webp gets it as a second image, which site.css shows under the light
    theme instead. */ -}}
 {{- $translated := ne site.Language.Lang "en" -}}
@@ -18,8 +19,9 @@
   {{- end }}
   <h2 class="card__title"{{ if and $translated (eq .page.Language.Lang "en") }} lang="en"{{ end }}><a href="{{ .page.RelPermalink }}">{{ .page.Title }}</a></h2>
   <p class="card__tagline"{{ if and $translated (not .page.Params.tagline) }} lang="en"{{ end }}>{{ .page.Params.tagline | default .manifest.tagline }}</p>
-  {{- $label := slice }}
+  {{- $label := slice (i18n "cardDemo") }}
   {{- if ne .status "live" }}{{ $label = $label | append (i18n "inProgress") }}{{ end }}
   {{- $label = $label | append (.page.Params.tags | default .manifest.tags) }}
-  <p class="label">{{ delimit $label " · " }}</p>
+  {{- $last := sub (len $label) 1 }}
+  <p class="label">{{ range $i, $item := $label }}{{ if $i }} {{ end }}<span class="card__label-item">{{ $item }}{{ if lt $i $last }}&nbsp;·{{ end }}</span>{{ end }}</p>
 </article>
