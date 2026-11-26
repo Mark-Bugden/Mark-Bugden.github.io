@@ -29,8 +29,9 @@ pageNotFound = "Page not found"
 notFoundLede = "That page doesn’t exist, or it has moved. One of these may be what you were looking for:"
 notFoundDescription = "This page does not exist. Find Mark Bugden's projects, background and publications from here."
 
-# Publications
+# Publications. publicationDemo links a paper to the project with its demo.
 allPapers = "All my papers on arXiv"
+publicationDemo = "Interactive demo"
 
 # Projects. englishOnly is shown on a Czech or German project page whose write-up is not translated.
 inProgress = "In progress"

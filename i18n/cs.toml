@@ -24,6 +24,7 @@ notFoundLede = "Tato stránka neexistuje nebo byla přesunuta. Možná hledáte 
 notFoundDescription = "Tato stránka neexistuje. Zde najdete projekty, profesní dráhu a publikace Marka Bugdena."
 
 allPapers = "Všechny mé články na arXivu"
+publicationDemo = "Interaktivní demo"
 
 inProgress = "Ve vývoji"
 onHost = "Odkaz: {{ . }}."

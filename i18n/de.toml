@@ -24,6 +24,7 @@ notFoundLede = "Diese Seite gibt es nicht, oder sie wurde verschoben. Vielleicht
 notFoundDescription = "Diese Seite existiert nicht. Von hier aus finden Sie Mark Bugdens Projekte, Werdegang und Publikationen."
 
 allPapers = "Alle meine Artikel auf arXiv"
+publicationDemo = "Interaktive Demo"
 
 inProgress = "In Arbeit"
 onHost = "Auf {{ . }}."
