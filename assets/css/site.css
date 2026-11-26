@@ -549,11 +549,13 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects, .section-link--proj
   .phase__orbits, .phase__flow, .section-link, .section-link__title, .section-link__desc { transition: none; }
 }
 
-/* About */
+/* About. space-between puts the portrait at the right edge of the column while it sits beside the
+   text, and leaves it at the left once it drops under the text on phones. */
 
 .about {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   align-items: flex-start;
   gap: 32px 56px;
 }

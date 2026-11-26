@@ -25,6 +25,7 @@ notFoundDescription = "Tato stránka neexistuje. Zde najdete projekty, profesní
 
 allPapers = "Všechny mé články na arXivu"
 
+cardDemo = "Interaktivní demo"
 inProgress = "Ve vývoji"
 onHost = "Odkaz: {{ . }}."
 lastBuilt = "Naposledy sestaveno"
