@@ -49,7 +49,7 @@ $$
 
 Hodnota $k$ je věcí úsudku, a proto ji v demu nastavuje posuvník.
 
-**Očištění o vliv éry.** Obě éry si na IMDb nevedou stejně: příběhy nové éry mají v průměru 7,65 a ty klasické 7,29 (váženo počtem hlasů). Při srovnávání epizod napříč érami tak mají příběhy nové éry náskok. Očištění o vliv éry ho odstraňuje tím, že každou epizodu hodnotí vůči průměru její vlastní éry. Klasická epizoda s hodnocením 7,8 získá +0,5, protože klasický průměr překonává o půl bodu. Epizoda obnoveného seriálu se stejným hodnocením 7,8 získá jen +0,15. Skóre pak udává, o kolik bodů je epizoda nad typickou epizodou téže éry, nebo pod ní.
+**Očištění o vliv éry.** Obě éry si na IMDb nevedou stejně: příběhy nové éry mají v průměru 7,65 a ty z původního seriálu 7,29 (váženo počtem hlasů). Při srovnávání epizod napříč érami tak mají příběhy nové éry náskok. Očištění o vliv éry ho odstraňuje tím, že každou epizodu hodnotí vůči průměru její vlastní éry. Epizoda původního seriálu s hodnocením 7,8 získá +0,5, protože průměr původního seriálu překonává o půl bodu. Epizoda obnoveného seriálu se stejným hodnocením 7,8 získá jen +0,15. Skóre pak udává, o kolik bodů je epizoda nad typickou epizodou téže éry, nebo pod ní.
 
 Scenáristé a režiséři potřebují k zařazení do žebříčku alespoň tři příběhy a společně napsaný příběh se plně započítá každému ze scenáristů.
 

@@ -27,7 +27,7 @@ Insgesamt sind das 863 Folgen in 291 Geschichten. Berücksichtigt sind nur regul
 
 - Die Bewertungen sind die von IMDb, abgegeben von denen, die die jeweilige Folge bewerten wollten. Folgen der klassischen Serie haben weit weniger Stimmen: im Median 587 pro Folge, gegenüber 8 101 bei der neuen Serie.
 - Die Daten sind eine Momentaufnahme vom 18. November 2026, die Zahlen können sich also mit der Zeit etwas ändern.
-- Specials sind nicht enthalten, daher fließen Geschichten wie *The Day of the Doctor* in niemandes Score ein.
+- Specials sind nicht enthalten, daher fließen Geschichten wie *The Day of the Doctor* in keinen Score ein.
 {{< /faq >}}
 
 {{< faq "Warum Geschichten zählen und nicht Folgen?" >}}
@@ -72,8 +72,8 @@ Die meisten anderen Platzierungen hängen davon ab, wie man die Bewertung defini
 1. **Recherche.** Der Agent ging mein ursprüngliches Notebook von 2025 Schritt für Schritt durch.
 2. **Ein Plan,** in dem ich die Designfragen klärte, etwa dass Geschichten statt Folgen gezählt werden, woher die Angaben zu Autoren und Regisseuren stammen und welche Annahmen man in der Rangliste ändern kann.
 3. **Die Daten:** die Python-Pipeline und ihre Tests, die die Zahl der Folgen jeder Staffel mit Wikipedia abgleichen und prüfen, dass die Geschichten rund um jede Regeneration dem richtigen Doctor zugeordnet werden.
-4. **Die Oberfläche:** die Zeitleiste und die Heatmap, dann die Rangliste, deren in JavaScript berechnete Platzierungen gegen die aus Python getestet werden.
-5. **Feinschliff,** nach meinen Notizen zur Live-Demo: leuchtendere Farben in der Heatmap, weniger Bedienelemente, eine bessere Suche und Tooltips, die die Zeitleiste nicht mehr verdecken. Für die Farben renderte der Agent Varianten in der echten Demo, und ich wählte zwischen ihnen.
+4. **Die Oberfläche:** die Zeitleiste und die Heatmap, dann die Rangliste, deren in JavaScript berechnete Platzierungen mit denen aus Python abgeglichen werden.
+5. **Feinschliff,** nach meinen Notizen zur Live-Demo: leuchtendere Farben in der Heatmap, weniger Bedienelemente, eine bessere Suche und Tooltips, die die Zeitleiste nicht mehr verdecken. Für die Farben renderte der Agent Varianten in der echten Demo, und ich wählte eine davon aus.
 {{< /faq >}}
 
 Information courtesy of IMDb (https://www.imdb.com). Used with permission.
