@@ -383,14 +383,29 @@ h2.label { margin-bottom: 12px; text-wrap: wrap; }
 @keyframes page-out { to { opacity: 0; } }
 @keyframes page-in { from { opacity: 0; } }
 
-/* Footer */
+/* Footer: the contact links, then the place, which wraps onto a row of its own on phones. */
 
 .site-footer { margin-top: 56px; padding-bottom: 48px; }
 .site-footer__inner {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: flex-end;
+  gap: 0 32px;
   padding-top: 12px;
   border-top: 1px solid var(--line);
+}
+.site-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 28px;
+  padding: 0;
+  list-style: none;
+}
+.site-footer__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 .site-footer__place {
   display: flex;
