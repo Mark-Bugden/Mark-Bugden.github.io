@@ -103,7 +103,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  scroll-padding-top: 24px;
+  scroll-padding-top: calc(73px + 24px); /* the header, and room under it */
 }
 
 body {
@@ -224,7 +224,16 @@ h2.label { margin-bottom: 12px; text-wrap: wrap; }
 /* Images: a hairline border, square corners. */
 .about__photo, .card__thumb, .figure img, .demo-embed [data-demo] > img { border: 1px solid var(--line); }
 
-/* Header */
+/* Header. It stays at the top of the window on every page, over the page as it scrolls, so it has
+   the page's background across the window's full width. It is lifted above the page, so the language
+   list opens over it. Anchors scroll to below it (scroll-padding-top, under Base). */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: var(--bg);
+}
 
 .site-header__inner {
   display: flex;
@@ -267,6 +276,7 @@ h2.label { margin-bottom: 12px; text-wrap: wrap; }
 /* On phones the header has two rows: the mark (and name) with the theme and language buttons, then
    the nav. */
 @media (max-width: 47.99rem) {
+  html { scroll-padding-top: calc(121px + 24px); } /* the header has two rows */
   .site-header__end { display: contents; }
   .site-header__tools { order: 1; }
   .site-nav { order: 2; flex-basis: 100%; }
@@ -311,9 +321,7 @@ h2.label { margin-bottom: 12px; text-wrap: wrap; }
 .theme-toggle[aria-pressed="true"] svg { transform: scaleX(-1); }
 
 /* The language menu: the current language's code, which opens a list of all three. It is a <details>
-   (js/language-menu.js closes it on a click elsewhere or Escape). The header is lifted above the page,
-   so the list opens over the home page's figure and its tracers. */
-.site-header { position: relative; z-index: 3; }
+   (js/language-menu.js closes it on a click elsewhere or Escape). */
 .lang-menu { position: relative; }
 .lang-menu__button {
   display: flex;
@@ -544,17 +552,17 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects):is(:hover, :focus-v
 /* The scroll sequence (layouts/index.html, js/phase-flow.js). By default the home page is an ordinary
    page, and the cue beside the caption and each card's step label and "Open the demo" link are
    hidden. On screens at least 48rem wide and 37.5rem tall, without prefers-reduced-motion, the script
-   adds .morph-on to <html>. The header then stays at the top, the stage is pinned in the rest of the
-   window, and the footer is pinned to its bottom: scrolling through the track, which the script makes
-   tall enough for the whole sequence, moves the animation and never the page.
+   adds .morph-on to <html>. The stage is then pinned in the window under the header, and the footer
+   to the window's bottom: scrolling through the track, which the script makes tall enough for the
+   whole sequence, moves the animation and never the page.
    The script sets these variables on the stage: --intro, how much of the first figure shows (the
-   name, the curves, the pills and the caption), which fades out with the curves; --phase-w, a
+   name, the curves, the pills and the caption), which fades out with the curves; --heading, how much
+   the heading over the cards shows; --phase-w, a
    narrower panel for the figure when the window is too short for all of it; and --box-top, --box-h
    and --panel-w, the box the name and the band fill, where each project's card sits beside its
    picture. It sets --header-h on <html>. */
 .phase__cue, .card__step, .card__open { display: none; }
 
-.morph-on .site-header { position: sticky; top: 0; }
 /* The stage is a layer of its own; an opaque background keeps its text's subpixel antialiasing. */
 .morph-on .home-morph__stage {
   position: sticky;
@@ -578,7 +586,9 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects):is(:hover, :focus-v
 }
 .morph-on .phase__cue { display: inline; }
 
-/* The cards: one at a time, at the bottom left of the box, fading in and out. */
+/* The heading over the cards ("Selected projects") takes the name's place, in its style, and fades in
+   once the name has mostly faded out. The cards show one at a time, at the bottom left of the box,
+   fading in and out. */
 .morph-on .home-projects {
   position: absolute;
   z-index: 2;
@@ -589,13 +599,18 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects):is(:hover, :focus-v
   pointer-events: none;
 }
 .morph-on .home-projects .section { position: relative; height: 100%; margin: 0; }
-.morph-on .home-projects .section > .label {
+.morph-on .home-projects .section > h2 {
   position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
+  top: 0;
+  left: 0;
+  max-width: var(--panel-w, 100%);
+  margin: 0;
+  font: 500 clamp(40px, 5.4vw, 68px)/1.05 var(--font-display);
+  letter-spacing: -0.02em;
+  text-transform: none;
+  text-wrap: balance;
+  color: var(--fg);
+  opacity: var(--heading, 0);
 }
 .morph-on .home-projects .card-grid { display: block; }
 .morph-on .home-projects li {
@@ -838,6 +853,7 @@ main:has(:is(.phase__cell--projects, .phase__pill--projects):is(:hover, :focus-v
 .demo-embed {
   --dk-fit-height: calc(100svh - var(--demo-top, 0px) - 16px);
   margin-bottom: 40px;
+  isolation: isolate; /* a demo's layers (its search lists, say) stay under the pinned header */
 }
 .demo-embed [data-demo] > img { width: 100%; }
 /* Likewise its light still (static-light.webp). These outrank the frame's own [data-demo] > img rule. */

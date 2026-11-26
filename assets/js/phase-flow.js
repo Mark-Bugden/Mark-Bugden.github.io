@@ -82,6 +82,7 @@ import { COUNT, tone, shapes, scatter } from './project-shapes.js';
   var track = document.querySelector('[data-home-morph]');
   var stage = track && track.querySelector('.home-morph__stage');
   var intro = stage && stage.querySelector('.home-intro');
+  var heading = stage && stage.querySelector('.home-projects .section > h2');
   var caption = band.parentNode.querySelector('figcaption');
   var header = document.querySelector('.site-header');
   var footer = document.querySelector('.site-footer');
@@ -95,7 +96,7 @@ import { COUNT, tone, shapes, scatter } from './project-shapes.js';
   var on = false;
   var progress = 0;         // how far through the steps the visitor has scrolled, from 0 to 1
   var active = 0;           // the card showing: 0 for none (the name and the figure), then 1, 2, ...
-  var shown = { intro: 1, footer: 0 };
+  var shown = { intro: 1, heading: 0, footer: 0 };
   var headerHeight = 0;
   var clock = 0;            // seconds of animation in the pictures
   var area = { cx: 0, cy: 0, w: 1, h: 1 };    // the space for the picture beside the card
@@ -384,7 +385,7 @@ import { COUNT, tone, shapes, scatter } from './project-shapes.js';
 
   function drawSequence() {
     var now = position(), e = now.e, shape, k, x, y;
-    fadeIntro(now.step ? 0 : (1 - e) * (1 - e));
+    fadeIntro(now.step ? 1 : e);
     if (now.step) return drawPictures(steps[now.step - 1].shape, steps[now.step].shape, e);
     // The first step, from the portrait to the first picture.
     shape = steps[0].shape;
@@ -434,12 +435,15 @@ import { COUNT, tone, shapes, scatter } from './project-shapes.js';
     squares(allTones, 0, colours.fg, 1);
   }
 
-  // How much of the first figure shows: the name, the curves, the pills and the caption (site.css).
-  function fadeIntro(v) {
-    v = Math.round(v * 1000) / 1000;
-    if (v === shown.intro) return;
-    shown.intro = v;
-    stage.style.setProperty('--intro', v);
+  // e is how far the dots have gone from the portrait. --intro is how much of the first figure shows
+  // (the name, the curves, the pills and the caption), which fades as the curves do; --heading is how
+  // much the heading over the cards shows, which takes the name's place over the last 40%, once the
+  // name has mostly gone (site.css).
+  function fadeIntro(e) {
+    var intro = Math.round((1 - e) * (1 - e) * 1000) / 1000;
+    var f = Math.max(0, (e - 0.6) / 0.4), heading = Math.round(f * f * (3 - 2 * f) * 1000) / 1000;
+    if (intro !== shown.intro) stage.style.setProperty('--intro', shown.intro = intro);
+    if (heading !== shown.heading) stage.style.setProperty('--heading', shown.heading = heading);
   }
 
   function draw() {
@@ -472,8 +476,8 @@ import { COUNT, tone, shapes, scatter } from './project-shapes.js';
   // While the sequence runs: the header's height, which the stage is pinned under; a narrower panel
   // for the figure, if the window is too short for the name, the band and the caption together; the
   // track's length; and the box the name and the band fill, which each card shares with its picture.
-  // The box ends above the footer, which fades in over the bottom of the window at the end. The card
-  // is at its bottom left.
+  // The box ends above the footer, which fades in over the bottom of the window at the end. The
+  // heading over the cards takes the name's place at its top left, and the card is at its bottom left.
   function measure() {
     if (!on) return;
     headerHeight = header ? header.offsetHeight : 0;
@@ -492,17 +496,21 @@ import { COUNT, tone, shapes, scatter } from './project-shapes.js';
     var x0 = column.left - s.left, w = column.width, boxHeight = boxBottom - boxTop;
     stage.style.setProperty('--box-top', boxTop + 'px');
     stage.style.setProperty('--box-h', boxHeight + 'px');
-    // The picture goes beside the card or above it, whichever gives it more room.
+    // The picture goes beside the card and the heading over them, the box's full height, or between
+    // the heading and the card, whichever gives it more room.
     stage.style.setProperty('--panel-w', w + 'px');
-    var cards = 0, cardWidth = Math.min(440, 0.42 * w);
+    var cards = 0, cardWidth = Math.min(440, 0.42 * w), y0 = boxTop + heading.offsetHeight + 24;
     steps.forEach(function (step) { cards = Math.max(cards, step.item.offsetHeight); });
-    var beside = Math.min(w - cardWidth - 48, boxHeight) >= Math.min(w, boxHeight - cards - 24);
-    if (beside) stage.style.setProperty('--panel-w', cardWidth + 'px');
+    var beside = Math.min(w - cardWidth - 48, boxHeight) >= Math.min(w, boxBottom - cards - 24 - y0);
+    if (beside) {
+      stage.style.setProperty('--panel-w', cardWidth + 'px');
+      y0 = boxTop;
+    }
     var x1 = beside ? x0 + cardWidth + 48 : x0, y1 = beside ? boxBottom : boxBottom - cards - 24;
     area.cx = (x1 + x0 + w) / 2;
     area.w = x0 + w - x1;
-    area.cy = (boxTop + y1) / 2;
-    area.h = Math.max(1, y1 - boxTop);
+    area.cy = (y0 + y1) / 2;
+    area.h = Math.max(1, y1 - y0);
   }
 
   // How far through the sequence the visitor has scrolled. The stage is pinned from the top of the
@@ -544,14 +552,14 @@ import { COUNT, tone, shapes, scatter } from './project-shapes.js';
       root.classList.toggle('morph-on', on);
       (on ? stage : band).append(canvas);
       if (!on) {
-        ['--intro', '--phase-w', '--box-top', '--box-h', '--panel-w'].forEach(function (name) {
+        ['--intro', '--heading', '--phase-w', '--box-top', '--box-h', '--panel-w'].forEach(function (name) {
           stage.style.removeProperty(name);
         });
         root.style.removeProperty('--header-h');
         track.style.height = '';
         footer.style.opacity = '';
         footer.classList.remove('is-shown');
-        shown = { intro: 1, footer: 0 };
+        shown = { intro: 1, heading: 0, footer: 0 };
         showCard(0);
         if (dx) { dx.fill(0); dy.fill(0); }
       }

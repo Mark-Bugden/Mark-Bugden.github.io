@@ -47,11 +47,12 @@
       <figcaption class="wrap label"><span>{{ i18n "phaseCaption" }}</span>{{ with $selected }}<span class="phase__cue" aria-hidden="true">{{ i18n "homeScrollCue" }}</span>{{ end }}</figcaption>
     </figure>
 
-    {{- /* Under the figure, the selected projects' cards, as on the Projects page. */}}
+    {{- /* Under the figure, the selected projects' cards, as on the Projects page. While the sequence
+       runs, their heading takes the name's place. */}}
     {{- with $selected }}
     <div class="wrap home-projects">
       <section class="section" aria-labelledby="projects-heading">
-        <h2 id="projects-heading" class="label">{{ i18n "projects" }}</h2>
+        <h2 id="projects-heading" class="label">{{ i18n "selectedProjects" }}</h2>
         <ul class="card-grid">
           {{- range $i, $project := . }}
           <li data-step="{{ add $i 1 }}" data-slug="{{ .slug }}">{{ partial "project-card.html" (merge . (dict "step" (add $i 1) "steps" (len $selected))) }}</li>
