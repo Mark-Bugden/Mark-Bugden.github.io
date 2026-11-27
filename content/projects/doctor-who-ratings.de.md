@@ -1,7 +1,6 @@
 ---
 # The body translates the English write-up in doctor-who-ratings.md, which stays the source of truth:
 # a change there needs the same change here. tagline and tags replace the manifest's.
-title: "Regenerationen im Ranking"
 demo: doctor-who-ratings
 tagline: "Eine Analyse aller regulären Doctor-Who-Folgen seit 1963 anhand ihrer IMDb-Bewertungen."
 tags: ["Datenanalyse", "IMDb-Bewertungen", "Doctor Who"]

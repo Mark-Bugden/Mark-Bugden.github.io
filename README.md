@@ -29,7 +29,7 @@ The pre-push hook in `.githooks/` runs it before every push, once `core.hooksPat
 
 ## How it fits together
 
-- **Demos.** [`data/projects.yaml`](data/projects.yaml) lists each demo's slug and repo. Projects are listed in alphabetical order of their English titles, unless an entry has an `order`. [`scripts/fetch-demos.sh`](scripts/fetch-demos.sh) does the following for each one:
+- **Demos.** [`data/projects.yaml`](data/projects.yaml) lists each demo's slug, repo and title. The title is the project's name, and the site takes it from there alone, so to rename a project, change it there. The demo's manifest, in the project repo, has a title of its own, which screen readers hear as the name of a canvas demo. Projects are listed in alphabetical order of their titles, unless an entry has an `order`. [`scripts/fetch-demos.sh`](scripts/fetch-demos.sh) does the following for each one:
   - downloads `demo-<slug>.zip` from the repo's latest release, or from the release in the entry's `tag`, if it has one
   - validates it with the demo-kit version it was built with (`kitVersion` in its manifest)
   - unpacks it into `static/demos/<slug>/`, which is gitignored
@@ -84,8 +84,9 @@ Where each kind of text lives:
 - **Page text** is in `content/<page>.cs.md` and `content/<page>.de.md`, next to the English `content/<page>.md`. Hugo pairs them by file name.
 - **The role lines and site description** are under `[languages.<lang>.params]` in [`hugo.toml`](hugo.toml).
 - **The timeline:** each entry in [`data/timeline.yaml`](data/timeline.yaml) has `cs` and `de` maps. Any field they leave out is shown in English.
+- **Project names** stay in English in every language, marked `lang="en"`. Each is the project's `title` in [`data/projects.yaml`](data/projects.yaml), and the build fails if a write-up sets a `title` of its own.
 - **Project write-ups and demos** are in English only for now.
-  - `content/projects/<slug>.cs.md` and `.de.md` hold only front matter: a translated `title`, `description`, `tagline` and `tags`. The tagline and tags replace the manifest's English ones.
+  - `content/projects/<slug>.cs.md` and `.de.md` hold only front matter: a translated `description`, `tagline` and `tags`. The tagline and tags replace the manifest's English ones.
   - With no body, these pages show the English write-up and demo, marked `lang="en"`, under a note saying they are in English. Adding a body replaces the English write-up.
   - The English write-up is the source of truth. A Czech or German page is listed only while its English page is published, and the build fails if one exists without the other.
 - **Publication titles and venues** stay in English, since they are the papers' own.
@@ -102,7 +103,7 @@ When you change text:
 
 1. In the project repo, set the manifest's `status` to `in-progress` or `live`, in a PR that bumps the demo's version. Merging it releases the demo.
 2. Remove `draft: true` from `content/projects/<slug>.md`.
-3. Add `content/projects/<slug>.cs.md` and `.de.md` with a translated title, description, tagline and tags; copy an existing pair. Until they exist, the Czech and German Projects pages show the English card.
+3. Add `content/projects/<slug>.cs.md` and `.de.md` with a translated description, tagline and tags; copy an existing pair. Until they exist, the Czech and German Projects pages show the English card.
 
 ## Other tasks
 

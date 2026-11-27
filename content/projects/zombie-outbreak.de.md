@@ -1,7 +1,6 @@
 ---
 # The body translates the English write-up in zombie-outbreak.md, which stays the source of truth:
 # a change there needs the same change here. tagline and tags replace the manifest's.
-title: "Quarantäne in Zahlen"
 demo: zombie-outbreak
 tagline: "Eine Simulation eines Zombie-Ausbruchs in ganz Tschechien."
 tags: ["mathematische Modellierung", "PDGL", "Epidemiologie"]
